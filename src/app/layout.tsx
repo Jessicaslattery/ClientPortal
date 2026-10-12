@@ -23,6 +23,9 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Pivot Co. · Client Portal",
   description: "Strategic business refinement for founder-led brands.",
+  icons: {
+    icon: "/logo.svg",
+  },
 };
 
 export default function RootLayout({
