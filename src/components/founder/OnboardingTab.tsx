@@ -13,12 +13,30 @@ type OnboardingStep = {
 
 type IntakeSummary = {
   submittedAt: Date | null;
-  biggestChallenge: string;
+  whatTheyDo: string;
+  whoTheyServe: string;
+  howLongTrading: string;
   currentRevenue: string;
   revenueGoal: string;
+  biggestChallenge: string;
+  whatTheyTried: string;
+  whatIsWorking: string;
+  whatIsNot: string;
+  currentTools: string;
+  teamSituation: string;
+  contentPlatforms: string;
+  workingHoursPerWeek: number | null;
+  energyLevel: number | null;
+  biggestPersonalBlock: string;
   goalOne: string;
   goalTwo: string;
   goalThree: string;
+  successIn6Months: string;
+  personalStory: string;
+  clientsFeedback: string;
+  industryBelief: string;
+  dailyRoutine: string;
+  mostProudOf: string;
 } | null;
 
 type FirstCallNotes = string | null;
@@ -140,27 +158,59 @@ export function OnboardingTab({ clientId, steps, intake, firstCallNotes }: Props
         </div>
       </div>
 
-      {/* Intake summary */}
+      {/* Intake answers */}
       {intake?.submittedAt && (
-        <div className="rounded-2xl border border-[#E8E2D9] p-5">
-          <h3 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-4">
-            Intake summary
-          </h3>
-          <div className="space-y-3">
-            {[
-              { label: "Biggest challenge", value: intake.biggestChallenge },
+        <div className="rounded-2xl border border-[#E8E2D9] p-5 space-y-6">
+          <h3 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277]">Intake answers</h3>
+
+          {[
+            { section: "The Business", fields: [
+              { label: "What they do", value: intake.whatTheyDo },
+              { label: "Who they serve", value: intake.whoTheyServe },
+              { label: "How long trading", value: intake.howLongTrading },
               { label: "Current revenue", value: intake.currentRevenue },
               { label: "Revenue goal", value: intake.revenueGoal },
+              { label: "Team situation", value: intake.teamSituation },
+              { label: "Current tools", value: intake.currentTools },
+              { label: "Content platforms", value: intake.contentPlatforms },
+              { label: "Working hours/week", value: intake.workingHoursPerWeek ? `${intake.workingHoursPerWeek} hrs` : "" },
+            ]},
+            { section: "Challenges & Goals", fields: [
+              { label: "Biggest challenge", value: intake.biggestChallenge },
+              { label: "What they've tried", value: intake.whatTheyTried },
+              { label: "What is working", value: intake.whatIsWorking },
+              { label: "What is not working", value: intake.whatIsNot },
               { label: "Goal 1", value: intake.goalOne },
               { label: "Goal 2", value: intake.goalTwo },
               { label: "Goal 3", value: intake.goalThree },
-            ].filter(({ value }) => value).map(({ label, value }) => (
-              <div key={label} className="border-b border-[#F5F0E8] pb-3 last:border-0 last:pb-0">
-                <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1">{label}</p>
-                <p className="text-sm text-[#1A1714] leading-6">{value}</p>
+              { label: "Success in 6 months", value: intake.successIn6Months },
+            ]},
+            { section: "Personal & Mindset", fields: [
+              { label: "Energy level", value: intake.energyLevel ? `${intake.energyLevel}/10` : "" },
+              { label: "Biggest personal block", value: intake.biggestPersonalBlock },
+              { label: "Daily routine", value: intake.dailyRoutine },
+              { label: "Most proud of", value: intake.mostProudOf },
+              { label: "Personal story", value: intake.personalStory },
+              { label: "Client feedback", value: intake.clientsFeedback },
+              { label: "Industry belief", value: intake.industryBelief },
+            ]},
+          ].map(({ section, fields }) => {
+            const filled = fields.filter(f => f.value);
+            if (filled.length === 0) return null;
+            return (
+              <div key={section}>
+                <p className="text-[10px] tracking-[0.12em] uppercase text-[#C8B89A] mb-3">{section}</p>
+                <div className="space-y-3">
+                  {filled.map(({ label, value }) => (
+                    <div key={label} className="border-b border-[#F5F0E8] pb-3 last:border-0 last:pb-0">
+                      <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1">{label}</p>
+                      <p className="text-sm text-[#1A1714] leading-6">{value}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       )}
 

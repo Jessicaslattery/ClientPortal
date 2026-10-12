@@ -64,17 +64,7 @@ export default async function ClientProfilePage({
     }
   }
 
-  const intake = client.businessContext_
-    ? {
-        submittedAt: client.businessContext_.submittedAt,
-        biggestChallenge: client.businessContext_.biggestChallenge,
-        currentRevenue: client.businessContext_.currentRevenue,
-        revenueGoal: client.businessContext_.revenueGoal,
-        goalOne: client.businessContext_.goalOne,
-        goalTwo: client.businessContext_.goalTwo,
-        goalThree: client.businessContext_.goalThree,
-      }
-    : null;
+  const intake = client.businessContext_ ?? null;
 
   const profileContent = (
     <div className="grid grid-cols-3 gap-6">
