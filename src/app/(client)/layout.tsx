@@ -18,6 +18,7 @@ export default async function ClientLayout({
           businessName: true,
           currentMonth: true,
           currentWeek: true,
+          hiddenTabs: true,
           messages: {
             where: { read: false, senderRole: "founder" },
             select: { id: true },
@@ -28,17 +29,18 @@ export default async function ClientLayout({
 
   const unreadCount = profile?.messages.length ?? 0;
   const name = profile?.founderName ?? session.name ?? "";
+  const hiddenTabs = profile?.hiddenTabs ?? [];
 
   return (
     <div className="min-h-screen flex bg-[#F2EDE4]">
       {/* Desktop sidebar · hidden on mobile */}
       <div className="hidden md:block">
-        <ClientSidebar name={name} unreadMessages={unreadCount} />
+        <ClientSidebar name={name} unreadMessages={unreadCount} hiddenTabs={hiddenTabs} />
       </div>
 
       {/* Mobile nav */}
       <div className="md:hidden">
-        <MobileNav name={name} unreadMessages={unreadCount} />
+        <MobileNav name={name} unreadMessages={unreadCount} hiddenTabs={hiddenTabs} />
       </div>
 
       <main className="flex-1 min-w-0 md:ml-56">

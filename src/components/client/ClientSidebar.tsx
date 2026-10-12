@@ -8,13 +8,15 @@ import { clientLogoutAction } from "@/app/(client)/actions";
 export function ClientSidebar({
   name,
   unreadMessages,
+  hiddenTabs = [],
 }: {
   name: string;
   unreadMessages: number;
+  hiddenTabs?: string[];
 }) {
   const pathname = usePathname();
 
-  const navItems = [
+  const allNavItems = [
     {
       label: "Home",
       href: "/home",
@@ -133,6 +135,10 @@ export function ClientSidebar({
       ),
     },
   ];
+
+  const navItems = allNavItems.filter(
+    (item) => !hiddenTabs.includes(item.href.replace("/", ""))
+  );
 
   return (
     <aside className="fixed top-0 left-0 h-screen w-56 bg-[#F5F2ED] border-r border-[#E8E2D9] flex flex-col z-10">

@@ -65,12 +65,21 @@ const ALL_NAV = [
 export function MobileNav({
   name,
   unreadMessages,
+  hiddenTabs = [],
 }: {
   name: string;
   unreadMessages: number;
+  hiddenTabs?: string[];
 }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const visiblePrimaryNav = PRIMARY_NAV.filter(
+    (item) => !hiddenTabs.includes(item.href.replace("/", ""))
+  );
+  const visibleAllNav = ALL_NAV.filter(
+    (item) => !hiddenTabs.includes(item.href.replace("/", ""))
+  );
 
   return (
     <>
@@ -93,7 +102,7 @@ export function MobileNav({
 
       {/* Bottom tab bar */}
       <div className="fixed bottom-0 left-0 right-0 h-16 bg-[#F2EDE4] border-t border-[#E8E2D9] flex items-center justify-around px-2 z-30">
-        {PRIMARY_NAV.map((item) => {
+        {visiblePrimaryNav.map((item) => {
           const active = pathname === item.href || pathname.startsWith(item.href + "/");
           return (
             <Link
@@ -149,7 +158,7 @@ export function MobileNav({
             </div>
 
             <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-              {ALL_NAV.map((item) => {
+              {visibleAllNav.map((item) => {
                 const active = pathname === item.href;
                 return (
                   <Link
