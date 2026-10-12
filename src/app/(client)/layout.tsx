@@ -44,7 +44,7 @@ export default async function ClientLayout({
       </div>
 
       <main className="flex-1 min-w-0 md:ml-56">
-        <div className="max-w-4xl mx-auto px-4 md:px-8 py-6 md:py-8 pb-24 md:pb-8 page-enter">
+        <div className="max-w-4xl mx-auto px-4 md:px-8 pt-20 pb-24 md:py-8 page-enter">
           {children}
         </div>
       </main>

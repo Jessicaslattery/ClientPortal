@@ -49,17 +49,16 @@ const PRIMARY_NAV = [
 const ALL_NAV = [
   { label: "Home", href: "/home" },
   { label: "Business Health", href: "/health" },
-  { label: "My Journey", href: "/journey" },
   { label: "Tasks", href: "/tasks" },
+  { label: "Roadmap", href: "/roadmap" },
   { label: "Goals", href: "/goals" },
-  { label: "Session Notes", href: "/session-notes" },
-  { label: "Meetings", href: "/meetings" },
   { label: "Messages", href: "/messages" },
   { label: "Check-in", href: "/check-in" },
-  { label: "Deliverables", href: "/deliverables" },
   { label: "Content Calendar", href: "/content-calendar" },
+  { label: "Session Notes", href: "/session-notes" },
+  { label: "Meetings", href: "/meetings" },
+  { label: "Deliverables", href: "/deliverables" },
   { label: "Resources", href: "/resources" },
-  { label: "Onboarding", href: "/onboarding" },
 ];
 
 export function MobileNav({

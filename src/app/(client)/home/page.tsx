@@ -72,7 +72,8 @@ export default async function ClientHomePage() {
           })}
         </p>
         <h1 className="font-display text-2xl md:text-4xl font-thin tracking-widest text-[#1A1714] uppercase leading-tight">
-          Welcome back, {profile.founderName.includes("&") ? profile.founderName.split(" ").slice(0, -1).join(" ") : profile.founderName.split(" ")[0]}.
+          <span className="block md:inline">Welcome back,</span>{" "}
+          <span className="block md:inline">{profile.founderName.includes("&") ? profile.founderName.split(" ").slice(0, -1).join(" ") : profile.founderName.split(" ")[0]}.</span>
         </h1>
         <p className="mt-1.5 text-sm text-[#5C5550]">Growth Partnership</p>
       </div>
