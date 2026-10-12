@@ -94,6 +94,7 @@ model ClientProfile {
   primaryPlatform    String    @default("Instagram")
   platforms          String    @default("Instagram")
   onboardingComplete Boolean   @default(false)
+  hiddenTabs         String[]  @default([])
 
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
