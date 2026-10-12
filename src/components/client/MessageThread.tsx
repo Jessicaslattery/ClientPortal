@@ -3,6 +3,12 @@
 import { useState, useRef, useEffect } from "react";
 import { sendMessage } from "@/app/(client)/messages/actions";
 
+const EMOJIS = [
+  "😊","😂","🙏","❤️","🔥","✅","👍","🎉","😍","🤔",
+  "💪","🙌","😭","👏","💯","🚀","😅","🤝","💡","📌",
+  "⭐","✨","😎","🥳","😬","😮","🤩","💬","📈","🎯",
+];
+
 type Message = {
   id: string;
   content: string;
@@ -22,7 +28,9 @@ export function MessageThread({
   const [messages, setMessages] = useState(initialMessages);
   const [value, setValue] = useState("");
   const [sending, setSending] = useState(false);
+  const [showEmoji, setShowEmoji] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -146,31 +154,74 @@ export function MessageThread({
 
       {/* Compose area */}
       <div className="border-t border-[#E8E2D9] px-4 py-3 bg-[#FFFFFF]">
-        <form onSubmit={handleSend} className="flex items-end gap-3 rounded-2xl border border-[#E8E2D9] bg-[#FAFAF8] px-4 py-3 focus-within:border-[#C8B89A]/60 transition-colors">
-          <textarea
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                handleSend(e as unknown as React.FormEvent);
-              }
-            }}
-            placeholder="Write a message…"
-            rows={1}
-            className="flex-1 bg-transparent text-sm text-[#1A1714] placeholder:text-[#8C8277] resize-none focus:outline-none leading-6"
-            style={{ maxHeight: "120px", overflowY: "auto" }}
-          />
-          <button
-            type="submit"
-            disabled={!value.trim() || sending}
-            className="flex-shrink-0 w-8 h-8 rounded-full bg-[#1A1714] text-[#FAFAF8] flex items-center justify-center hover:bg-[#2C2520] transition-all disabled:opacity-30 disabled:cursor-default"
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M12 7L2 2l2 5-2 5 10-5z" fill="currentColor" />
-            </svg>
-          </button>
-        </form>
+        <div className="relative">
+          {showEmoji && (
+            <div className="absolute bottom-full mb-2 left-0 bg-white border border-[#E8E2D9] rounded-2xl shadow-lg p-3 z-10 w-64">
+              <div className="grid grid-cols-10 gap-1">
+                {EMOJIS.map((emoji) => (
+                  <button
+                    key={emoji}
+                    type="button"
+                    onClick={() => {
+                      const ta = textareaRef.current;
+                      if (ta) {
+                        const start = ta.selectionStart;
+                        const end = ta.selectionEnd;
+                        setValue(v => v.slice(0, start) + emoji + v.slice(end));
+                        setTimeout(() => { ta.focus(); ta.setSelectionRange(start + emoji.length, start + emoji.length); }, 0);
+                      } else {
+                        setValue(v => v + emoji);
+                      }
+                      setShowEmoji(false);
+                    }}
+                    className="text-lg hover:bg-[#F5F0E8] rounded-lg p-0.5 transition-colors"
+                  >
+                    {emoji}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          <form onSubmit={handleSend} className="flex items-end gap-2 rounded-2xl border border-[#E8E2D9] bg-[#FAFAF8] px-4 py-3 focus-within:border-[#C8B89A]/60 transition-colors">
+            <button
+              type="button"
+              onClick={() => setShowEmoji(v => !v)}
+              className="flex-shrink-0 text-[#8C8277] hover:text-[#1A1714] transition-colors mb-0.5"
+              aria-label="Emoji"
+            >
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4">
+                <circle cx="10" cy="10" r="8"/>
+                <path d="M7 11.5c.8 1.5 5.2 1.5 6 0"/>
+                <circle cx="7.5" cy="8.5" r="0.8" fill="currentColor" stroke="none"/>
+                <circle cx="12.5" cy="8.5" r="0.8" fill="currentColor" stroke="none"/>
+              </svg>
+            </button>
+            <textarea
+              ref={textareaRef}
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSend(e as unknown as React.FormEvent);
+                }
+              }}
+              placeholder="Write a message…"
+              rows={1}
+              className="flex-1 bg-transparent text-sm text-[#1A1714] placeholder:text-[#8C8277] resize-none focus:outline-none leading-6"
+              style={{ maxHeight: "120px", overflowY: "auto" }}
+            />
+            <button
+              type="submit"
+              disabled={!value.trim() || sending}
+              className="flex-shrink-0 w-8 h-8 rounded-full bg-[#1A1714] text-[#FAFAF8] flex items-center justify-center hover:bg-[#2C2520] transition-all disabled:opacity-30 disabled:cursor-default"
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M12 7L2 2l2 5-2 5 10-5z" fill="currentColor" />
+              </svg>
+            </button>
+          </form>
+        </div>
         <p className="text-[10px] text-[#8C8277]/60 mt-1.5 px-1">Press Enter to send · Shift+Enter for new line</p>
       </div>
     </div>
