@@ -20,7 +20,7 @@ export default async function OnboardingPage() {
   return (
     <div className="max-w-2xl mx-auto space-y-10 pb-20">
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">
+        <h1 className="font-display text-2xl md:text-4xl font-thin tracking-widest text-[#1A1714] uppercase leading-tight">
           Welcome, {profile?.founderName?.includes("&") ? profile.founderName.split(" ").slice(0, -1).join(" ") : profile?.founderName?.split(" ")[0]}
         </h1>
         <p className="mt-2 text-sm text-[#5C5550]">
