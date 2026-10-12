@@ -1,0 +1,680 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String
+  role          String    @default("client")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  clientProfile ClientProfile?
+  sentMessages  Message[]      @relation("MessageSender")
+  sessions      Session[]
+  accounts      Account[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model ClientProfile {
+  id                 String    @id @default(cuid())
+  userId             String    @unique
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  businessName       String
+  founderName        String
+  email              String
+  phone              String?
+  website            String?
+  birthday           DateTime?
+
+  tier               String    @default("GROWTH")
+  startDate          DateTime  @default(now())
+  currentMonth       Int       @default(1)
+  currentWeek        Int       @default(1)
+  currentPhase       String    @default("DIAGNOSE")
+
+  businessContext    String?
+  personalityNotes   String?
+  communicationStyle String?
+
+  monthlyInvestment  Float?
+  billingNotes       String?
+  nextBillingDate    DateTime?
+
+  address            String?
+  instagram          String?
+  leadSource         String?
+  endDate            DateTime?
+  isActive           Boolean   @default(true)
+
+  weeklyFocus        String?
+  nextSessionFocus   String?
+  primaryPlatform    String    @default("Instagram")
+  platforms          String    @default("Instagram")
+  onboardingComplete Boolean   @default(false)
+
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  tasks        Task[]
+  checkIns     CheckIn[]
+  messages     Message[]
+  deliverables Deliverable[]
+  goals        Goal[]
+  calls        Call[]
+  socialPlans  SocialPlan[]
+  agentDrafts  AgentDraft[]
+  specificResources Resource[] @relation("SpecificClientResources")
+  scorecards        WeeklyScorecard[]
+  scorecardTargets  ScorecardTargets?
+  expenses          MonthlyExpense[]
+  granolaTranscripts GranolaTranscript[]
+  businessContext_   BusinessContextIntake?
+  onboardingSteps   OnboardingStep[]
+  churnRisks        ChurnRisk[]
+  scheduledMessages ScheduledMessage[]
+  contentPosts      ContentPost[]
+  contentAnalytics  ContentAnalytics[]
+  roadmaps          ClientRoadmap[]
+  sessionSummaries  SessionSummary[]
+  agentOutputs      AgentOutput[]
+}
+
+model Task {
+  id              String        @id @default(cuid())
+  clientProfileId String?
+  clientProfile   ClientProfile? @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  title       String
+  description String?
+  category    String    @default("Operations")
+  priority    String    @default("medium")
+  assignedTo  String    @default("client")
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  notes       String?
+  dueDate     DateTime?
+  weekNumber  Int?
+  monthNumber Int?
+  goalId      String?
+  source      String    @default("manual")
+  owner       String    @default("Client")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CheckIn {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  weekNumber  Int
+  monthNumber Int
+
+  completed    String
+  notCompleted String
+  shifted      String
+  stuck        String
+  energyScore  Int
+  energyNote   String?
+  bottleneck   String?
+  clientExperience String?
+  callNotes    String?
+  preCallNote  String?
+
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  senderId       String
+  sender         User   @relation("MessageSender", fields: [senderId], references: [id])
+  senderRole     String
+
+  content        String
+  attachmentUrl  String?
+  attachmentName String?
+  read           Boolean @default(false)
+
+  createdAt DateTime @default(now())
+}
+
+model Deliverable {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  title       String
+  description String?
+  phase       String
+  monthNumber Int?
+  fileUrl     String?
+  fileType    String?
+
+  deliveredAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+}
+
+model Goal {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  title           String
+  description     String?
+  baselineNote    String?
+  targetNote      String?
+  progressPercent Int     @default(0)
+  status          String  @default("active")
+
+  progressNotes GoalProgressNote[]
+  snapshots     GoalSnapshot[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model GoalProgressNote {
+  id     String @id @default(cuid())
+  goalId String
+  goal   Goal   @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  note      String
+  progress  Int
+  createdAt DateTime @default(now())
+}
+
+model Call {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  title       String
+  scheduledAt DateTime
+  completedAt DateTime?
+  granolaUrl  String?
+  transcript  String?
+
+  summaryStatus  String  @default("pending")
+  summaryContent String?
+  keyDecisions   String?
+  nextSteps      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SocialPlan {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  monthNumber Int
+  year        Int
+  status      String @default("draft")
+
+  contentPillars    String?
+  storyOutlines     String?
+  dailyPostingGuide String?
+  socialAudit       String?
+  brandVoiceNotes   String?
+
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Resource {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  category    String
+  type        String
+  fileUrl     String?
+  fileName    String?
+  visibility  String   @default("all")
+
+  specificClientId String?
+  specificClient   ClientProfile? @relation("SpecificClientResources", fields: [specificClientId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model WeeklyScorecard {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+  weekStart       DateTime      // Always Monday 00:00:00 UTC
+  revenue         Float?
+  leads           Int?
+  callsBooked     Int?
+  callsConverted  Int?
+  contentPieces   Int?
+  hoursWorked     Float?
+  energyScore       Int?
+  contentEnquiries  Int?
+  currentClients    Int?
+  cancellations     Int?
+  avgClientValue    Float?
+  followerGrowth    Int?
+  bestPerformingPost String?
+  biggestWin        String?
+  biggestBlock      String?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@unique([clientProfileId, weekStart])
+}
+
+model ScorecardTargets {
+  id                   String        @id @default(cuid())
+  clientProfileId      String        @unique
+  clientProfile        ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+  revenueTarget        Float         @default(5000)
+  leadsTarget          Int           @default(5)
+  callsBookedTarget    Int           @default(3)
+  callsConvertedTarget Int           @default(1)
+  contentTarget        Int           @default(5)
+  hoursTarget          Float         @default(40)
+  energyTarget         Int           @default(7)
+  monthlyRevenueTarget Float         @default(20000)
+  updatedAt            DateTime      @updatedAt
+}
+
+model MonthlyExpense {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+  name            String
+  amount          Float
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model AgentDraft {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  type    String
+  status  String @default("pending")
+  title   String
+  content String
+  context String?
+
+  approvedAt   DateTime?
+  rejectedAt   DateTime?
+  callId       String?
+  socialPlanId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Granola Integration ─────────────────────────────────────────────────────
+
+model GranolaTranscript {
+  id              String        @id @default(cuid())
+  granolaId       String        @unique
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  date        DateTime
+  title       String
+  transcript  String
+  summary     String?
+  processed   Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+}
+
+model UnmatchedTranscript {
+  id        String @id @default(cuid())
+  granolaId String @unique
+
+  date              DateTime
+  title             String
+  transcript        String
+  assignedClientId  String?
+  resolved          Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+}
+
+model GranolaSyncLog {
+  id               String   @id @default(cuid())
+  runAt            DateTime @default(now())
+  meetingsFound    Int
+  transcriptsSaved Int
+  unmatched        Int
+  errors           String?
+}
+
+// ─── Onboarding ──────────────────────────────────────────────────────────────
+
+model BusinessContextIntake {
+  id              String        @id @default(cuid())
+  clientProfileId String        @unique
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  businessName           String @default("")
+  whatTheyDo             String @default("")
+  whoTheyServe           String @default("")
+  howLongTrading         String @default("")
+  currentRevenue         String @default("")
+  revenueGoal            String @default("")
+  biggestChallenge       String @default("")
+  whatTheyTried          String @default("")
+  whatIsWorking          String @default("")
+  whatIsNot              String @default("")
+  currentTools           String @default("")
+  teamSituation          String @default("")
+  contentPlatforms       String @default("")
+  workingHoursPerWeek    Int?
+  energyLevel            Int?
+  biggestPersonalBlock   String @default("")
+  goalOne                String @default("")
+  goalTwo                String @default("")
+  goalThree              String @default("")
+  successIn6Months       String @default("")
+  personalStory          String @default("")
+  clientsFeedback        String @default("")
+  industryBelief         String @default("")
+  dailyRoutine           String @default("")
+  mostProudOf            String @default("")
+
+  submittedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model OnboardingStep {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  step          Int
+  status        String    @default("pending")
+  agentDraftId  String?
+  completedAt   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Churn & Health ──────────────────────────────────────────────────────────
+
+model ChurnRisk {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  signal      String
+  detectedAt  DateTime  @default(now())
+  resolved    Boolean   @default(false)
+  resolvedAt  DateTime?
+}
+
+// ─── Pulse Scheduling ────────────────────────────────────────────────────────
+
+model ScheduledMessage {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  type            String        // checkin_nudge | friday_progress
+  scheduledFor    DateTime
+  agentDraftId    String?
+  sent            Boolean       @default(false)
+  sentAt          DateTime?
+
+  createdAt DateTime @default(now())
+}
+
+// ─── Content Agent ───────────────────────────────────────────────────────────
+
+model ContentPost {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  month           String        // e.g. "2026-07"
+  postDate        DateTime
+  contentType     String        // reel | carousel | picture | story
+  funnel          String        @default("top") // top | middle | bottom (unused for stories)
+  topic           String        @default("")
+  hook            String        @default("")
+  hookType        String        @default("visual") // visual | audio (unused for stories)
+  desiredOutcome  String? // save | share | comment | dm | likes — set by the client, blank until they choose
+  status          String        @default("todo") // todo | working_on_it | complete
+
+  createdBy       String        @default("founder") // founder | client
+  clientApproved  Boolean       @default(false)
+  clientFeedback  String?
+  reviewedAt      DateTime?
+
+  inspirationLink String?
+  planDetails     String?       // free-text paragraph: post plan/structure, or story outline
+  contentIdea     String?
+  notes           String?
+  mediaUrl        String?
+  mediaName       String?
+
+  // Deprecated — kept for historical rows, no longer surfaced in the UI
+  platform        String?
+  caption         String?
+  callToAction    String?
+  personalHook    String?
+
+  // Performance metrics (logged by client after posting)
+  views           Int?
+  likes           Int?
+  comments        Int?
+  reposts         Int?
+  shares          Int?
+  saves           Int?
+  reach           Int?
+  profileVisits   Int?
+  follows         Int?
+  metricsLoggedAt DateTime?
+
+  createdAt       DateTime      @default(now())
+}
+
+model ContentAnalytics {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  weekOf          DateTime
+  platform        String
+  reach           Int
+  engagementRate  Float
+  followerGrowth  Int
+  topPost         String
+  topFormat       String
+  insights        String
+
+  createdAt       DateTime      @default(now())
+}
+
+// ─── Scribe Agent ────────────────────────────────────────────────────────────
+
+model SessionSummary {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  callId          String?
+  date            DateTime
+  status          String        @default("draft") // draft | approved
+
+  summary         String
+  keyDecisions    String        // JSON array of strings
+  commitments     String        // JSON array of strings
+  themes          String        // JSON array of strings
+  founderNotes    String?
+
+  agentDraftId    String?
+
+  createdAt       DateTime      @default(now())
+}
+
+// ─── Goal Snapshots ──────────────────────────────────────────────────────────
+
+model GoalSnapshot {
+  id              String @id @default(cuid())
+  goalId          String
+  goal            Goal   @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  clientProfileId String
+
+  month              String
+  progressAtSnapshot Int
+
+  createdAt DateTime @default(now())
+}
+
+// ─── Agent Outputs (auto-published, no approval) ─────────────────────────────
+
+model AgentOutput {
+  id              String   @id @default(cuid())
+  type            String   // "founder_briefing" | "trend_digest"
+  content         String   // raw text (briefing) or JSON string (trend)
+  clientProfileId String?  // null = founder-level; set when published to a client dashboard
+
+  createdAt       DateTime @default(now())
+
+  clientProfile   ClientProfile? @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+}
+
+// ─── Recurring Tasks ─────────────────────────────────────────────────────────
+
+model RecurringTask {
+  id       String  @id @default(cuid())
+  title    String
+  category String  @default("General")
+  priority String  @default("medium")
+  notes    String?
+  days     String  // comma-separated: "Mon", "Mon,Wed,Fri", etc.
+
+  completions RecurringTaskCompletion[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model RecurringTaskCompletion {
+  id              String        @id @default(cuid())
+  recurringTaskId String
+  recurringTask   RecurringTask @relation(fields: [recurringTaskId], references: [id], onDelete: Cascade)
+  weekStart       DateTime      // Monday of the week this was completed
+
+  @@unique([recurringTaskId, weekStart])
+}
+
+// ─── Founder Suggestions ─────────────────────────────────────────────────────
+
+model FounderSuggestion {
+  id             String    @id @default(cuid())
+  type           String    // "social" | "resource"
+  content        String
+  month          String    // YYYY-MM
+  sourceClientId String
+  agentDraftId   String
+  used           Boolean   @default(false)
+  usedAt         DateTime?
+  createdAt      DateTime  @default(now())
+}
+
+// ─── 90-Day Roadmap ──────────────────────────────────────────────────────────
+
+model ClientRoadmap {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  title           String        @default("90-Day Roadmap")
+  startDate       DateTime
+  phase1Focus     String?       // Theme for month 1
+  phase2Focus     String?       // Theme for month 2
+  phase3Focus     String?       // Theme for month 3
+  weeksJson       String        @default("[]") // JSON: [{week,focus,priority,milestone}]
+  status          String        @default("active") // draft | active
+
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+// ─── Founder Expenses ─────────────────────────────────────────────────────────
+
+model FounderExpense {
+  id        String   @id @default(cuid())
+  name      String
+  amount    Float
+  category  String   @default("Operations")
+  month     String   // "YYYY-MM"
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Founder Income ───────────────────────────────────────────────────────────
+// Actual money received (e.g. Stripe payouts, net of processor fees) — distinct
+// from contracted MRR and from clients' own self-reported WeeklyScorecard revenue.
+
+model FounderIncome {
+  id        String   @id @default(cuid())
+  name      String
+  amount    Float
+  month     String   // "YYYY-MM"
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
