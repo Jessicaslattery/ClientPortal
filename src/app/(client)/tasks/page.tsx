@@ -27,6 +27,10 @@ export default async function TasksPage() {
     {}
   );
 
+  // Tasks with categories not in the fixed list (e.g. "General" added by founder)
+  const uncategorised = openTasks.filter((t) => !CATEGORIES.includes(t.category as typeof CATEGORIES[number]));
+  if (uncategorised.length > 0) tasksByCategory["General"] = uncategorised;
+
   return (
     <div className="space-y-8">
       <div className="flex items-end justify-between">

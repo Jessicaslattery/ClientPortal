@@ -121,6 +121,7 @@ model ClientProfile {
   roadmaps          ClientRoadmap[]
   sessionSummaries  SessionSummary[]
   agentOutputs      AgentOutput[]
+  smsClientProfile  SmsClientProfile?
 }
 
 model Task {
@@ -678,4 +679,259 @@ model FounderIncome {
   notes     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// ─── Social Media Strategy (SMS) ─────────────────────────────────────────────
+
+model SmsClientProfile {
+  id              String        @id @default(cuid())
+  clientProfileId String        @unique
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+  igHandle        String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  monthPlans           MonthPlan[]
+  postOutlines         PostOutline[]
+  storyOutlines        StoryOutline[]
+  monthlyReports       MonthlyReport[]
+  quarterlyAudits      QuarterlyAudit[]
+  competitors          Competitor[]
+  instagramConnection  InstagramConnection?
+  accountInsights      AccountInsightDaily[]
+  hookBankItems        HookBankItem[]
+}
+
+model MonthPlan {
+  id             String    @id @default(cuid())
+  smsClientId    String
+  smsClient      SmsClientProfile @relation(fields: [smsClientId], references: [id], onDelete: Cascade)
+  month          String    // "YYYY-MM"
+  status         String    @default("draft") // draft | in_progress | published
+  dueDate        DateTime?
+  publishedAt    DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  postOutlines   PostOutline[]
+  storyOutlines  StoryOutline[]
+  monthlyReport  MonthlyReport?
+
+  @@unique([smsClientId, month])
+}
+
+model PostOutline {
+  id           String    @id @default(cuid())
+  smsClientId  String
+  smsClient    SmsClientProfile @relation(fields: [smsClientId], references: [id], onDelete: Cascade)
+  monthPlanId  String
+  monthPlan    MonthPlan @relation(fields: [monthPlanId], references: [id], onDelete: Cascade)
+  title        String
+  publishDate  DateTime?
+  format       String    // reel | carousel | static
+  pillar       String    // training | nutrition | results | personal_brand
+  hook         String?
+  cta          String?
+  goal         String?
+  inspoLink    String?
+  status       String    @default("to_film") // to_film | posted
+  liveUrl      String?
+  position     Int       @default(0)
+  igMediaId    String?
+  views        Int?
+  likes        Int?
+  comments     Int?
+  shares       Int?
+  saves        Int?
+  reach        Int?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  comments_    OutlineComment[]
+  hookBankItems HookBankItem[]
+  igMedia      InstagramMedia?
+}
+
+model StoryOutline {
+  id              String    @id @default(cuid())
+  smsClientId     String
+  smsClient       SmsClientProfile @relation(fields: [smsClientId], references: [id], onDelete: Cascade)
+  monthPlanId     String
+  monthPlan       MonthPlan @relation(fields: [monthPlanId], references: [id], onDelete: Cascade)
+  date            DateTime
+  theme           String?
+  engagementTool  String    @default("none") // poll | slider | question_box | quiz | countdown | link_sticker | none
+  cta             String?
+  isLaunchDay     Boolean   @default(false)
+  isPromoDay      Boolean   @default(false)
+  doneByClient    Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model MonthlyReport {
+  id           String    @id @default(cuid())
+  smsClientId  String
+  smsClient    SmsClientProfile @relation(fields: [smsClientId], references: [id], onDelete: Cascade)
+  monthPlanId  String    @unique
+  monthPlan    MonthPlan @relation(fields: [monthPlanId], references: [id], onDelete: Cascade)
+  headlineNote String?
+  worked       String?
+  didntWork    String?
+  nextMonth    String?
+  published    Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model QuarterlyAudit {
+  id            String    @id @default(cuid())
+  smsClientId   String
+  smsClient     SmsClientProfile @relation(fields: [smsClientId], references: [id], onDelete: Cascade)
+  quarter       String    // "YYYY-Q1"
+  nextAuditDate DateTime?
+  reportUrl     String?
+  reportText    String?
+  published     Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  healthRatings HealthRating[]
+
+  @@unique([smsClientId, quarter])
+}
+
+model HealthRating {
+  id       String        @id @default(cuid())
+  auditId  String
+  audit    QuarterlyAudit @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  category String        // profile_bio | content_mix | consistency | engagement | views_to_leads
+  rating   String        // strong | building | focus
+  note     String?
+
+  @@unique([auditId, category])
+}
+
+model Competitor {
+  id             String    @id @default(cuid())
+  smsClientId    String
+  smsClient      SmsClientProfile @relation(fields: [smsClientId], references: [id], onDelete: Cascade)
+  handle         String
+  name           String?
+  followersCount Int?
+  postsPerWeek   Float?
+  avgEngagement  Float?
+  topFormat      String?
+  isClient       Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  snapshots CompetitorSnapshot[]
+}
+
+model CompetitorSnapshot {
+  id             String     @id @default(cuid())
+  competitorId   String
+  competitor     Competitor @relation(fields: [competitorId], references: [id], onDelete: Cascade)
+  takenAt        DateTime   @default(now())
+  followersCount Int?
+  postsPerWeek   Float?
+  avgEngagement  Float?
+}
+
+model InstagramConnection {
+  id          String    @id @default(cuid())
+  smsClientId String    @unique
+  smsClient   SmsClientProfile @relation(fields: [smsClientId], references: [id], onDelete: Cascade)
+  igUserId    String?
+  igUsername  String?
+  accessToken String?
+  expiresAt   DateTime?
+  lastSyncAt  DateTime?
+  connected   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  media InstagramMedia[]
+}
+
+model InstagramMedia {
+  id            String              @id @default(cuid())
+  connectionId  String
+  connection    InstagramConnection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+  igMediaId     String              @unique
+  mediaType     String?
+  timestamp     DateTime?
+  permalink     String?
+  thumbnailUrl  String?
+  caption       String?
+  postOutlineId String?             @unique
+  postOutline   PostOutline?        @relation(fields: [postOutlineId], references: [id])
+  createdAt     DateTime            @default(now())
+
+  insights MediaInsight[]
+}
+
+model MediaInsight {
+  id        String         @id @default(cuid())
+  mediaId   String
+  media     InstagramMedia @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  metric    String
+  value     Float
+  fetchedAt DateTime       @default(now())
+
+  @@unique([mediaId, metric])
+}
+
+model AccountInsightDaily {
+  id          String    @id @default(cuid())
+  smsClientId String
+  smsClient   SmsClientProfile @relation(fields: [smsClientId], references: [id], onDelete: Cascade)
+  date        DateTime
+  metric      String    // followers | reach | impressions | profile_visits | website_clicks | followers_gained
+  value       Float
+
+  @@unique([smsClientId, date, metric])
+}
+
+model LearnModule {
+  id           String   @id @default(cuid())
+  title        String
+  description  String?
+  videoUrl     String?
+  guideText    String?
+  lengthMins   Int?
+  type         String   @default("video") // video | guide
+  isSkillOfMonth Boolean @default(false)
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SwipeExample {
+  id       String  @id @default(cuid())
+  format   String
+  imageUrl String?
+  caption  String?
+  label    String?
+}
+
+model HookBankItem {
+  id            String    @id @default(cuid())
+  smsClientId   String
+  smsClient     SmsClientProfile @relation(fields: [smsClientId], references: [id], onDelete: Cascade)
+  hook          String
+  postOutlineId String?
+  postOutline   PostOutline? @relation(fields: [postOutlineId], references: [id])
+  source        String    @default("manual") // manual | auto
+  savedAt       DateTime  @default(now())
+}
+
+model OutlineComment {
+  id            String      @id @default(cuid())
+  postOutlineId String
+  postOutline   PostOutline @relation(fields: [postOutlineId], references: [id], onDelete: Cascade)
+  userId        String
+  content       String
+  createdAt     DateTime    @default(now())
 }
