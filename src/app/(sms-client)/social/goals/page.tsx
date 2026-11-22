@@ -206,7 +206,7 @@ function GoalCard({
               style={m.done ? { background: PILLAR_COLORS[goal.pillar] ?? "#7B746B" } : {}}
             />
             {i < goal.milestones.length - 1 && (
-              <div className="flex-1 h-px" style={{ background: m.done ? PILLAR_COLORS[goal.pillar] + "40" ?? "#EDEBE6" : "#EDEBE6" }} />
+              <div className="flex-1 h-px" style={{ background: m.done ? (PILLAR_COLORS[goal.pillar] ?? "#8C735A") + "40" : "#EDEBE6" }} />
             )}
           </div>
         ))}
