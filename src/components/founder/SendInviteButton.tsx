@@ -28,7 +28,7 @@ export function SendInviteButton({ clientProfileId }: { clientProfileId: string 
       <button
         onClick={handleSend}
         disabled={isPending}
-        className="w-full py-2 text-[10px] tracking-[0.1em] uppercase text-[#FAFAF8] bg-[#1A1714] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40"
+        className="w-full py-2 text-[10px] tracking-[0.1em] text-[#FAFAF8] bg-[#1A1917] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40"
       >
         {isPending ? "Sending…" : "Send portal invite"}
       </button>

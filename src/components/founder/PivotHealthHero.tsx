@@ -17,7 +17,7 @@ function ScoreArc({ score, color }: { score: number; color: string }) {
     <svg width="200" height="120" viewBox="0 0 200 120">
       <path
         d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
-        fill="none" stroke="#E8E2D9" strokeWidth="10" strokeLinecap="round"
+        fill="none" stroke="#EDEBE6" strokeWidth="10" strokeLinecap="round"
       />
       <path
         d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
@@ -32,8 +32,8 @@ function ScoreArc({ score, color }: { score: number; color: string }) {
 function Bucket({ label, score, color }: { label: string; score: number; color: string }) {
   return (
     <div className="flex flex-col items-center gap-1">
-      <div className="text-lg font-light" style={{ color }}>{score}</div>
-      <div className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277]">{label}</div>
+      <div className="text-lg font-[300]" style={{ color }}>{score}</div>
+      <div className="text-[10px] tracking-[0.1em] text-[#b0a89e]">{label}</div>
     </div>
   );
 }
@@ -48,17 +48,17 @@ export function PivotHealthHero({
   const c = COLOR[breakdown.color];
 
   return (
-    <div className={`rounded-3xl border border-[#E8E2D9] p-8 ${c.bg}`}
+    <div className={`rounded-3xl border border-[#EDEBE6] p-8 ${c.bg}`}
       style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}
     >
       <div className="flex flex-col items-center gap-2 mb-6">
-        <p className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277]">Pivot Co. Health Score</p>
+        <p className="text-[10px] tracking-[0.15em] text-[#b0a89e]">Pivot Co. Health Score</p>
 
         <div className="relative">
           <ScoreArc score={breakdown.total} color={c.ring} />
           <div className="absolute inset-0 flex flex-col items-center justify-end pb-1">
-            <span className={`font-display text-5xl font-thin ${c.text}`}>{breakdown.total}</span>
-            <span className={`text-xs tracking-[0.1em] uppercase mt-0.5 ${c.text}`}>{c.label}</span>
+            <span className={`text-5xl font-[300] ${c.text}`}>{breakdown.total}</span>
+            <span className={`text-xs tracking-[0.1em] mt-0.5 ${c.text}`}>{c.label}</span>
           </div>
         </div>
 
@@ -71,8 +71,8 @@ export function PivotHealthHero({
       </div>
 
       {insight && (
-        <div className="border-t border-[#E8E2D9] pt-4 mt-2">
-          <p className="text-xs text-[#5C5550] italic leading-relaxed text-center max-w-lg mx-auto">
+        <div className="border-t border-[#EDEBE6] pt-4 mt-2">
+          <p className="text-xs text-[#7a7268] italic leading-relaxed text-center max-w-lg mx-auto">
             {insight}
           </p>
         </div>

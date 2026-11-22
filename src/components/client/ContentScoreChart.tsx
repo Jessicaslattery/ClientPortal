@@ -42,8 +42,8 @@ export function ContentScoreChart({ weeks }: { weeks: Week[] }) {
   const avgRatio = ratios.length > 0 ? ratios.reduce((a, b) => a + b, 0) / ratios.length : 0;
 
   return (
-    <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] p-6 space-y-5">
-      <p className="text-[10px] tracking-[0.15em] uppercase text-[#5C5550]">Content → Conversation</p>
+    <div className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] p-6 space-y-5">
+      <p className="text-[10px] tracking-[0.15em] uppercase text-[#7a7268]">Content → Conversation</p>
 
       {/* This week */}
       <div className="grid grid-cols-3 gap-3">
@@ -52,14 +52,14 @@ export function ContentScoreChart({ weeks }: { weeks: Week[] }) {
           { label: "Enquiries from content", val: current?.enquiries ?? "-" },
           { label: "Ratio", val: current?.ratio != null ? current.ratio.toFixed(2) : "-" },
         ].map((s) => (
-          <div key={s.label} className="rounded-2xl bg-[#F2EDE4] p-3 text-center">
-            <div className="font-display text-xl font-thin text-[#1A1714]">{s.val}</div>
-            <div className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mt-0.5">{s.label}</div>
+          <div key={s.label} className="rounded-2xl bg-[#F5F3EF] p-3 text-center">
+            <div className="text-xl font-[300] text-[#1A1917]">{s.val}</div>
+            <div className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] mt-0.5">{s.label}</div>
           </div>
         ))}
       </div>
 
-      <div className="text-xs text-[#8C8277] italic">
+      <div className="text-xs text-[#b0a89e] italic">
         {current?.posts && current?.enquiries
           ? `${current.posts} posts → ${current.enquiries} enquiries this week`
           : "Log your content and enquiries in the scorecard to see your ratio."}
@@ -69,13 +69,13 @@ export function ContentScoreChart({ weeks }: { weeks: Week[] }) {
       {ratios.some((r) => r > 0) && (
         <div>
           <div className="flex items-center justify-between mb-2">
-            <p className="text-[9px] tracking-[0.1em] uppercase text-[#8C8277]">8-week trend</p>
-            <span className="text-[10px] text-[#5C5550]">avg {avgRatio.toFixed(2)}</span>
+            <p className="text-[9px] tracking-[0.1em] uppercase text-[#b0a89e]">8-week trend</p>
+            <span className="text-[10px] text-[#7a7268]">avg {avgRatio.toFixed(2)}</span>
           </div>
           <Sparkline values={ratios} color="#C8B89A" />
           <div className="flex justify-between mt-1">
             {weeks.map((w) => (
-              <span key={w.weekLabel} className="text-[8px] text-[#8C8277]">{w.weekLabel}</span>
+              <span key={w.weekLabel} className="text-[8px] text-[#b0a89e]">{w.weekLabel}</span>
             ))}
           </div>
         </div>

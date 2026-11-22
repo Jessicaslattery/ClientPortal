@@ -12,8 +12,13 @@ function getWeekStart() {
   return monday;
 }
 
-export default async function FounderTasksPage() {
+export default async function FounderTasksPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ client?: string }>;
+}) {
   await requireAuth("founder");
+  const { client: defaultClientId } = await searchParams;
 
   const weekStart = getWeekStart();
 
@@ -55,10 +60,10 @@ export default async function FounderTasksPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-3xl font-light tracking-widest text-[#1A1714] uppercase">
+        <h1 className="text-3xl font-[300] tracking-tight text-[#1A1917]">
           My Tasks
         </h1>
-        <p className="mt-1 text-sm text-[#8C8277]">
+        <p className="mt-1 text-sm text-[#b0a89e]">
           {tasks.length} open · {recentlyCompleted.length} completed this week
         </p>
       </div>
@@ -67,6 +72,7 @@ export default async function FounderTasksPage() {
         tasks={tasks}
         recentlyCompleted={recentlyCompleted}
         clients={clients}
+        defaultClientId={defaultClientId}
         recurringTasks={recurringTasks.map((r) => ({
           id: r.id,
           title: r.title,

@@ -18,8 +18,8 @@ export default async function GoalsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">Goals & Progress</h1>
-        <p className="mt-1.5 text-sm text-[#5C5550]">
+        <h1 className="text-4xl font-[200] text-[#1A1917]">Goals & Progress</h1>
+        <p className="mt-1.5 text-sm text-[#7a7268]">
           {goals.filter((g) => g.status === "active").length} active goal
           {goals.filter((g) => g.status === "active").length !== 1 ? "s" : ""}
         </p>
@@ -53,7 +53,7 @@ export default async function GoalsPage() {
   );
 }
 
-// Server component wrapper — renders the card with client sub-components inside
+// Server component wrapper: renders the card with client sub-components inside
 function GoalCardWrapper({ goal }: {
   goal: {
     id: string;

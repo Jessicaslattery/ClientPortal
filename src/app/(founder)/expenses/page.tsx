@@ -50,10 +50,10 @@ export default async function ExpensesPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">
+        <h1 className="text-4xl font-[300] tracking-tight text-[#1A1917]">
           Expenses
         </h1>
-        <p className="mt-1.5 text-sm text-[#5C5550]">Business expenses and profit overview</p>
+        <p className="mt-1.5 text-sm text-[#7a7268]">Business expenses and profit overview</p>
       </div>
 
       {/* Stats */}
@@ -70,11 +70,11 @@ export default async function ExpensesPage() {
           },
         ].map((s) => (
           <div key={s.label}
-            className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] p-5"
+            className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF] p-5"
             style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}
           >
-            <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277]">{s.label}</p>
-            <p className="font-display text-2xl font-light mt-1" style={{ color: s.color ?? "#1A1714" }}>
+            <p className="text-[10px] tracking-[0.12em] text-[#b0a89e]">{s.label}</p>
+            <p className="text-2xl font-[300] mt-1" style={{ color: s.color ?? "#1A1917" }}>
               {s.prefix}{s.value}
             </p>
           </div>

@@ -51,3 +51,47 @@ export async function submitOnboardingAction(
 
   redirect("/home");
 }
+
+export async function submitSocialMediaIntake(
+  _prev: { error?: string; success?: string },
+  formData: FormData
+): Promise<{ error?: string; success?: string }> {
+  const session = await requireAuth("client");
+  const cid = session.clientProfileId;
+  if (!cid) return { error: "Client profile not found." };
+
+  const str = (key: string) => (formData.get(key) as string)?.trim() || "";
+
+  await prisma.socialMediaContextIntake.upsert({
+    where: { clientProfileId: cid },
+    update: {
+      primaryPlatform: str("primaryPlatform"),
+      currentFollowers: str("currentFollowers"),
+      contentGoal: str("contentGoal"),
+      targetAudience: str("targetAudience"),
+      topPerformingContent: str("topPerformingContent"),
+      contentChallenges: str("contentChallenges"),
+      brandVoice: str("brandVoice"),
+      competitorAccounts: str("competitorAccounts"),
+      postingFrequency: str("postingFrequency"),
+      contentCreationTime: str("contentCreationTime"),
+      submittedAt: new Date(),
+    },
+    create: {
+      clientProfileId: cid,
+      primaryPlatform: str("primaryPlatform"),
+      currentFollowers: str("currentFollowers"),
+      contentGoal: str("contentGoal"),
+      targetAudience: str("targetAudience"),
+      topPerformingContent: str("topPerformingContent"),
+      contentChallenges: str("contentChallenges"),
+      brandVoice: str("brandVoice"),
+      competitorAccounts: str("competitorAccounts"),
+      postingFrequency: str("postingFrequency"),
+      contentCreationTime: str("contentCreationTime"),
+      submittedAt: new Date(),
+    },
+  });
+
+  return { success: "Questionnaire saved." };
+}

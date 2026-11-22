@@ -4,7 +4,7 @@ export type CalendarPost = { id: string; postDate: string };
 
 // Post dates are stored as UTC midnight (date-only values). Building the grid
 // with local-time Date objects would drift by a day for any timezone ahead of
-// UTC (e.g. AEST) once compared via toISOString() — so every day here is
+// UTC (e.g. AEST) once compared via toISOString(): so every day here is
 // constructed and read back in UTC to keep grid cells and stored dates aligned.
 function getDaysInMonth(month: string) {
   const [year, m] = month.split("-").map(Number);
@@ -22,7 +22,7 @@ const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 /**
  * Shared month-grid calendar with HTML5 drag-and-drop rescheduling.
  * Used by both the client and founder content-calendar views so the two
- * don't drift — the caller supplies how each post chip renders and which
+ * don't drift: the caller supplies how each post chip renders and which
  * posts are draggable.
  */
 export function CalendarGrid<T extends CalendarPost>({

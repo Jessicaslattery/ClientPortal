@@ -18,7 +18,7 @@ export function GoalCardClientWrapper({ goal }: { goal: Goal }) {
   const [editing, setEditing] = useState(false);
 
   return (
-    <div className={`rounded-3xl border p-6 bg-[#FFFFFF] ${goal.progressPercent >= 100 ? "border-[#2D6A4F]/30" : "border-[#E8E2D9]"}`}>
+    <div className={`rounded-2xl border p-6 bg-[#FFFFFF] ${goal.progressPercent >= 100 ? "border-[#2D6A4F]/30" : "border-[#EDEBE6]"}`}>
       {editing ? (
         <GoalEditForm
           goal={goal}
@@ -28,18 +28,18 @@ export function GoalCardClientWrapper({ goal }: { goal: Goal }) {
         <>
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1 min-w-0 pr-4">
-              <h3 className="text-base text-[#1A1714]">{goal.title}</h3>
+              <h3 className="text-base text-[#1A1917]">{goal.title}</h3>
               {goal.description && (
-                <p className="text-xs text-[#5C5550] mt-0.5">{goal.description}</p>
+                <p className="text-xs text-[#7a7268] mt-0.5">{goal.description}</p>
               )}
             </div>
             <div className="flex items-start gap-4 shrink-0">
-              <span className="font-display text-2xl font-thin tracking-wide text-[#C8B89A]">
+              <span className="text-2xl font-[300] tracking-wide text-[#C8B89A]">
                 {goal.progressPercent}%
               </span>
               <button
                 onClick={() => setEditing(true)}
-                className="mt-1 text-[10px] tracking-[0.08em] uppercase text-[#8C8277] hover:text-[#1A1714] transition-colors"
+                className="mt-1 text-[10px] tracking-[0.08em] uppercase text-[#b0a89e] hover:text-[#1A1917] transition-colors"
               >
                 Edit
               </button>
@@ -47,7 +47,7 @@ export function GoalCardClientWrapper({ goal }: { goal: Goal }) {
           </div>
 
           {/* Progress bar */}
-          <div className="h-1 bg-[#F2EDE4] rounded-full mb-4 overflow-hidden">
+          <div className="h-1 bg-[#F5F3EF] rounded-full mb-4 overflow-hidden">
             <div
               className={`h-full rounded-full transition-all ${goal.progressPercent >= 100 ? "bg-[#2D6A4F]" : "bg-[#C8B89A]"}`}
               style={{ width: `${Math.min(goal.progressPercent, 100)}%` }}
@@ -59,14 +59,14 @@ export function GoalCardClientWrapper({ goal }: { goal: Goal }) {
             <div className="flex items-start justify-between mb-4">
               {goal.baselineNote && (
                 <div>
-                  <p className="text-[9px] tracking-[0.1em] uppercase text-[#8C8277] mb-0.5">Starting point</p>
-                  <p className="text-xs text-[#5C5550]">{goal.baselineNote}</p>
+                  <p className="text-[9px] tracking-[0.1em] uppercase text-[#b0a89e] mb-0.5">Starting point</p>
+                  <p className="text-xs text-[#7a7268]">{goal.baselineNote}</p>
                 </div>
               )}
               {goal.targetNote && (
                 <div className="text-right">
-                  <p className="text-[9px] tracking-[0.1em] uppercase text-[#8C8277] mb-0.5">Success looks like</p>
-                  <p className="text-xs text-[#5C5550]">{goal.targetNote}</p>
+                  <p className="text-[9px] tracking-[0.1em] uppercase text-[#b0a89e] mb-0.5">Success looks like</p>
+                  <p className="text-xs text-[#7a7268]">{goal.targetNote}</p>
                 </div>
               )}
             </div>
@@ -74,14 +74,14 @@ export function GoalCardClientWrapper({ goal }: { goal: Goal }) {
 
           {/* Progress notes */}
           {goal.progressNotes.length > 0 && (
-            <div className="space-y-2 border-t border-[#E8E2D9] pt-3 mb-2">
-              <p className="text-[9px] tracking-[0.12em] uppercase text-[#8C8277]">Progress notes</p>
+            <div className="space-y-2 border-t border-[#EDEBE6] pt-3 mb-2">
+              <p className="text-[9px] tracking-[0.12em] uppercase text-[#b0a89e]">Progress notes</p>
               {goal.progressNotes.map((note) => (
                 <div key={note.id} className="flex items-start gap-3">
-                  <span className="text-[10px] text-[#8C8277] mt-0.5 flex-shrink-0 tabular-nums">
+                  <span className="text-[10px] text-[#b0a89e] mt-0.5 flex-shrink-0 tabular-nums">
                     {new Date(note.createdAt).toLocaleDateString("en-AU", { day: "numeric", month: "short" })}
                   </span>
-                  <p className="text-xs text-[#5C5550] leading-5">{note.note}</p>
+                  <p className="text-xs text-[#7a7268] leading-5">{note.note}</p>
                   <span className="text-[9px] text-[#C8B89A] shrink-0 mt-0.5">{note.progress}%</span>
                 </div>
               ))}

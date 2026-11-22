@@ -7,7 +7,7 @@ import { POST_TYPES, POST_TYPE_LABELS, FUNNEL_STAGES, FUNNEL_LABELS, HOOK_TYPES,
 const KINDS = [...POST_TYPES, "story"] as const;
 const KIND_LABELS: Record<string, string> = { ...POST_TYPE_LABELS, story: "Story" };
 
-const inputClass = "w-full rounded-lg border border-[#E8E2D9] bg-white px-2.5 py-1.5 text-xs focus:outline-none focus:border-[#C8B89A]";
+const inputClass = "w-full rounded-lg border border-[#EDEBE6] bg-white px-2.5 py-1.5 text-xs focus:outline-none focus:border-[#C8B89A]";
 
 function pad(n: number) {
   return String(n).padStart(2, "0");
@@ -144,38 +144,38 @@ export function BulkAddPosts({ clientProfileId, month, onDone }: { clientProfile
       try {
         const res = await founderBulkAddPostsAction(clientProfileId, rows);
         if (res.created) {
-          setSuccess(`Added ${res.created} item${res.created === 1 ? "" : "s"}. They show under each item's own month — use the month arrows to check.`);
+          setSuccess(`Added ${res.created} item${res.created === 1 ? "" : "s"}. They show under each item's own month: use the month arrows to check.`);
           setRows([blankRow(`${month}-01`)]);
           setRowErrors({});
         } else {
-          setError(res.error ?? "Something went wrong — nothing was saved.");
+          setError(res.error ?? "Something went wrong: nothing was saved.");
           setRowErrors(res.rowErrors ?? {});
         }
       } catch {
-        setError("Couldn't reach the server — nothing was saved. Your rows are still here, try again.");
+        setError("Couldn't reach the server: nothing was saved. Your rows are still here, try again.");
       }
     });
   }
 
-  const labelClass = "text-[9px] tracking-[0.1em] uppercase text-[#8C8277] mb-1 block";
+  const labelClass = "text-[9px] tracking-[0.1em] text-[#b0a89e] mb-1 block";
 
   return (
     <div className="rounded-2xl border border-[#C8B89A] bg-[#FDFCFA] p-5 space-y-4">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-sm text-[#1A1714]">Bulk add</p>
-          <p className="text-xs text-[#8C8277] mt-0.5">Add any dates, any months. Nothing saves until you press Save all — and if a row has a problem, nothing is saved.</p>
+          <p className="text-sm text-[#1A1917]">Bulk add</p>
+          <p className="text-xs text-[#b0a89e] mt-0.5">Add any dates, any months. Nothing saves until you press Save all: and if a row has a problem, nothing is saved.</p>
         </div>
-        <button type="button" onClick={onDone} className="text-[#8C8277] hover:text-[#1A1714] text-lg leading-none">×</button>
+        <button type="button" onClick={onDone} className="text-[#b0a89e] hover:text-[#1A1917] text-lg leading-none">×</button>
       </div>
 
       <div>
-        <button type="button" onClick={() => setShowPaste(!showPaste)} className="text-[10px] tracking-[0.1em] uppercase text-[#5C5550] hover:text-[#1A1714]">
+        <button type="button" onClick={() => setShowPaste(!showPaste)} className="text-[10px] tracking-[0.1em] text-[#7a7268] hover:text-[#1A1917]">
           {showPaste ? "− Hide paste" : "+ Paste from spreadsheet"}
         </button>
         {showPaste && (
           <div className="mt-2 space-y-2">
-            <p className="text-[11px] text-[#8C8277]">Copy rows from Sheets/Excel with columns in this order: <span className="text-[#5C5550]">Date · Type · Funnel · Topic · Hook · Details</span>. Stories: put the outline in Details (or Topic).</p>
+            <p className="text-[11px] text-[#b0a89e]">Copy rows from Sheets/Excel with columns in this order: <span className="text-[#7a7268]">Date · Type · Funnel · Topic · Hook · Details</span>. Stories: put the outline in Details (or Topic).</p>
             <textarea
               value={pasteText}
               onChange={(e) => setPasteText(e.target.value)}
@@ -183,22 +183,22 @@ export function BulkAddPosts({ clientProfileId, month, onDone }: { clientProfile
               placeholder={"23/10/2026\tReel\tTop\tMorning routine\tI stopped doing this…\tShow 3 steps…"}
               className={`${inputClass} font-mono`}
             />
-            <button type="button" onClick={loadPasted} disabled={!pasteText.trim()} className="px-4 py-1.5 rounded-lg border border-[#E8E2D9] text-xs text-[#5C5550] hover:border-[#C8B89A] disabled:opacity-40">
+            <button type="button" onClick={loadPasted} disabled={!pasteText.trim()} className="px-4 py-1.5 rounded-lg border border-[#EDEBE6] text-xs text-[#7a7268] hover:border-[#C8B89A] disabled:opacity-40">
               Load into rows
             </button>
           </div>
         )}
-        {pasteNote && <p className="text-[11px] text-[#5C5550] mt-2">{pasteNote}</p>}
+        {pasteNote && <p className="text-[11px] text-[#7a7268] mt-2">{pasteNote}</p>}
       </div>
 
       <div className="space-y-3">
         {rows.map((r, i) => {
           const isStory = r.kind === "story";
           return (
-            <div key={i} className={`rounded-xl border p-3 space-y-2 bg-white ${rowErrors[i] ? "border-[#9B2335]" : "border-[#E8E2D9]"}`}>
+            <div key={i} className={`rounded-xl border p-3 space-y-2 bg-white ${rowErrors[i] ? "border-[#9B2335]" : "border-[#EDEBE6]"}`}>
               <div className="flex items-center justify-between">
-                <span className="text-[10px] text-[#8C8277]">#{i + 1}</span>
-                <button type="button" onClick={() => removeRow(i)} disabled={rows.length === 1} className="text-[#8C8277] hover:text-[#9B2335] text-sm leading-none disabled:opacity-30" title="Remove row">×</button>
+                <span className="text-[10px] text-[#b0a89e]">#{i + 1}</span>
+                <button type="button" onClick={() => removeRow(i)} disabled={rows.length === 1} className="text-[#b0a89e] hover:text-[#9B2335] text-sm leading-none disabled:opacity-30" title="Remove row">×</button>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                 <div>
@@ -258,8 +258,8 @@ export function BulkAddPosts({ clientProfileId, month, onDone }: { clientProfile
       {success && <p className="text-xs text-[#2D6A4F]">{success}</p>}
 
       <div className="flex items-center gap-3">
-        <button type="button" onClick={addRow} className="px-4 py-2 rounded-xl border border-[#E8E2D9] text-xs text-[#5C5550] hover:border-[#C8B89A]">+ Add row</button>
-        <button type="button" onClick={save} disabled={pending} className="px-5 py-2 rounded-xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-[0.1em] uppercase disabled:opacity-50">
+        <button type="button" onClick={addRow} className="px-4 py-2 rounded-xl border border-[#EDEBE6] text-xs text-[#7a7268] hover:border-[#C8B89A]">+ Add row</button>
+        <button type="button" onClick={save} disabled={pending} className="px-5 py-2 rounded-xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-[0.1em] disabled:opacity-50">
           {pending ? "Saving…" : `Save all (${rows.length})`}
         </button>
       </div>

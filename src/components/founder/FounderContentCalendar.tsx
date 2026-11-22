@@ -57,7 +57,7 @@ type Post = {
 
 const TYPE_COLORS: Record<string, string> = {
   reel: "#2D6A4F",
-  carousel: "#5C5550",
+  carousel: "#7a7268",
   picture: "#B7791F",
   [STORY_CONTENT_TYPE]: "#9B7DB8",
 };
@@ -70,11 +70,11 @@ function Field({ label, value, multiline }: { label: string; value?: string | nu
   if (!value) return null;
   return (
     <div>
-      <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-0.5">{label}</p>
+      <p className="text-[10px] tracking-[0.1em] text-[#b0a89e] mb-0.5">{label}</p>
       {multiline ? (
-        <p className="text-sm text-[#1A1714] whitespace-pre-wrap leading-relaxed">{value}</p>
+        <p className="text-sm text-[#1A1917] whitespace-pre-wrap leading-relaxed">{value}</p>
       ) : (
-        <p className="text-sm text-[#1A1714]">{value}</p>
+        <p className="text-sm text-[#1A1917]">{value}</p>
       )}
     </div>
   );
@@ -84,8 +84,8 @@ function MetricPill({ label, value }: { label: string; value?: number | null }) 
   if (value == null) return null;
   return (
     <div className="text-center">
-      <p className="font-display text-lg font-light text-[#1A1714]">{value.toLocaleString()}</p>
-      <p className="text-[9px] tracking-[0.1em] uppercase text-[#8C8277]">{label}</p>
+      <p className="text-lg font-[300] text-[#1A1917]">{value.toLocaleString()}</p>
+      <p className="text-[9px] tracking-[0.1em] text-[#b0a89e]">{label}</p>
     </div>
   );
 }
@@ -94,20 +94,20 @@ function StatusButtons({ post, clientProfileId }: { post: Post; clientProfileId:
   return (
     <div className="flex items-center gap-2 flex-wrap" onClick={(e) => e.stopPropagation()}>
       <span
-        className="text-[10px] px-2.5 py-1 rounded-full uppercase tracking-[0.08em]"
+        className="text-[10px] px-2.5 py-1 rounded-full tracking-[0.08em]"
         style={{ backgroundColor: STATUS_BG[post.status], color: STATUS_TEXT[post.status] }}
       >
         {STATUS_LABELS[post.status]}
       </span>
       {post.status !== "working_on_it" && (
         <button onClick={() => founderUpdatePostStatusAction(post.id, clientProfileId, "working_on_it")}
-          className="text-[10px] px-3 py-1 rounded-full border border-[#E8E2D9] text-[#5C5550] hover:border-[#B7791F] hover:text-[#B7791F] transition-colors uppercase tracking-[0.08em]">
+          className="text-[10px] px-3 py-1 rounded-full border border-[#EDEBE6] text-[#7a7268] hover:border-[#B7791F] hover:text-[#B7791F] transition-colors tracking-[0.08em]">
           Working on it
         </button>
       )}
       {post.status !== "complete" && (
         <button onClick={() => founderUpdatePostStatusAction(post.id, clientProfileId, "complete")}
-          className="text-[10px] px-3 py-1 rounded-full border border-[#E8E2D9] text-[#5C5550] hover:border-[#2D6A4F] hover:text-[#2D6A4F] transition-colors uppercase tracking-[0.08em]">
+          className="text-[10px] px-3 py-1 rounded-full border border-[#EDEBE6] text-[#7a7268] hover:border-[#2D6A4F] hover:text-[#2D6A4F] transition-colors tracking-[0.08em]">
           Complete
         </button>
       )}
@@ -136,44 +136,44 @@ function PostRow({
   const story = isStory(post);
 
   return (
-    <div className="border-b border-[#E8E2D9] last:border-0">
+    <div className="border-b border-[#EDEBE6] last:border-0">
       {/* Row summary */}
       <div className="flex items-center gap-4 px-6 py-4 cursor-pointer hover:bg-[#F5F2ED] transition-colors"
         onClick={() => { setExpanded(!expanded); setEditing(false); }}
       >
         <div className="w-16 shrink-0 text-center">
-          <p className="text-xs text-[#8C8277]">{dateStr.split(" ")[0]}</p>
-          <p className="text-lg font-light text-[#1A1714] leading-none">{date.getDate()}</p>
+          <p className="text-xs text-[#b0a89e]">{dateStr.split(" ")[0]}</p>
+          <p className="text-lg font-[300] text-[#1A1917] leading-none">{date.getDate()}</p>
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm text-[#1A1714] truncate">{story ? (post.planDetails?.slice(0, 60) || "Story") : (post.topic || "Untitled")}</p>
-          <p className="text-xs text-[#8C8277] mt-0.5">
+          <p className="text-sm text-[#1A1917] truncate">{story ? (post.planDetails?.slice(0, 60) || "Story") : (post.topic || "Untitled")}</p>
+          <p className="text-xs text-[#b0a89e] mt-0.5">
             {story ? "Story" : `${POST_TYPE_LABELS[post.contentType] ?? post.contentType} · ${FUNNEL_LABELS[post.funnel]}`}
           </p>
         </div>
         <div className="flex items-center gap-3 shrink-0">
           {post.clientFeedback && (
-            <span className="text-[10px] tracking-[0.08em] uppercase text-[#9B2335] bg-[#FBEAEA] px-2 py-0.5 rounded-full">
+            <span className="text-[10px] tracking-[0.08em] text-[#9B2335] bg-[#FBEAEA] px-2 py-0.5 rounded-full">
               Feedback
             </span>
           )}
           {post.createdBy === "founder" && (
-            <span className={`text-[10px] tracking-[0.08em] uppercase px-2 py-0.5 rounded-full ${post.clientApproved ? "text-[#2D6A4F] bg-[#EAF3DE]" : "text-[#B7791F] bg-[#FEF3C7]"}`}>
+            <span className={`text-[10px] tracking-[0.08em] px-2 py-0.5 rounded-full ${post.clientApproved ? "text-[#2D6A4F] bg-[#EAF3DE]" : "text-[#B7791F] bg-[#FEF3C7]"}`}>
               {post.clientApproved ? "Approved" : "Awaiting approval"}
             </span>
           )}
           {hasMetrics && (
-            <span className="text-[10px] tracking-[0.08em] uppercase text-[#C8B89A] bg-[#F5EEE4] px-2 py-0.5 rounded-full">
+            <span className="text-[10px] tracking-[0.08em] text-[#C8B89A] bg-[#F5EEE4] px-2 py-0.5 rounded-full">
               Analytics
             </span>
           )}
           <span
-            className="px-2.5 py-1 rounded-full text-[10px] tracking-[0.08em] uppercase font-medium"
+            className="px-2.5 py-1 rounded-full text-[10px] tracking-[0.08em] font-medium"
             style={{ backgroundColor: STATUS_BG[post.status], color: STATUS_TEXT[post.status] }}
           >
             {STATUS_LABELS[post.status]}
           </span>
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#8C8277" strokeWidth="1.2"
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#b0a89e" strokeWidth="1.2"
             className={`transition-transform ${expanded ? "rotate-180" : ""}`}>
             <path d="M2 4l4 4 4-4" />
           </svg>
@@ -187,11 +187,11 @@ function PostRow({
             <div className="space-y-5">
               {post.clientFeedback && (
                 <div className="rounded-2xl border border-[#F0C0C0] bg-[#FBEAEA] p-4 space-y-2">
-                  <p className="text-[10px] tracking-[0.1em] uppercase text-[#9B2335]">Client requested changes</p>
-                  <p className="text-sm text-[#1A1714] whitespace-pre-wrap">{post.clientFeedback}</p>
+                  <p className="text-[10px] tracking-[0.1em] text-[#9B2335]">Client requested changes</p>
+                  <p className="text-sm text-[#1A1917] whitespace-pre-wrap">{post.clientFeedback}</p>
                   <button
                     onClick={() => founderAcknowledgeFeedbackAction(post.id, clientProfileId)}
-                    className="text-[10px] tracking-[0.08em] uppercase text-[#9B2335] hover:text-[#1A1714] transition-colors"
+                    className="text-[10px] tracking-[0.08em] text-[#9B2335] hover:text-[#1A1917] transition-colors"
                   >
                     Mark as addressed
                   </button>
@@ -203,27 +203,27 @@ function PostRow({
 
                 <div className="flex gap-3">
                   <button onClick={() => setEditing(true)}
-                    className="text-[10px] tracking-[0.08em] uppercase text-[#C8B89A] hover:text-[#1A1714] transition-colors">
+                    className="text-[10px] tracking-[0.08em] text-[#C8B89A] hover:text-[#1A1917] transition-colors">
                     Edit
                   </button>
                   {deleting ? (
                     <div className="flex items-center gap-2">
                       <span className="text-[10px] text-[#9B2335]">Delete this?</span>
                       <button onClick={() => { founderDeletePostAction(post.id, clientProfileId); }}
-                        className="text-[10px] text-[#9B2335] uppercase tracking-[0.08em]">Yes, delete</button>
+                        className="text-[10px] text-[#9B2335] tracking-[0.08em]">Yes, delete</button>
                       <button onClick={() => setDeleting(false)}
-                        className="text-[10px] text-[#8C8277] uppercase tracking-[0.08em]">Cancel</button>
+                        className="text-[10px] text-[#b0a89e] tracking-[0.08em]">Cancel</button>
                     </div>
                   ) : (
                     <button onClick={() => setDeleting(true)}
-                      className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277] hover:text-[#9B2335] transition-colors">
+                      className="text-[10px] tracking-[0.08em] text-[#b0a89e] hover:text-[#9B2335] transition-colors">
                       Delete
                     </button>
                   )}
                 </div>
               </div>
 
-              <div className="border-t border-[#E8E2D9] pt-5 space-y-5">
+              <div className="border-t border-[#EDEBE6] pt-5 space-y-5">
               {story ? (
                 <Field label="Outline" value={post.planDetails} multiline />
               ) : (
@@ -232,16 +232,16 @@ function PostRow({
                   <Field label={`Hook · ${HOOK_TYPE_LABELS[post.hookType] ?? post.hookType}`} value={post.hook} />
                   {post.inspirationLink && (
                     <div>
-                      <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-0.5">Inspo</p>
+                      <p className="text-[10px] tracking-[0.1em] text-[#b0a89e] mb-0.5">Inspo</p>
                       <a href={post.inspirationLink} target="_blank" rel="noopener noreferrer"
                         className="text-xs text-[#C8B89A] underline truncate block">{post.inspirationLink}</a>
                     </div>
                   )}
                   <Field label="Details / plan structure" value={post.planDetails} multiline />
                   <div>
-                    <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-0.5">Outcome they want</p>
-                    <p className="text-sm text-[#1A1714]">
-                      {post.desiredOutcome ? OUTCOME_LABELS[post.desiredOutcome] : <span className="text-[#8C8277] italic">Not set yet — client chooses</span>}
+                    <p className="text-[10px] tracking-[0.1em] text-[#b0a89e] mb-0.5">Outcome they want</p>
+                    <p className="text-sm text-[#1A1917]">
+                      {post.desiredOutcome ? OUTCOME_LABELS[post.desiredOutcome] : <span className="text-[#b0a89e] italic">Not set yet: client chooses</span>}
                     </p>
                   </div>
                 </>
@@ -250,7 +250,7 @@ function PostRow({
               {/* Analytics */}
               {hasMetrics && (
                 <div className="rounded-2xl bg-[#F5F2ED] p-4">
-                  <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277] mb-3">Analytics</p>
+                  <p className="text-[10px] tracking-[0.12em] text-[#b0a89e] mb-3">Analytics</p>
                   <div className="grid grid-cols-4 gap-3">
                     <MetricPill label="Views" value={post.views} />
                     <MetricPill label="Likes" value={post.likes} />
@@ -262,7 +262,7 @@ function PostRow({
                     <MetricPill label="Follows" value={post.follows} />
                   </div>
                   {post.metricsLoggedAt && (
-                    <p className="text-[10px] text-[#8C8277] mt-2">
+                    <p className="text-[10px] text-[#b0a89e] mt-2">
                       Logged {new Date(post.metricsLoggedAt).toLocaleDateString("en-AU", { day: "numeric", month: "short" })}
                     </p>
                   )}
@@ -280,47 +280,47 @@ function PostRow({
                 <>
                   <div className="grid grid-cols-3 gap-3">
                     <div>
-                      <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1 block">Content type</label>
+                      <label className="text-[10px] tracking-[0.1em] text-[#b0a89e] mb-1 block">Content type</label>
                       <select name="contentType" defaultValue={post.contentType}
-                        className="w-full rounded-xl border border-[#E8E2D9] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1714] focus:outline-none focus:border-[#C8B89A]">
+                        className="w-full rounded-xl border border-[#EDEBE6] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1917] focus:outline-none focus:border-[#C8B89A]">
                         {POST_TYPES.map((t) => <option key={t} value={t}>{POST_TYPE_LABELS[t]}</option>)}
                       </select>
                     </div>
                     <div>
-                      <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1 block">Funnel</label>
+                      <label className="text-[10px] tracking-[0.1em] text-[#b0a89e] mb-1 block">Funnel</label>
                       <select name="funnel" defaultValue={post.funnel}
-                        className="w-full rounded-xl border border-[#E8E2D9] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1714] focus:outline-none focus:border-[#C8B89A]">
+                        className="w-full rounded-xl border border-[#EDEBE6] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1917] focus:outline-none focus:border-[#C8B89A]">
                         {FUNNEL_STAGES.map((f) => <option key={f} value={f}>{FUNNEL_LABELS[f]}</option>)}
                       </select>
                     </div>
                     <div>
-                      <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1 block">Hook type</label>
+                      <label className="text-[10px] tracking-[0.1em] text-[#b0a89e] mb-1 block">Hook type</label>
                       <select name="hookType" defaultValue={post.hookType}
-                        className="w-full rounded-xl border border-[#E8E2D9] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1714] focus:outline-none focus:border-[#C8B89A]">
+                        className="w-full rounded-xl border border-[#EDEBE6] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1917] focus:outline-none focus:border-[#C8B89A]">
                         {HOOK_TYPES.map((h) => <option key={h} value={h}>{HOOK_TYPE_LABELS[h]}</option>)}
                       </select>
                     </div>
                   </div>
                   <div>
-                    <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1 block">Topic</label>
+                    <label className="text-[10px] tracking-[0.1em] text-[#b0a89e] mb-1 block">Topic</label>
                     <input name="topic" defaultValue={post.topic}
-                      className="w-full rounded-xl border border-[#E8E2D9] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1714] focus:outline-none focus:border-[#C8B89A]" />
+                      className="w-full rounded-xl border border-[#EDEBE6] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1917] focus:outline-none focus:border-[#C8B89A]" />
                   </div>
                   <div>
-                    <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1 block">Hook</label>
+                    <label className="text-[10px] tracking-[0.1em] text-[#b0a89e] mb-1 block">Hook</label>
                     <input name="hook" defaultValue={post.hook}
-                      className="w-full rounded-xl border border-[#E8E2D9] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1714] focus:outline-none focus:border-[#C8B89A]" />
+                      className="w-full rounded-xl border border-[#EDEBE6] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1917] focus:outline-none focus:border-[#C8B89A]" />
                   </div>
                   <div>
-                    <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1 block">Inspiration link</label>
+                    <label className="text-[10px] tracking-[0.1em] text-[#b0a89e] mb-1 block">Inspiration link</label>
                     <input name="inspirationLink" defaultValue={post.inspirationLink ?? ""}
-                      className="w-full rounded-xl border border-[#E8E2D9] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1714] focus:outline-none focus:border-[#C8B89A]" />
+                      className="w-full rounded-xl border border-[#EDEBE6] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1917] focus:outline-none focus:border-[#C8B89A]" />
                   </div>
                   <div>
-                    <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1 block">Outcome they want</label>
+                    <label className="text-[10px] tracking-[0.1em] text-[#b0a89e] mb-1 block">Outcome they want</label>
                     <select name="desiredOutcome" defaultValue={post.desiredOutcome ?? ""}
-                      className="w-full rounded-xl border border-[#E8E2D9] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1714] focus:outline-none focus:border-[#C8B89A]">
-                      <option value="">Not set yet — client chooses</option>
+                      className="w-full rounded-xl border border-[#EDEBE6] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1917] focus:outline-none focus:border-[#C8B89A]">
+                      <option value="">Not set yet: client chooses</option>
                       {OUTCOMES.map((o) => <option key={o} value={o}>{OUTCOME_LABELS[o]}</option>)}
                     </select>
                   </div>
@@ -328,25 +328,25 @@ function PostRow({
               )}
 
               <div>
-                <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1 block">
+                <label className="text-[10px] tracking-[0.1em] text-[#b0a89e] mb-1 block">
                   {story ? "Outline" : "Details / plan structure"}
                 </label>
                 <textarea
                   name="planDetails"
                   rows={story ? 6 : 4}
                   defaultValue={post.planDetails ?? ""}
-                  className="w-full rounded-xl border border-[#E8E2D9] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1714] placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A] resize-none"
+                  className="w-full rounded-xl border border-[#EDEBE6] bg-[#FFFFFF] px-3 py-2 text-xs text-[#1A1917] placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A] resize-none"
                 />
               </div>
 
               {updateState.error && <p className="text-xs text-[#9B2335]">{updateState.error}</p>}
               <div className="flex gap-3">
                 <button type="submit" disabled={updatePending}
-                  className="px-4 py-2 rounded-xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-[0.1em] uppercase disabled:opacity-50">
+                  className="px-4 py-2 rounded-xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-[0.1em] disabled:opacity-50">
                   {updatePending ? "Saving…" : "Save"}
                 </button>
                 <button type="button" onClick={() => setEditing(false)}
-                  className="px-4 py-2 rounded-xl border border-[#E8E2D9] text-[#5C5550] text-xs tracking-[0.1em] uppercase">
+                  className="px-4 py-2 rounded-xl border border-[#EDEBE6] text-[#7a7268] text-xs tracking-[0.1em]">
                   Cancel
                 </button>
               </div>
@@ -383,18 +383,18 @@ function AddForm({
     required: true,
     min: `${year}-${String(m).padStart(2, "0")}-01`,
     max: `${year}-${String(m).padStart(2, "0")}-${String(daysInMonth).padStart(2, "0")}`,
-    className: "w-full rounded-xl border border-[#E8E2D9] bg-[#FFFFFF] px-3 py-2 text-xs focus:outline-none focus:border-[#C8B89A]",
+    className: "w-full rounded-xl border border-[#EDEBE6] bg-[#FFFFFF] px-3 py-2 text-xs focus:outline-none focus:border-[#C8B89A]",
   };
-  const inputClass = "w-full rounded-xl border border-[#E8E2D9] bg-[#FFFFFF] px-3 py-2 text-xs focus:outline-none focus:border-[#C8B89A]";
-  const labelClass = "text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1 block";
+  const inputClass = "w-full rounded-xl border border-[#EDEBE6] bg-[#FFFFFF] px-3 py-2 text-xs focus:outline-none focus:border-[#C8B89A]";
+  const labelClass = "text-[10px] tracking-[0.1em] text-[#b0a89e] mb-1 block";
 
   return (
     <div className="rounded-2xl border border-[#C8B89A] bg-[#FDFCFA] p-5 space-y-4">
-      <div className="flex items-center rounded-xl border border-[#E8E2D9] overflow-hidden w-fit">
+      <div className="flex items-center rounded-xl border border-[#EDEBE6] overflow-hidden w-fit">
         <button type="button" onClick={() => setKind("post")}
-          className={`px-3 py-1.5 text-[10px] tracking-[0.1em] uppercase transition-colors ${kind === "post" ? "bg-[#1A1714] text-[#FAFAF8]" : "text-[#5C5550]"}`}>Post</button>
+          className={`px-3 py-1.5 text-[10px] tracking-[0.1em] transition-colors ${kind === "post" ? "bg-[#1A1917] text-[#FAFAF8]" : "text-[#7a7268]"}`}>Post</button>
         <button type="button" onClick={() => setKind("story")}
-          className={`px-3 py-1.5 text-[10px] tracking-[0.1em] uppercase transition-colors ${kind === "story" ? "bg-[#1A1714] text-[#FAFAF8]" : "text-[#5C5550]"}`}>Story</button>
+          className={`px-3 py-1.5 text-[10px] tracking-[0.1em] transition-colors ${kind === "story" ? "bg-[#1A1917] text-[#FAFAF8]" : "text-[#7a7268]"}`}>Story</button>
       </div>
 
       {kind === "post" ? (
@@ -446,13 +446,13 @@ function AddForm({
           <div>
             <label className={labelClass}>Outcome they want</label>
             <select name="desiredOutcome" defaultValue="" className={inputClass}>
-              <option value="">Not set yet — client chooses</option>
+              <option value="">Not set yet: client chooses</option>
               {OUTCOMES.map((o) => <option key={o} value={o}>{OUTCOME_LABELS[o]}</option>)}
             </select>
           </div>
           {addPostState.error && <p className="text-xs text-[#9B2335]">{addPostState.error}</p>}
           <button type="submit" disabled={addPostPending}
-            className="px-5 py-2 rounded-xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-[0.1em] uppercase disabled:opacity-50">
+            className="px-5 py-2 rounded-xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-[0.1em] disabled:opacity-50">
             {addPostPending ? "Adding…" : "Add post"}
           </button>
         </form>
@@ -470,7 +470,7 @@ function AddForm({
           </div>
           {addStoryState.error && <p className="text-xs text-[#9B2335]">{addStoryState.error}</p>}
           <button type="submit" disabled={addStoryPending}
-            className="px-5 py-2 rounded-xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-[0.1em] uppercase disabled:opacity-50">
+            className="px-5 py-2 rounded-xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-[0.1em] disabled:opacity-50">
             {addStoryPending ? "Adding…" : "Add story"}
           </button>
         </form>
@@ -506,37 +506,37 @@ export function FounderContentCalendar({
       {/* Stats row */}
       <div className="grid grid-cols-3 gap-3">
         {STATUSES.map((s) => (
-          <div key={s} className="rounded-2xl border border-[#E8E2D9] bg-[#FFFFFF] p-4 text-center">
-            <p className="font-display text-2xl font-light" style={{ color: STATUS_TEXT[s] }}>{byStatus[s]}</p>
-            <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mt-0.5">{STATUS_LABELS[s]}</p>
+          <div key={s} className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] p-4 text-center">
+            <p className="text-2xl font-[300]" style={{ color: STATUS_TEXT[s] }}>{byStatus[s]}</p>
+            <p className="text-[10px] tracking-[0.1em] text-[#b0a89e] mt-0.5">{STATUS_LABELS[s]}</p>
           </div>
         ))}
       </div>
       {totalWithMetrics > 0 && (
-        <p className="text-xs text-[#8C8277]">{totalWithMetrics} of {posts.length} have analytics logged by client.</p>
+        <p className="text-xs text-[#b0a89e]">{totalWithMetrics} of {posts.length} have analytics logged by client.</p>
       )}
 
       {/* View toggle + Add */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center rounded-xl border border-[#E8E2D9] overflow-hidden">
+        <div className="flex items-center rounded-xl border border-[#EDEBE6] overflow-hidden">
           <button
             onClick={() => { setView("list"); setSelectedId(null); }}
-            className={`px-3 py-1.5 text-[10px] tracking-[0.1em] uppercase transition-colors ${view === "list" ? "bg-[#1A1714] text-[#FAFAF8]" : "text-[#5C5550] hover:text-[#1A1714]"}`}
+            className={`px-3 py-1.5 text-[10px] tracking-[0.1em] transition-colors ${view === "list" ? "bg-[#1A1917] text-[#FAFAF8]" : "text-[#7a7268] hover:text-[#1A1917]"}`}
           >List</button>
           <button
             onClick={() => { setView("calendar"); setSelectedId(null); }}
-            className={`px-3 py-1.5 text-[10px] tracking-[0.1em] uppercase transition-colors ${view === "calendar" ? "bg-[#1A1714] text-[#FAFAF8]" : "text-[#5C5550] hover:text-[#1A1714]"}`}
+            className={`px-3 py-1.5 text-[10px] tracking-[0.1em] transition-colors ${view === "calendar" ? "bg-[#1A1917] text-[#FAFAF8]" : "text-[#7a7268] hover:text-[#1A1917]"}`}
           >Calendar</button>
         </div>
         <div className="flex items-center gap-2">
           {view === "list" && (
             <button onClick={() => { setShowBulk(!showBulk); setShowAdd(false); }}
-              className="px-4 py-2 rounded-2xl border border-[#1A1714] text-[#1A1714] text-xs tracking-[0.1em] uppercase hover:bg-[#F5F2ED] transition-colors">
+              className="px-4 py-2 rounded-2xl border border-[#1A1917] text-[#1A1917] text-xs tracking-[0.1em] hover:bg-[#F5F2ED] transition-colors">
               {showBulk ? "Close bulk add" : "Bulk add"}
             </button>
           )}
           <button onClick={() => { setShowAdd(!showAdd); setShowBulk(false); }}
-            className="px-4 py-2 rounded-2xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-[0.1em] uppercase hover:bg-[#2C2520] transition-colors">
+            className="px-4 py-2 rounded-2xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-[0.1em] hover:bg-[#2C2520] transition-colors">
             {showAdd ? "Cancel" : "+ Add"}
           </button>
         </div>
@@ -556,9 +556,9 @@ export function FounderContentCalendar({
         const storyItems = posts.filter(isStory);
         if (posts.length === 0) {
           return (
-            <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF]" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
+            <div className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF]" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
               <div className="px-6 py-12 text-center">
-                <p className="text-sm text-[#8C8277]">Nothing planned for this month.</p>
+                <p className="text-sm text-[#b0a89e]">Nothing planned for this month.</p>
               </div>
             </div>
           );
@@ -566,11 +566,11 @@ export function FounderContentCalendar({
         return (
           <div className="space-y-6">
             <div>
-              <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-2">Posts · {postItems.length}</p>
-              <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF]" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
+              <p className="text-[10px] tracking-[0.1em] text-[#b0a89e] mb-2">Posts · {postItems.length}</p>
+              <div className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF]" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
                 {postItems.length === 0 ? (
                   <div className="px-6 py-8 text-center">
-                    <p className="text-sm text-[#8C8277]">No posts planned for this month.</p>
+                    <p className="text-sm text-[#b0a89e]">No posts planned for this month.</p>
                   </div>
                 ) : (
                   postItems.map((post) => (
@@ -580,11 +580,11 @@ export function FounderContentCalendar({
               </div>
             </div>
             <div>
-              <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-2">Stories · {storyItems.length}</p>
-              <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF]" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
+              <p className="text-[10px] tracking-[0.1em] text-[#b0a89e] mb-2">Stories · {storyItems.length}</p>
+              <div className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF]" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
                 {storyItems.length === 0 ? (
                   <div className="px-6 py-8 text-center">
-                    <p className="text-sm text-[#8C8277]">No stories planned for this month.</p>
+                    <p className="text-sm text-[#b0a89e]">No stories planned for this month.</p>
                   </div>
                 ) : (
                   storyItems.map((post) => (
@@ -616,7 +616,7 @@ export function FounderContentCalendar({
                     style={{ backgroundColor: `${TYPE_COLORS[post.contentType]}15` }}
                   >
                     <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: TYPE_COLORS[post.contentType] }} />
-                    <span className="truncate text-[#1A1714]">{isStory(post) ? "Story" : (post.topic || "Untitled")}</span>
+                    <span className="truncate text-[#1A1917]">{isStory(post) ? "Story" : (post.topic || "Untitled")}</span>
                     {post.clientFeedback && <span className="ml-auto text-[#9B2335] flex-shrink-0" title="Client requested changes">●</span>}
                     {!post.clientFeedback && pendingApproval && <span className="ml-auto text-[#B7791F] flex-shrink-0" title="Awaiting client approval">●</span>}
                     {post.status === "complete" && <span className="ml-auto text-[#2D6A4F] flex-shrink-0">✓</span>}
@@ -626,7 +626,7 @@ export function FounderContentCalendar({
             }}
           />
           {selectedId && posts.find((p) => p.id === selectedId) && (
-            <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF]" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
+            <div className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF]" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
               <PostRow
                 post={posts.find((p) => p.id === selectedId)!}
                 clientProfileId={clientProfileId}

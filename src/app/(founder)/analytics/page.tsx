@@ -79,32 +79,32 @@ export default async function FounderAnalyticsPage() {
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">Analytics</h1>
-        <p className="mt-1.5 text-sm text-[#5C5550]">{monthName} — performance across all clients</p>
+        <h1 className="text-4xl font-[300] tracking-tight text-[#1A1917]">Analytics</h1>
+        <p className="mt-1.5 text-sm text-[#7a7268]">{monthName}: performance across all clients</p>
       </div>
 
       {/* Roster totals */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="rounded-3xl border border-[#E8E2D9] bg-white p-5 text-center">
-          <p className="font-display text-2xl font-light text-[#1A1714]">{totalReach.toLocaleString("en-AU")}</p>
-          <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mt-1">Total reach logged</p>
+        <div className="rounded-3xl border border-[#EDEBE6] bg-white p-5 text-center">
+          <p className="text-2xl font-[300] text-[#1A1917]">{totalReach.toLocaleString("en-AU")}</p>
+          <p className="text-[10px] tracking-[0.1em] text-[#b0a89e] mt-1">Total reach logged</p>
         </div>
-        <div className="rounded-3xl border border-[#E8E2D9] bg-white p-5 text-center">
-          <p className="font-display text-2xl font-light text-[#1A1714]">{totalEngagement.toLocaleString("en-AU")}</p>
-          <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mt-1">Weighted engagement</p>
+        <div className="rounded-3xl border border-[#EDEBE6] bg-white p-5 text-center">
+          <p className="text-2xl font-[300] text-[#1A1917]">{totalEngagement.toLocaleString("en-AU")}</p>
+          <p className="text-[10px] tracking-[0.1em] text-[#b0a89e] mt-1">Weighted engagement</p>
         </div>
-        <div className="rounded-3xl border border-[#E8E2D9] bg-white p-5 text-center">
-          <p className="font-display text-2xl font-light text-[#1A1714]">{totalPosted}</p>
-          <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mt-1">Posts published this month</p>
+        <div className="rounded-3xl border border-[#EDEBE6] bg-white p-5 text-center">
+          <p className="text-2xl font-[300] text-[#1A1917]">{totalPosted}</p>
+          <p className="text-[10px] tracking-[0.1em] text-[#b0a89e] mt-1">Posts published this month</p>
         </div>
       </div>
 
       {/* Conversion flag */}
       {flagged.length > 0 && (
         <div className="rounded-3xl border border-[#F0C0C0] bg-[#FBEAEA] p-6 space-y-2">
-          <p className="text-[10px] tracking-[0.15em] uppercase text-[#9B2335]">Content isn&apos;t converting</p>
-          <p className="text-xs text-[#5C5550]">
-            These clients have logged content in the last 4 weeks but zero enquiries from it — worth auditing the hook, CTA, or pillar mix.
+          <p className="text-[10px] tracking-[0.15em] text-[#9B2335]">Content isn&apos;t converting</p>
+          <p className="text-xs text-[#7a7268]">
+            These clients have logged content in the last 4 weeks but zero enquiries from it: worth auditing the hook, CTA, or pillar mix.
           </p>
           <div className="flex flex-wrap gap-2 pt-1">
             {flagged.map((r) => (
@@ -118,28 +118,28 @@ export default async function FounderAnalyticsPage() {
 
       {/* Per-client breakdown */}
       <div>
-        <p className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-4">By client — sorted by reach this month</p>
-        <div className="rounded-3xl border border-[#E8E2D9] bg-white divide-y divide-[#E8E2D9]" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
+        <p className="text-[10px] tracking-[0.15em] text-[#b0a89e] mb-4">By client: sorted by reach this month</p>
+        <div className="rounded-3xl border border-[#EDEBE6] bg-white divide-y divide-[#EDEBE6]" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
           {byReach.length === 0 && (
             <div className="px-6 py-12 text-center">
-              <p className="text-sm text-[#8C8277]">No active clients yet.</p>
+              <p className="text-sm text-[#b0a89e]">No active clients yet.</p>
             </div>
           )}
           {byReach.map((r) => (
             <div key={r.id} className="px-6 py-4 flex items-center justify-between gap-4 flex-wrap">
               <div className="min-w-0">
-                <p className="text-sm text-[#1A1714] font-medium">{r.name}</p>
-                <p className="text-xs text-[#8C8277]">{r.business}</p>
+                <p className="text-sm text-[#1A1917] font-medium">{r.name}</p>
+                <p className="text-xs text-[#b0a89e]">{r.business}</p>
               </div>
               <div className="flex items-center gap-6 flex-wrap">
                 <div className="text-center">
-                  <p className="text-sm text-[#1A1714]">
+                  <p className="text-sm text-[#1A1917]">
                     {r.consistency != null ? `${r.postedThisMonth}/${r.plannedThisMonth}` : "—"}
                   </p>
-                  <p className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277]">Posted</p>
+                  <p className="text-[10px] tracking-[0.08em] text-[#b0a89e]">Posted</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-sm text-[#1A1714]">
+                  <p className="text-sm text-[#1A1917]">
                     {r.reachThisMonth.toLocaleString("en-AU")}
                     {r.reachTrend != null && (
                       <span className={r.reachTrend >= 0 ? "text-[#2D6A4F]" : "text-[#9B2335]"}>
@@ -147,14 +147,14 @@ export default async function FounderAnalyticsPage() {
                       </span>
                     )}
                   </p>
-                  <p className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277]">Reach</p>
+                  <p className="text-[10px] tracking-[0.08em] text-[#b0a89e]">Reach</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-sm text-[#1A1714]">{r.enquiries}</p>
-                  <p className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277]">Enquiries (4wk)</p>
+                  <p className="text-sm text-[#1A1917]">{r.enquiries}</p>
+                  <p className="text-[10px] tracking-[0.08em] text-[#b0a89e]">Enquiries (4wk)</p>
                 </div>
                 {r.contentNotConverting && (
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#FBEAEA] text-[#9B2335] uppercase tracking-[0.08em]">Not converting</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#FBEAEA] text-[#9B2335] tracking-[0.08em]">Not converting</span>
                 )}
               </div>
             </div>

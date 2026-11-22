@@ -49,23 +49,23 @@ export default async function ClientContentCalendarPage({
       {/* Header */}
       <div>
         <div className="flex items-center gap-3 mb-1">
-          <Link href="/clients" className="text-xs text-[#8C8277] hover:text-[#5C5550] transition-colors">Clients</Link>
-          <span className="text-[#E8E2D9]">/</span>
-          <Link href={`/clients/${id}`} className="text-xs text-[#8C8277] hover:text-[#5C5550] transition-colors">{client.founderName}</Link>
-          <span className="text-[#E8E2D9]">/</span>
-          <span className="text-xs text-[#5C5550]">Content Calendar</span>
+          <Link href="/clients" className="text-xs text-[#b0a89e] hover:text-[#7a7268] transition-colors">Clients</Link>
+          <span className="text-[#EDEBE6]">/</span>
+          <Link href={`/clients/${id}`} className="text-xs text-[#b0a89e] hover:text-[#7a7268] transition-colors">{client.founderName}</Link>
+          <span className="text-[#EDEBE6]">/</span>
+          <span className="text-xs text-[#7a7268]">Content Calendar</span>
         </div>
         <div className="flex items-end justify-between mt-1">
           <div>
-            <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">Content Calendar</h1>
-            <p className="mt-1 text-sm text-[#5C5550]">{client.founderName} · {client.businessName}</p>
+            <h1 className="text-4xl font-[300] tracking-tight text-[#1A1917]">Content Calendar</h1>
+            <p className="mt-1 text-sm text-[#7a7268]">{client.founderName} · {client.businessName}</p>
           </div>
           <div className="flex items-center gap-2">
             <Link href={`/clients/${id}/content-calendar?month=${prevMonth}`}
-              className="px-3 py-1.5 rounded-xl border border-[#E8E2D9] text-[#5C5550] text-xs hover:border-[#C8B89A] transition-colors">←</Link>
-            <span className="text-sm text-[#1A1714] min-w-[140px] text-center">{monthLabel}</span>
+              className="px-3 py-1.5 rounded-xl border border-[#EDEBE6] text-[#7a7268] text-xs hover:border-[#C8B89A] transition-colors">←</Link>
+            <span className="text-sm text-[#1A1917] min-w-[140px] text-center">{monthLabel}</span>
             <Link href={`/clients/${id}/content-calendar?month=${nextMonth}`}
-              className="px-3 py-1.5 rounded-xl border border-[#E8E2D9] text-[#5C5550] text-xs hover:border-[#C8B89A] transition-colors">→</Link>
+              className="px-3 py-1.5 rounded-xl border border-[#EDEBE6] text-[#7a7268] text-xs hover:border-[#C8B89A] transition-colors">→</Link>
           </div>
         </div>
       </div>
@@ -79,7 +79,7 @@ export default async function ClientContentCalendarPage({
             return (
               <Link key={mo} href={`/clients/${id}/content-calendar?month=${mo}`}
                 className={`px-3 py-1 rounded-xl text-xs transition-colors ${
-                  mo === month ? "bg-[#1A1714] text-[#FAFAF8]" : "border border-[#E8E2D9] text-[#5C5550] hover:border-[#C8B89A]"
+                  mo === month ? "bg-[#1A1917] text-[#FAFAF8]" : "border border-[#EDEBE6] text-[#7a7268] hover:border-[#C8B89A]"
                 }`}
               >
                 {label}

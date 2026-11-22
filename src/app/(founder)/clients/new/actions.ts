@@ -10,7 +10,7 @@ import crypto from "crypto";
 type State = { error: string };
 
 export async function createClient(_prev: State, formData: FormData): Promise<State> {
-  await requireAuth("founder");
+  const session = await requireAuth(["founder", "staff"]);
 
   const founderName = formData.get("founderName") as string;
   const businessName = formData.get("businessName") as string;
@@ -28,6 +28,8 @@ export async function createClient(_prev: State, formData: FormData): Promise<St
   const businessContext = formData.get("businessContext") as string;
   const personalityNotes = formData.get("personalityNotes") as string;
   const communicationStyle = formData.get("communicationStyle") as string;
+  const welcomeVideoUrl = (formData.get("welcomeVideoUrl") as string)?.trim() || null;
+  const kickoffCallUrl = (formData.get("kickoffCallUrl") as string)?.trim() || null;
   const sendInviteNow = formData.get("sendInviteNow") === "on";
 
   if (!founderName || !businessName || !email) {
@@ -75,6 +77,9 @@ export async function createClient(_prev: State, formData: FormData): Promise<St
           businessContext: businessContext || null,
           personalityNotes: personalityNotes || null,
           communicationStyle: communicationStyle || null,
+          welcomeVideoUrl,
+          kickoffCallUrl,
+          ownedByUserId: session.role === "staff" ? session.id : null,
         },
       },
     },
@@ -94,6 +99,28 @@ export async function createClient(_prev: State, formData: FormData): Promise<St
       step,
       status: "pending",
     })),
+  });
+
+  // Auto-create founder onboarding tasks
+  const dueWeek1 = new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+  await prisma.task.createMany({
+    data: [
+      {
+        clientProfileId: clientId,
+        title: `Send handwritten note + welcome gift to ${founderName}`,
+        category: "onboarding",
+        priority: "high",
+        assignedTo: "founder",
+      },
+      {
+        clientProfileId: clientId,
+        title: `Send week 1 check-in message to ${founderName}`,
+        category: "onboarding",
+        priority: "medium",
+        assignedTo: "founder",
+        dueDate: dueWeek1,
+      },
+    ],
   });
 
   // Send invite email only if requested

@@ -22,14 +22,14 @@ export default async function RoadmapPage() {
     return (
       <div className="space-y-8">
         <div>
-          <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">
+          <h1 className="text-4xl font-[200] text-[#1A1917]">
             90-Day Roadmap
           </h1>
-          <p className="mt-1.5 text-sm text-[#5C5550]">Your personalised 90-day business plan</p>
+          <p className="mt-1.5 text-sm text-[#7a7268]">Your personalised 90-day business plan</p>
         </div>
-        <div className="rounded-3xl border border-[#E8E2D9] px-8 py-16 text-center">
-          <p className="font-display text-2xl font-thin tracking-wide text-[#1A1714]">Roadmap coming soon</p>
-          <p className="mt-2 text-sm text-[#5C5550]">
+        <div className="rounded-2xl border border-[#EDEBE6] px-8 py-16 text-center">
+          <p className="text-2xl font-[200] text-[#1A1917]">Roadmap coming soon</p>
+          <p className="mt-2 text-sm text-[#7a7268]">
             Jess will build your 90-day roadmap in your first session.
           </p>
         </div>
@@ -53,12 +53,12 @@ export default async function RoadmapPage() {
   return (
     <div className="space-y-8 pb-16">
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">
+        <h1 className="text-4xl font-[200] text-[#1A1917]">
           {roadmap.title}
         </h1>
-        <p className="mt-1.5 text-sm text-[#5C5550]">
+        <p className="mt-1.5 text-sm text-[#7a7268]">
           {startDate.toLocaleDateString("en-AU", { day: "numeric", month: "long", year: "numeric" })}
-          {" — "}
+          {": "}
           {endDate.toLocaleDateString("en-AU", { day: "numeric", month: "long", year: "numeric" })}
         </p>
       </div>
@@ -66,10 +66,10 @@ export default async function RoadmapPage() {
       {phases.map((phase) => (
         <div key={phase.label} className="space-y-3">
           <div className="flex items-baseline gap-3">
-            <h2 className="font-display text-xl font-thin tracking-widest text-[#1A1714] uppercase">
+            <h2 className="text-xl font-[300] text-[#1A1917] uppercase">
               {phase.label}
             </h2>
-            <span className="text-xs text-[#8C8277] tracking-wide">{phase.subLabel}</span>
+            <span className="text-xs text-[#b0a89e] tracking-wide">{phase.subLabel}</span>
             {phase.focus && (
               <span
                 className="px-3 py-0.5 rounded-full text-[10px] tracking-[0.1em] uppercase font-medium text-white"
@@ -91,40 +91,40 @@ export default async function RoadmapPage() {
               return (
                 <div
                   key={w.week}
-                  className="rounded-2xl border border-[#E8E2D9] bg-[#FFFFFF] p-5"
+                  className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] p-5"
                   style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}
                 >
                   <div className="flex items-baseline justify-between mb-3">
                     <div className="flex items-baseline gap-2">
-                      <span className="font-display text-2xl font-thin" style={{ color: phase.color }}>
+                      <span className="text-2xl font-[300]" style={{ color: phase.color }}>
                         Week {w.week}
                       </span>
                     </div>
-                    <span className="text-[10px] text-[#8C8277]">
+                    <span className="text-[10px] text-[#b0a89e]">
                       {weekStart.toLocaleDateString("en-AU", { day: "numeric", month: "short" })} – {weekEnd.toLocaleDateString("en-AU", { day: "numeric", month: "short" })}
                     </span>
                   </div>
 
                   {!hasContent ? (
-                    <p className="text-xs text-[#8C8277] italic">Not yet planned</p>
+                    <p className="text-xs text-[#b0a89e] italic">Not yet planned</p>
                   ) : (
                     <div className="space-y-3">
                       {w.focus && (
                         <div>
-                          <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1">Weekly focus</p>
-                          <p className="text-sm text-[#1A1714] leading-relaxed">{w.focus}</p>
+                          <p className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] mb-1">Weekly focus</p>
+                          <p className="text-sm text-[#1A1917] leading-relaxed">{w.focus}</p>
                         </div>
                       )}
                       {w.priority && (
                         <div>
-                          <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1">Top priority</p>
-                          <p className="text-sm text-[#5C5550] leading-relaxed">{w.priority}</p>
+                          <p className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] mb-1">Top priority</p>
+                          <p className="text-sm text-[#7a7268] leading-relaxed">{w.priority}</p>
                         </div>
                       )}
                       {w.milestone && (
                         <div className="rounded-xl bg-[#F5F2ED] px-3 py-2">
-                          <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-0.5">Milestone</p>
-                          <p className="text-xs text-[#1A1714]">{w.milestone}</p>
+                          <p className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] mb-0.5">Milestone</p>
+                          <p className="text-xs text-[#1A1917]">{w.milestone}</p>
                         </div>
                       )}
                     </div>

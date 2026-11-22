@@ -66,15 +66,15 @@ export function GranolaDashboardStrip({
 
   return (
     <div className="space-y-4">
-      {/* Sync strip — only shown when Granola is configured */}
+      {/* Sync strip: only shown when Granola is configured */}
       {hasMcpToken && (
-      <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] p-5 flex items-center justify-between gap-4">
+      <div className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF] p-5 flex items-center justify-between gap-4">
         <div>
-          <p className="text-sm text-[#1A1714]">Granola Sync</p>
-          <p className="text-xs text-[#5C5550] mt-0.5">
+          <p className="text-sm text-[#1A1917]">Granola Sync</p>
+          <p className="text-xs text-[#7a7268] mt-0.5">
             {lastRunText
               ? `Last sync: ${lastRunText} · ${lastLog!.transcriptsSaved} saved`
-              : "No syncs yet — connect via Granola settings"}
+              : "No syncs yet: connect via Granola settings"}
           </p>
           {syncMessage && (
             <p className="text-xs text-[#B7791F] mt-1">{syncMessage}</p>
@@ -83,7 +83,7 @@ export function GranolaDashboardStrip({
         <button
           onClick={handleSync}
           disabled={isPending}
-          className="px-5 py-2.5 text-xs tracking-[0.1em] uppercase text-[#FAFAF8] bg-[#1A1714] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
+          className="px-5 py-2.5 text-xs tracking-[0.1em] text-[#FAFAF8] bg-[#1A1917] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
         >
           {isPending ? "Syncing…" : "Sync Granola"}
         </button>
@@ -92,25 +92,25 @@ export function GranolaDashboardStrip({
 
       {/* Unmatched transcripts */}
       {unmatchedTranscripts.length > 0 && (
-        <div className="rounded-3xl border border-[#B7791F]/20 bg-[#B7791F]/5 divide-y divide-[#E8E2D9]">
+        <div className="rounded-3xl border border-[#B7791F]/20 bg-[#B7791F]/5 divide-y divide-[#EDEBE6]">
           <div className="px-5 py-3 flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#B7791F]" />
-            <p className="text-xs tracking-[0.1em] uppercase text-[#B7791F]">
+            <p className="text-xs tracking-[0.1em] text-[#B7791F]">
               {unmatchedTranscripts.length} unmatched transcript{unmatchedTranscripts.length !== 1 ? "s" : ""}
             </p>
           </div>
           {unmatchedTranscripts.map((t) => (
             <div key={t.id} className="px-5 py-4 space-y-3">
               <div>
-                <p className="text-sm text-[#1A1714]">{t.title}</p>
-                <p className="text-xs text-[#5C5550] mt-0.5">
+                <p className="text-sm text-[#1A1917]">{t.title}</p>
+                <p className="text-xs text-[#7a7268] mt-0.5">
                   {new Date(t.date).toLocaleDateString("en-AU", {
                     day: "numeric",
                     month: "short",
                     year: "numeric",
                   })}
                 </p>
-                <p className="text-[11px] text-[#8C8277] mt-1.5 line-clamp-2">
+                <p className="text-[11px] text-[#b0a89e] mt-1.5 line-clamp-2">
                   {t.transcript.slice(0, 200)}
                 </p>
               </div>
@@ -123,7 +123,7 @@ export function GranolaDashboardStrip({
                     onChange={(e) =>
                       setSelectedClients((prev) => ({ ...prev, [t.id]: e.target.value }))
                     }
-                    className="flex-1 bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl px-3 py-2 text-xs text-[#1A1714] focus:outline-none focus:border-[#C8B89A]/40"
+                    className="flex-1 bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl px-3 py-2 text-xs text-[#1A1917] focus:outline-none focus:border-[#C8B89A]/40"
                   >
                     <option value="">Select client…</option>
                     {clients.map((c) => (
@@ -135,7 +135,7 @@ export function GranolaDashboardStrip({
                   <button
                     onClick={() => handleAssign(t.id)}
                     disabled={isPending || !selectedClients[t.id]}
-                    className="px-4 py-2 text-xs tracking-[0.1em] uppercase text-[#FAFAF8] bg-[#1A1714] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40"
+                    className="px-4 py-2 text-xs tracking-[0.1em] text-[#FAFAF8] bg-[#1A1917] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40"
                   >
                     Assign & Process
                   </button>

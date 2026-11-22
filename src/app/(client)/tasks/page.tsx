@@ -35,8 +35,8 @@ export default async function TasksPage() {
     <div className="space-y-8">
       <div className="flex items-end justify-between">
         <div>
-          <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">Tasks</h1>
-          <p className="mt-1.5 text-sm text-[#5C5550]">
+          <h1 className="text-4xl font-[200] text-[#1A1917]">Tasks</h1>
+          <p className="mt-1.5 text-sm text-[#7a7268]">
             {openTasks.length} open · {completedTasks.length} completed
           </p>
         </div>
@@ -47,14 +47,14 @@ export default async function TasksPage() {
 
       {/* Open tasks by category */}
       {openTasks.length === 0 ? (
-        <div className="rounded-3xl border border-[#E8E2D9] px-8 py-10 text-center">
-          <p className="text-sm text-[#5C5550]">No open tasks right now. Add one above.</p>
+        <div className="rounded-2xl border border-[#EDEBE6] px-8 py-10 text-center">
+          <p className="text-sm text-[#7a7268]">No open tasks right now. Add one above.</p>
         </div>
       ) : (
         <div className="space-y-6">
           {Object.entries(tasksByCategory).map(([category, catTasks]) => (
             <div key={category}>
-              <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-3">
+              <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#b0a89e] mb-3">
                 {category}
               </h2>
               <TaskList tasks={catTasks} />
@@ -66,10 +66,10 @@ export default async function TasksPage() {
       {/* Completed tasks */}
       {completedTasks.length > 0 && (
         <div>
-          <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-3">
+          <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#b0a89e] mb-3">
             Completed
           </h2>
-          <div className="rounded-3xl border border-[#E8E2D9] divide-y divide-[#E8E2D9] opacity-60">
+          <div className="rounded-2xl border border-[#EDEBE6] divide-y divide-[#EDEBE6] opacity-60">
             {completedTasks.slice(0, 10).map((task) => (
               <div key={task.id} className="flex items-center gap-3 px-5 py-3.5">
                 <div className="w-3.5 h-3.5 border border-[#2D6A4F] bg-[#2D6A4F]/20 flex items-center justify-center flex-shrink-0">
@@ -77,9 +77,9 @@ export default async function TasksPage() {
                     <path d="M1.5 4l2 2 3-3" />
                   </svg>
                 </div>
-                <span className="text-xs text-[#5C5550] line-through">{task.title}</span>
+                <span className="text-xs text-[#7a7268] line-through">{task.title}</span>
                 {task.completedAt && (
-                  <span className="ml-auto text-[10px] text-[#8C8277]">
+                  <span className="ml-auto text-[10px] text-[#b0a89e]">
                     {new Date(task.completedAt).toLocaleDateString("en-AU", {
                       day: "numeric",
                       month: "short",

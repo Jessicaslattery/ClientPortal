@@ -54,6 +54,7 @@ export async function createFounderTaskAction(
   });
 
   revalidatePath("/my-tasks");
+  if (clientProfileId) revalidatePath(`/clients/${clientProfileId}`);
   return { success: true };
 }
 

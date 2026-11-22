@@ -33,23 +33,23 @@ export default async function BillingPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">
+        <h1 className="text-4xl font-[300] tracking-tight text-[#1A1917]">
           Billing
         </h1>
-        <p className="mt-1.5 text-sm text-[#5C5550]">Monthly investment overview</p>
+        <p className="mt-1.5 text-sm text-[#7a7268]">Monthly investment overview</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-4 gap-4">
         {[
           { label: "Total MRR", value: `$${totalMrr.toLocaleString("en-AU")}`, color: "#C8B89A" },
-          { label: "Active Clients", value: clients.length, color: "#1A1714" },
+          { label: "Active Clients", value: clients.length, color: "#1A1917" },
           { label: "Overdue", value: overdueCount, color: overdueCount > 0 ? "#9B2335" : "#2D6A4F" },
-          { label: "Due This Week", value: dueThisWeek, color: dueThisWeek > 0 ? "#B7791F" : "#8C8277" },
+          { label: "Due This Week", value: dueThisWeek, color: dueThisWeek > 0 ? "#B7791F" : "#b0a89e" },
         ].map((stat) => (
-          <div key={stat.label} className="rounded-3xl border border-[#E8E2D9] p-5">
-            <p className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277]">{stat.label}</p>
-            <p className="mt-2 font-display text-3xl font-thin tracking-widest" style={{ color: stat.color }}>
+          <div key={stat.label} className="rounded-3xl border border-[#EDEBE6] p-5">
+            <p className="text-[10px] tracking-[0.15em] text-[#b0a89e]">{stat.label}</p>
+            <p className="mt-2 text-3xl font-[300] tracking-tight" style={{ color: stat.color }}>
               {stat.value}
             </p>
           </div>

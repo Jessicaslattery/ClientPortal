@@ -109,7 +109,7 @@ function RevenueChart({ scorecards }: { scorecards: Scorecard[] }) {
 
   if (pts.length < 2) {
     return (
-      <p className="text-xs text-[#8C8277] py-8 text-center">
+      <p className="text-xs text-[#b0a89e] py-8 text-center">
         Not enough data to plot a trend yet
       </p>
     );
@@ -131,7 +131,7 @@ function RevenueChart({ scorecards }: { scorecards: Scorecard[] }) {
     linePath +
     ` L ${svgPts[svgPts.length - 1].x} ${baseline} L ${svgPts[0].x} ${baseline} Z`;
 
-  // Y-axis ticks: 0, 25%, 50%, 75%, max — rounded to nearest $500
+  // Y-axis ticks: 0, 25%, 50%, 75%, max: rounded to nearest $500
   const rawTicks = [0, 0.25, 0.5, 0.75, 1].map((t) =>
     Math.round((t * maxVal) / 500) * 500
   );
@@ -143,8 +143,8 @@ function RevenueChart({ scorecards }: { scorecards: Scorecard[] }) {
     <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 240 }}>
       <defs>
         <linearGradient id="revFill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#1A1714" stopOpacity="0.12" />
-          <stop offset="100%" stopColor="#1A1714" stopOpacity="0.01" />
+          <stop offset="0%" stopColor="#1A1917" stopOpacity="0.12" />
+          <stop offset="100%" stopColor="#1A1917" stopOpacity="0.01" />
         </linearGradient>
       </defs>
 
@@ -154,9 +154,9 @@ function RevenueChart({ scorecards }: { scorecards: Scorecard[] }) {
           <line
             x1={padL} x2={W - padR}
             y1={toY(v)} y2={toY(v)}
-            stroke="#E8E2D9" strokeWidth={v === 0 ? 1.5 : 1}
+            stroke="#EDEBE6" strokeWidth={v === 0 ? 1.5 : 1}
           />
-          <text x={padL - 8} y={toY(v) + 4} textAnchor="end" fontSize={10} fill="#8C8277">
+          <text x={padL - 8} y={toY(v) + 4} textAnchor="end" fontSize={10} fill="#b0a89e">
             {v >= 1000 ? `$${(v / 1000).toFixed(0)}k` : `$${v}`}
           </text>
         </g>
@@ -166,11 +166,11 @@ function RevenueChart({ scorecards }: { scorecards: Scorecard[] }) {
       <path d={fillPath} fill="url(#revFill)" />
 
       {/* Smooth line */}
-      <path d={linePath} fill="none" stroke="#1A1714" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
+      <path d={linePath} fill="none" stroke="#1A1917" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
 
       {/* Data points */}
       {svgPts.map((p, i) => (
-        <circle key={i} cx={p.x} cy={p.y} r={4} fill="#FAFAF8" stroke="#1A1714" strokeWidth={2} />
+        <circle key={i} cx={p.x} cy={p.y} r={4} fill="#FAFAF8" stroke="#1A1917" strokeWidth={2} />
       ))}
 
       {/* X-axis labels */}
@@ -179,7 +179,7 @@ function RevenueChart({ scorecards }: { scorecards: Scorecard[] }) {
         const d = new Date(s.weekStart);
         const label = d.toLocaleDateString("en-AU", { day: "numeric", month: "short", timeZone: "UTC" });
         return (
-          <text key={i} x={toX(i)} y={H - 6} textAnchor="middle" fontSize={9} fill="#8C8277">
+          <text key={i} x={toX(i)} y={H - 6} textAnchor="middle" fontSize={9} fill="#b0a89e">
             {label}
           </text>
         );
@@ -200,18 +200,18 @@ function Overview({ clients }: { clients: Client[]; onSelect: (id: string) => vo
         return (
           <div
             key={c.id}
-            className="rounded-3xl border border-[#E8E2D9] bg-white px-5 py-4"
+            className="rounded-3xl border border-[#EDEBE6] bg-white px-5 py-4"
             style={{ boxShadow: "0 1px 4px rgba(92,71,48,0.07)" }}
           >
-            <p className="text-sm font-medium text-[#1A1714]">{c.name}</p>
-            <p className="text-[11px] text-[#8C8277] mb-3">{c.business}</p>
+            <p className="text-sm font-medium text-[#1A1917]">{c.name}</p>
+            <p className="text-[11px] text-[#b0a89e] mb-3">{c.business}</p>
             {latest ? (
               <>
-                <p className="font-display text-2xl font-light text-[#1A1714]">
+                <p className="text-2xl font-[300] text-[#1A1917]">
                   {fmtNum(latest.revenue, "$")}
                 </p>
                 <div className="flex items-center gap-2 mt-1">
-                  <p className="text-[11px] text-[#8C8277]">
+                  <p className="text-[11px] text-[#b0a89e]">
                     Total revenue · {new Date(latest.weekStart).toLocaleDateString("en-AU", { day: "numeric", month: "short", timeZone: "UTC" })}
                   </p>
                   {d && (
@@ -222,7 +222,7 @@ function Overview({ clients }: { clients: Client[]; onSelect: (id: string) => vo
                 </div>
               </>
             ) : (
-              <p className="text-xs text-[#8C8277]">No scorecards yet</p>
+              <p className="text-xs text-[#b0a89e]">No scorecards yet</p>
             )}
           </div>
         );
@@ -235,9 +235,9 @@ function ClientDetail({ client }: { client: Client }) {
   const cards = client.scorecards;
   if (!cards.length) {
     return (
-      <div className="rounded-3xl border border-[#E8E2D9] bg-white px-6 py-12 text-center"
+      <div className="rounded-3xl border border-[#EDEBE6] bg-white px-6 py-12 text-center"
         style={{ boxShadow: "0 1px 4px rgba(92,71,48,0.07)" }}>
-        <p className="text-sm text-[#8C8277]">No weekly scorecards logged yet for {client.name}.</p>
+        <p className="text-sm text-[#b0a89e]">No weekly scorecards logged yet for {client.name}.</p>
       </div>
     );
   }
@@ -248,12 +248,12 @@ function ClientDetail({ client }: { client: Client }) {
   return (
     <div className="space-y-6">
       {/* Revenue chart */}
-      <div className="rounded-3xl border border-[#E8E2D9] bg-white px-6 pt-5 pb-4"
+      <div className="rounded-3xl border border-[#EDEBE6] bg-white px-6 pt-5 pb-4"
         style={{ boxShadow: "0 1px 4px rgba(92,71,48,0.07)" }}>
-        <p className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-1">
-          {client.name} — Revenue trend
+        <p className="text-[10px] tracking-[0.15em] text-[#b0a89e] mb-1">
+          {client.name}: Revenue trend
         </p>
-        <p className="text-xs text-[#5C5550] mb-4">
+        <p className="text-xs text-[#7a7268] mb-4">
           Latest: {new Date(latest.weekStart).toLocaleDateString("en-AU", { day: "numeric", month: "short", timeZone: "UTC" })}
           {prev ? ` · Previous: ${new Date(prev.weekStart).toLocaleDateString("en-AU", { day: "numeric", month: "short", timeZone: "UTC" })}` : ""}
         </p>
@@ -261,24 +261,24 @@ function ClientDetail({ client }: { client: Client }) {
       </div>
 
       {/* Metrics table */}
-      <div className="rounded-3xl border border-[#E8E2D9] bg-white overflow-hidden"
+      <div className="rounded-3xl border border-[#EDEBE6] bg-white overflow-hidden"
         style={{ boxShadow: "0 1px 4px rgba(92,71,48,0.07)" }}>
         <div className="px-6 pt-5 pb-3">
-          <p className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277]">
+          <p className="text-[10px] tracking-[0.15em] text-[#b0a89e]">
             Every metric · week on week
           </p>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-xs border-collapse" style={{ minWidth: 600 }}>
             <thead>
-              <tr className="border-b border-[#E8E2D9]">
-                <th className="sticky left-0 bg-white px-6 py-2.5 text-left text-[10px] uppercase tracking-[0.1em] text-[#8C8277] font-medium"
+              <tr className="border-b border-[#EDEBE6]">
+                <th className="sticky left-0 bg-white px-6 py-2.5 text-left text-[10px] tracking-[0.1em] text-[#b0a89e] font-medium"
                   style={{ minWidth: 200 }}>
                   Metric
                 </th>
                 {cards.map((c) => (
                   <th key={c.weekStart}
-                    className="px-4 py-2.5 text-left text-[10px] uppercase tracking-[0.08em] text-[#8C8277] font-medium whitespace-nowrap"
+                    className="px-4 py-2.5 text-left text-[10px] tracking-[0.08em] text-[#b0a89e] font-medium whitespace-nowrap"
                     style={{ minWidth: 140 }}>
                     {new Date(c.weekStart).toLocaleDateString("en-AU", { day: "numeric", month: "short", timeZone: "UTC" })}
                   </th>
@@ -287,8 +287,8 @@ function ClientDetail({ client }: { client: Client }) {
             </thead>
             <tbody>
               {METRICS.map((m) => (
-                <tr key={m.key} className="border-b border-[#E8E2D9] last:border-0 hover:bg-[#F5F2ED]/50">
-                  <td className="sticky left-0 bg-white px-6 py-3 text-[#5C5550] text-[11px]">
+                <tr key={m.key} className="border-b border-[#EDEBE6] last:border-0 hover:bg-[#F5F2ED]/50">
+                  <td className="sticky left-0 bg-white px-6 py-3 text-[#7a7268] text-[11px]">
                     {m.label}
                   </td>
                   {cards.map((c, i) => {
@@ -300,12 +300,12 @@ function ClientDetail({ client }: { client: Client }) {
                     return (
                       <td key={c.weekStart} className="px-4 py-3 align-top">
                         {m.type === "text" ? (
-                          <span className="text-[#1A1714] text-[11px] leading-relaxed">
-                            {val ?? "—"}
+                          <span className="text-[#1A1917] text-[11px] leading-relaxed">
+                            {val ?? ""}
                           </span>
                         ) : (
                           <div className="flex items-center gap-1.5 flex-wrap">
-                            <span className="font-medium text-[#1A1714]">
+                            <span className="font-medium text-[#1A1917]">
                               {fmtNum(val as number | null, m.prefix, m.suffix)}
                             </span>
                             {d && (
@@ -341,9 +341,9 @@ export function ClientStatsBoard({ clients }: { clients: Client[] }) {
         <select
           value={selectedId}
           onChange={(e) => setSelectedId(e.target.value)}
-          className="text-sm px-4 py-2.5 rounded-2xl border border-[#E8E2D9] bg-white text-[#1A1714] focus:outline-none focus:ring-1 focus:ring-[#C8B89A]"
+          className="text-sm px-4 py-2.5 rounded-2xl border border-[#EDEBE6] bg-white text-[#1A1917] focus:outline-none focus:ring-1 focus:ring-[#C8B89A]"
         >
-          <option value="__ALL__">All clients — overview</option>
+          <option value="__ALL__">All clients: overview</option>
           {sorted.map((c) => (
             <option key={c.id} value={c.id}>
               {c.name}

@@ -54,11 +54,9 @@ const ALL_NAV = [
   { label: "Goals", href: "/goals" },
   { label: "Messages", href: "/messages" },
   { label: "Check-in", href: "/check-in" },
-  { label: "Content Calendar", href: "/content-calendar" },
-  { label: "Session Notes", href: "/session-notes" },
+  { label: "Wins", href: "/wins" },
   { label: "Meetings", href: "/meetings" },
-  { label: "Deliverables", href: "/deliverables" },
-  { label: "Resources", href: "/resources" },
+  { label: "Questionnaires", href: "/questionnaires" },
 ];
 
 export function MobileNav({
@@ -83,11 +81,11 @@ export function MobileNav({
   return (
     <>
       {/* Top bar */}
-      <div className="fixed top-0 left-0 right-0 h-14 bg-[#F2EDE4] border-b border-[#E8E2D9] flex items-center justify-between px-4 z-30">
+      <div className="fixed top-0 left-0 right-0 h-14 bg-white border-b border-[#EDEBE6] flex items-center justify-between px-4 z-30">
         <Logo size="sm" />
         <button
           onClick={() => setMenuOpen(true)}
-          className="p-2 text-[#5C5550] hover:text-[#1A1714] transition-colors"
+          className="p-2 text-[#7a7268] hover:text-[#1A1917] transition-colors"
           aria-label="Open menu"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -100,7 +98,7 @@ export function MobileNav({
       <div className="h-14" />
 
       {/* Bottom tab bar */}
-      <div className="fixed bottom-0 left-0 right-0 h-16 bg-[#F2EDE4] border-t border-[#E8E2D9] flex items-center justify-around px-2 z-30">
+      <div className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-[#EDEBE6] flex items-center justify-around px-2 z-30">
         {visiblePrimaryNav.map((item) => {
           const active = pathname === item.href || pathname.startsWith(item.href + "/");
           return (
@@ -108,11 +106,11 @@ export function MobileNav({
               key={item.href}
               href={item.href}
               className={`flex flex-col items-center gap-1 px-3 py-1.5 rounded-2xl transition-colors relative ${
-                active ? "text-[#C8B89A]" : "text-[#8C8277]"
+                active ? "text-[#8C735A]" : "text-[#b0a89e]"
               }`}
             >
               {item.label === "Messages" && unreadMessages > 0 && (
-                <span className="absolute -top-0.5 right-1 w-4 h-4 rounded-full bg-[#C8B89A] text-[#FAFAF8] text-[8px] flex items-center justify-center">
+                <span className="absolute -top-0.5 right-1 w-4 h-4 rounded-full bg-[#8C735A] text-white text-[8px] flex items-center justify-center">
                   {unreadMessages}
                 </span>
               )}
@@ -123,7 +121,7 @@ export function MobileNav({
         })}
         <button
           onClick={() => setMenuOpen(true)}
-          className="flex flex-col items-center gap-1 px-3 py-1.5 text-[#8C8277]"
+          className="flex flex-col items-center gap-1 px-3 py-1.5 text-[#b0a89e]"
         >
           <svg width="20" height="20" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2">
             <circle cx="7" cy="7" r="5.5" />
@@ -140,15 +138,15 @@ export function MobileNav({
             className="fixed inset-0 bg-black/60 z-40"
             onClick={() => setMenuOpen(false)}
           />
-          <div className="fixed top-0 left-0 h-full w-72 bg-[#F2EDE4] border-r border-[#E8E2D9] z-50 flex flex-col">
-            <div className="flex items-center justify-between px-6 py-6 border-b border-[#E8E2D9]">
+          <div className="fixed top-0 left-0 h-full w-72 bg-white border-r border-[#EDEBE6] z-50 flex flex-col">
+            <div className="flex items-center justify-between px-6 py-6 border-b border-[#EDEBE6]">
               <div>
                 <Logo size="sm" />
-                <p className="mt-1 text-[10px] tracking-[0.1em] text-[#8C8277] uppercase">{name}</p>
+                <p className="mt-1 text-[10px] tracking-[0.1em] text-[#b0a89e] uppercase">{name}</p>
               </div>
               <button
                 onClick={() => setMenuOpen(false)}
-                className="text-[#8C8277] hover:text-[#1A1714] transition-colors"
+                className="text-[#b0a89e] hover:text-[#1A1917] transition-colors"
               >
                 <svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2">
                   <path d="M2 2l10 10M12 2L2 12" />
@@ -166,8 +164,8 @@ export function MobileNav({
                     onClick={() => setMenuOpen(false)}
                     className={`block px-4 py-3 text-sm rounded-2xl transition-colors ${
                       active
-                        ? "text-[#C8B89A] bg-[#C8B89A]/8"
-                        : "text-[#5C5550] hover:text-[#1A1714] hover:bg-[#F5F2ED]"
+                        ? "bg-[#1A1917] text-white"
+                        : "text-[#7a7268] hover:text-[#1A1917] hover:bg-[#F5F3EF]"
                     }`}
                   >
                     {item.label}
@@ -176,11 +174,11 @@ export function MobileNav({
               })}
             </nav>
 
-            <div className="px-3 pb-6 border-t border-[#E8E2D9] pt-4">
+            <div className="px-3 pb-6 border-t border-[#EDEBE6] pt-4">
               <form action={clientLogoutAction}>
                 <button
                   type="submit"
-                  className="w-full px-4 py-3 text-sm text-[#8C8277] hover:text-[#1A1714] text-left transition-colors rounded-2xl hover:bg-[#F5F2ED]"
+                  className="w-full px-4 py-3 text-sm text-[#7a7268] hover:text-[#1A1917] text-left transition-colors rounded-xl hover:bg-[#F5F3EF]"
                 >
                   Sign out
                 </button>

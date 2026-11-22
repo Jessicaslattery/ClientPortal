@@ -1,6 +1,7 @@
 import { requireAuth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { redirect } from "next/navigation";
+import { ClientTimeline } from "@/components/client/ClientTimeline";
 
 const CORE_MONTHS = [
   {
@@ -63,7 +64,9 @@ export default async function JourneyPage() {
     where: { id: session.clientProfileId },
     include: {
       deliverables: { orderBy: { deliveredAt: "asc" } },
-      calls: { where: { completedAt: { not: null } } },
+      calls: { where: { completedAt: { not: null } }, orderBy: { scheduledAt: "asc" } },
+      wins: { orderBy: { celebratedAt: "desc" }, take: 20 },
+      goals: { orderBy: { createdAt: "asc" } },
     },
   });
 
@@ -74,8 +77,9 @@ export default async function JourneyPage() {
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">My Journey</h1>
-        <p className="mt-1.5 text-sm text-[#5C5550]">
+        <p className="text-[9px] tracking-[0.22em] uppercase text-[#7B746B] mb-1">Your story</p>
+        <h1 className="text-4xl font-[200] text-[#1A1917]">My Journey</h1>
+        <p className="mt-1.5 text-sm text-[#7a7268]">
           "Growth Partnership" · Started{" "}
           {new Date(profile.startDate).toLocaleDateString("en-AU", {
             month: "long",
@@ -85,6 +89,18 @@ export default async function JourneyPage() {
       </div>
 
       {/* Timeline */}
+      <div className="border-t border-[#EDEBE6] pt-8">
+        <p className="text-[9px] tracking-[0.22em] uppercase text-[#7B746B] mb-6">Your story so far</p>
+        <ClientTimeline
+          startDate={new Date(profile.startDate)}
+          currentMonth={profile.currentMonth}
+          wins={profile.wins.map((w) => ({ title: w.title, celebratedAt: new Date(w.celebratedAt) }))}
+          goals={profile.goals.map((g) => ({ title: g.title, progressPercent: g.progressPercent, createdAt: new Date(g.createdAt) }))}
+          calls={profile.calls.map((c) => ({ title: c.title, scheduledAt: new Date(c.scheduledAt), completedAt: c.completedAt ? new Date(c.completedAt) : null }))}
+        />
+      </div>
+
+      {/* Journey milestones */}
       <div className="relative">
         {/* Vertical line */}
         <div className="absolute left-4 top-2 bottom-2 w-px bg-[#FFFFFF]" />
@@ -104,8 +120,8 @@ export default async function JourneyPage() {
                       isComplete
                         ? "bg-[#C8B89A] border-[#C8B89A]"
                         : isCurrent
-                        ? "bg-[#F2EDE4] border-[#C8B89A] ring-4 ring-[#C8B89A]/15"
-                        : "bg-[#F2EDE4] border-[#E8E2D9]"
+                        ? "bg-[#F5F3EF] border-[#C8B89A] ring-4 ring-[#C8B89A]/15"
+                        : "bg-[#F5F3EF] border-[#EDEBE6]"
                     }`}
                   />
 
@@ -115,14 +131,14 @@ export default async function JourneyPage() {
                       isCurrent
                         ? "border-[#C8B89A]/30"
                         : isComplete
-                        ? "border-[#E8E2D9]"
-                        : "border-[#E8E2D9] opacity-50"
+                        ? "border-[#EDEBE6]"
+                        : "border-[#EDEBE6] opacity-50"
                     }`}
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div>
                         <div className="flex items-center gap-3 mb-1">
-                          <span className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277]">
+                          <span className="text-[10px] tracking-[0.15em] uppercase text-[#b0a89e]">
                             Month {m.month}
                           </span>
                           {isCurrent && (
@@ -136,10 +152,10 @@ export default async function JourneyPage() {
                             </span>
                           )}
                         </div>
-                        <h3 className="font-display text-xl font-light text-[#1A1714]">
+                        <h3 className="text-xl font-[300] text-[#1A1917]">
                           {m.title}
                         </h3>
-                        <p className="text-xs text-[#5C5550] mt-0.5">{m.theme}</p>
+                        <p className="text-xs text-[#7a7268] mt-0.5">{m.theme}</p>
                       </div>
                     </div>
 
@@ -147,7 +163,7 @@ export default async function JourneyPage() {
                     {(isCurrent || isComplete) && (
                       <div className="grid grid-cols-2 gap-3 mt-4">
                         <div>
-                          <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277] mb-2">
+                          <p className="text-[10px] tracking-[0.12em] uppercase text-[#b0a89e] mb-2">
                             Weekly focus
                           </p>
                           <div className="space-y-1.5">
@@ -165,7 +181,7 @@ export default async function JourneyPage() {
                                         ? "bg-[#C8B89A]"
                                         : isWeekCurrent
                                         ? "bg-[#C8B89A]"
-                                        : "bg-[#E8E2D9]"
+                                        : "bg-[#EDEBE6]"
                                     }`}
                                   />
                                   <span
@@ -173,8 +189,8 @@ export default async function JourneyPage() {
                                       isWeekCurrent
                                         ? "text-[#C8B89A]"
                                         : isWeekDone
-                                        ? "text-[#5C5550]"
-                                        : "text-[#8C8277]"
+                                        ? "text-[#7a7268]"
+                                        : "text-[#b0a89e]"
                                     }`}
                                   >
                                     Wk {weekNum}: {week}
@@ -185,7 +201,7 @@ export default async function JourneyPage() {
                           </div>
                         </div>
                         <div>
-                          <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277] mb-2">
+                          <p className="text-[10px] tracking-[0.12em] uppercase text-[#b0a89e] mb-2">
                             Deliverables
                           </p>
                           <div className="space-y-1.5">
@@ -199,12 +215,12 @@ export default async function JourneyPage() {
                                 <div key={d} className="flex items-center gap-2">
                                   <div
                                     className={`w-1 h-1 rounded-full ${
-                                      delivered ? "bg-[#2D6A4F]" : "bg-[#E8E2D9]"
+                                      delivered ? "bg-[#2D6A4F]" : "bg-[#EDEBE6]"
                                     }`}
                                   />
                                   <span
                                     className={`text-xs ${
-                                      delivered ? "text-[#5C5550]" : "text-[#8C8277]"
+                                      delivered ? "text-[#7a7268]" : "text-[#b0a89e]"
                                     }`}
                                   >
                                     {d}
@@ -227,18 +243,18 @@ export default async function JourneyPage() {
               className={`absolute -left-[2.35rem] top-1 w-3 h-3 rounded-full border ${
                 profile.currentMonth > 3
                   ? "bg-[#C8B89A] border-[#C8B89A] ring-4 ring-[#C8B89A]/15"
-                  : "bg-[#F2EDE4] border-[#E8E2D9] opacity-40"
+                  : "bg-[#F5F3EF] border-[#EDEBE6] opacity-40"
               }`}
             />
             <div
               className={`border p-5 ${
                 profile.currentMonth > 3
                   ? "border-[#C8B89A]/30"
-                  : "border-[#E8E2D9] opacity-40"
+                  : "border-[#EDEBE6] opacity-40"
               }`}
             >
               <div className="flex items-center gap-3 mb-1">
-                <span className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277]">
+                <span className="text-[10px] tracking-[0.15em] uppercase text-[#b0a89e]">
                   {isCore ? "Month 4+" : "Ongoing"}
                 </span>
                 {profile.currentMonth > 3 && (
@@ -247,8 +263,8 @@ export default async function JourneyPage() {
                   </span>
                 )}
               </div>
-              <h3 className="font-display text-xl font-light text-[#1A1714]">Ongoing</h3>
-              <p className="text-xs text-[#5C5550] mt-0.5">
+              <h3 className="text-xl font-[300] text-[#1A1917]">Ongoing</h3>
+              <p className="text-xs text-[#7a7268] mt-0.5">
                 Monthly social plans, progress reports & continuing refinement
               </p>
             </div>

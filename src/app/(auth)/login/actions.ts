@@ -20,6 +20,8 @@ export async function loginAction(_prev: State, formData: FormData): Promise<Sta
 
   if (result.role === "founder") {
     redirect("/dashboard");
+  } else if (result.package === "sms") {
+    redirect("/social/overview");
   } else {
     redirect("/home");
   }

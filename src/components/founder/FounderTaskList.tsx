@@ -110,7 +110,7 @@ function RecurringTaskRow({
   }
 
   return (
-    <div className={`flex items-center gap-3 px-4 py-3 hover:bg-[#F2EDE4] transition-colors ${done ? "opacity-50" : ""}`}>
+    <div className={`flex items-center gap-3 px-4 py-3 hover:bg-[#F5F3EF] transition-colors ${done ? "opacity-50" : ""}`}>
       <button
         onClick={toggle}
         disabled={isPending}
@@ -127,11 +127,11 @@ function RecurringTaskRow({
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
           <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${PRIORITY_DOT[task.priority] ?? "bg-[#C8B89A]"}`} />
-          <p className={`text-sm ${done ? "line-through text-[#8C8277]" : "text-[#1A1714]"}`}>{task.title}</p>
+          <p className={`text-sm ${done ? "line-through text-[#b0a89e]" : "text-[#1A1917]"}`}>{task.title}</p>
         </div>
-        <p className="text-[10px] text-[#8C8277] mt-0.5 pl-3.5">{task.category}</p>
+        <p className="text-[10px] text-[#b0a89e] mt-0.5 pl-3.5">{task.category}</p>
       </div>
-      <span className="text-[9px] tracking-[0.1em] uppercase text-[#C8B89A]/60">Recurring</span>
+      <span className="text-[9px] tracking-[0.1em] text-[#C8B89A]/60">Recurring</span>
     </div>
   );
 }
@@ -159,7 +159,7 @@ function TaskRow({
 
   return (
     <div className={`transition-colors ${completed ? "opacity-50" : ""}`}>
-      <div className="flex items-start gap-3 px-4 py-3 hover:bg-[#F2EDE4]">
+      <div className="flex items-start gap-3 px-4 py-3 hover:bg-[#F5F3EF]">
         <button
           onClick={() =>
             startCheckTrans(() =>
@@ -181,7 +181,7 @@ function TaskRow({
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
             <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${PRIORITY_DOT[task.priority] ?? "bg-[#C8B89A]"}`} />
-            <p className={`text-sm ${completed ? "line-through text-[#8C8277]" : "text-[#1A1714]"}`}>
+            <p className={`text-sm ${completed ? "line-through text-[#b0a89e]" : "text-[#1A1917]"}`}>
               {task.title}
             </p>
           </div>
@@ -192,16 +192,16 @@ function TaskRow({
               </Link>
             )}
             {showClient && !task.clientProfile && (
-              <span className="text-[10px] text-[#8C8277]">Personal</span>
+              <span className="text-[10px] text-[#b0a89e]">Personal</span>
             )}
-            <span className="text-[10px] text-[#8C8277]">{task.category}</span>
+            <span className="text-[10px] text-[#b0a89e]">{task.category}</span>
             {task.dueDate && (
-              <span className={`text-[10px] ${getDueDateBucket(task.dueDate) === "Overdue" ? "text-[#9B2335]" : "text-[#8C8277]"}`}>
+              <span className={`text-[10px] ${getDueDateBucket(task.dueDate) === "Overdue" ? "text-[#9B2335]" : "text-[#b0a89e]"}`}>
                 {formatDueDate(task.dueDate)}
               </span>
             )}
             {task.notes && !expanded && (
-              <span className="text-[10px] text-[#8C8277] italic truncate max-w-[160px]">{task.notes}</span>
+              <span className="text-[10px] text-[#b0a89e] italic truncate max-w-[160px]">{task.notes}</span>
             )}
           </div>
         </div>
@@ -209,7 +209,7 @@ function TaskRow({
         {!completed && (
           <button
             onClick={() => setExpanded((v) => !v)}
-            className={`shrink-0 mt-0.5 text-[10px] tracking-[0.06em] uppercase transition-colors ${expanded ? "text-[#C8B89A]" : "text-[#8C8277] hover:text-[#1A1714]"}`}
+            className={`shrink-0 mt-0.5 text-[10px] tracking-[0.06em] transition-colors ${expanded ? "text-[#C8B89A]" : "text-[#b0a89e] hover:text-[#1A1917]"}`}
             title="Notes"
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2">
@@ -227,11 +227,11 @@ function TaskRow({
             onBlur={saveNotes}
             rows={3}
             placeholder="Add notes…"
-            className="w-full bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl px-3 py-2 text-xs text-[#1A1714] placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A] transition-colors resize-none"
+            className="w-full bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl px-3 py-2 text-xs text-[#1A1917] placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A] transition-colors resize-none"
           />
           <div className="flex items-center justify-between mt-1.5">
-            <p className="text-[10px] text-[#8C8277]">{notesPending ? "Saving…" : "Click away to save"}</p>
-            <button onClick={() => { saveNotes(); setExpanded(false); }} className="text-[10px] tracking-[0.06em] uppercase text-[#8C8277] hover:text-[#1A1714] transition-colors">
+            <p className="text-[10px] text-[#b0a89e]">{notesPending ? "Saving…" : "Click away to save"}</p>
+            <button onClick={() => { saveNotes(); setExpanded(false); }} className="text-[10px] tracking-[0.06em] text-[#b0a89e] hover:text-[#1A1917] transition-colors">
               Done
             </button>
           </div>
@@ -252,17 +252,17 @@ function TaskSection({
   const [open, setOpen] = useState(true);
   return (
     <div className="rounded-3xl border border-[#DDD5C8] bg-[#FFFFFF] overflow-hidden" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
-      <button onClick={() => setOpen((v) => !v)} className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-[#F2EDE4] transition-colors">
+      <button onClick={() => setOpen((v) => !v)} className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-[#F5F3EF] transition-colors">
         <div className="flex items-center gap-2.5">
-          <span className={`text-[10px] tracking-[0.12em] uppercase font-medium ${accent ? "text-[#9B2335]" : "text-[#8C8277]"}`}>{title}</span>
-          <span className="text-[10px] text-[#8C8277] bg-[#F2EDE4] px-1.5 py-0.5 rounded-full">{count}</span>
+          <span className={`text-[10px] tracking-[0.12em] font-medium ${accent ? "text-[#9B2335]" : "text-[#b0a89e]"}`}>{title}</span>
+          <span className="text-[10px] text-[#b0a89e] bg-[#F5F3EF] px-1.5 py-0.5 rounded-full">{count}</span>
         </div>
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2" className={`text-[#8C8277] transition-transform ${open ? "rotate-180" : ""}`}>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2" className={`text-[#b0a89e] transition-transform ${open ? "rotate-180" : ""}`}>
           <path d="M2 4l4 4 4-4" />
         </svg>
       </button>
       {open && (
-        <div className="divide-y divide-[#E8E2D9]">
+        <div className="divide-y divide-[#EDEBE6]">
           {tasks.map((t) => <TaskRow key={t.id} task={t} showClient={showClient} />)}
         </div>
       )}
@@ -309,20 +309,20 @@ function WeekView({
             style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}
           >
             {/* Day header */}
-            <div className={`flex items-center justify-between px-5 py-3 border-b ${isToday ? "border-[#C8B89A]/20 bg-[#C8B89A]/5" : "border-[#E8E2D9]"}`}>
+            <div className={`flex items-center justify-between px-5 py-3 border-b ${isToday ? "border-[#C8B89A]/20 bg-[#C8B89A]/5" : "border-[#EDEBE6]"}`}>
               <div className="flex items-center gap-3">
-                <span className={`text-[10px] tracking-[0.15em] uppercase font-medium ${isToday ? "text-[#C8B89A]" : "text-[#8C8277]"}`}>
+                <span className={`text-[10px] tracking-[0.15em] font-medium ${isToday ? "text-[#C8B89A]" : "text-[#b0a89e]"}`}>
                   {DAY_FULL[day]}
                 </span>
-                <span className={`text-[10px] ${isToday ? "text-[#C8B89A]" : "text-[#8C8277]"}`}>
+                <span className={`text-[10px] ${isToday ? "text-[#C8B89A]" : "text-[#b0a89e]"}`}>
                   {dayDate.toLocaleDateString("en-AU", { day: "numeric", month: "short" })}
                 </span>
                 {isToday && (
-                  <span className="text-[9px] tracking-[0.12em] uppercase text-[#C8B89A]">Today</span>
+                  <span className="text-[9px] tracking-[0.12em] text-[#C8B89A]">Today</span>
                 )}
               </div>
               {totalCount > 0 && (
-                <span className="text-[10px] text-[#8C8277] bg-[#F2EDE4] px-1.5 py-0.5 rounded-full">{totalCount}</span>
+                <span className="text-[10px] text-[#b0a89e] bg-[#F5F3EF] px-1.5 py-0.5 rounded-full">{totalCount}</span>
               )}
             </div>
 
@@ -332,7 +332,7 @@ function WeekView({
                 <p className="text-xs text-[#DDD5C8]">Nothing scheduled</p>
               </div>
             ) : (
-              <div className="divide-y divide-[#E8E2D9]">
+              <div className="divide-y divide-[#EDEBE6]">
                 {dayRecurring.map((r) => (
                   <RecurringTaskRow key={r.id} task={r} weekStart={weekStart} />
                 ))}
@@ -360,22 +360,22 @@ function AddRecurringTaskForm({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="rounded-3xl border border-[#DDD5C8] bg-[#FFFFFF] p-5 space-y-4" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
-      <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277]">New recurring task</p>
+      <p className="text-[10px] tracking-[0.12em] text-[#b0a89e]">New recurring task</p>
       <form ref={formRef} action={formAction} className="space-y-4">
         <input
           name="title" type="text" required placeholder="What needs doing each week?"
           autoFocus
-          className="w-full rounded-2xl bg-[#FFFFFF] border border-[#E8E2D9] text-[#1A1714] px-4 py-2.5 text-sm placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A] transition-colors"
+          className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-4 py-2.5 text-sm placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A] transition-colors"
         />
 
         {/* Day picker */}
         <div>
-          <p className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277] mb-2">Repeat on</p>
+          <p className="text-[10px] tracking-[0.08em] text-[#b0a89e] mb-2">Repeat on</p>
           <div className="flex gap-2 flex-wrap">
             {DAYS.map((d) => (
               <label key={d} className="cursor-pointer">
                 <input type="checkbox" name={`day_${d}`} className="sr-only peer" />
-                <span className="block px-3 py-1.5 rounded-xl border border-[#E8E2D9] text-xs text-[#5C5550] peer-checked:bg-[#1A1714] peer-checked:text-[#FAFAF8] peer-checked:border-[#1A1714] transition-colors select-none">
+                <span className="block px-3 py-1.5 rounded-xl border border-[#EDEBE6] text-xs text-[#7a7268] peer-checked:bg-[#1A1917] peer-checked:text-[#FAFAF8] peer-checked:border-[#1A1917] transition-colors select-none">
                   {d}
                 </span>
               </label>
@@ -385,16 +385,16 @@ function AddRecurringTaskForm({ onClose }: { onClose: () => void }) {
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-[10px] tracking-[0.08em] uppercase text-[#8C8277] mb-1">Category</label>
+            <label className="block text-[10px] tracking-[0.08em] text-[#b0a89e] mb-1">Category</label>
             <input
               name="category" type="text" placeholder="e.g. Admin, Strategy"
               defaultValue="General"
-              className="w-full rounded-2xl bg-[#FFFFFF] border border-[#E8E2D9] text-[#1A1714] px-3 py-2 text-xs placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A] transition-colors"
+              className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-3 py-2 text-xs placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A] transition-colors"
             />
           </div>
           <div>
-            <label className="block text-[10px] tracking-[0.08em] uppercase text-[#8C8277] mb-1">Priority</label>
-            <select name="priority" defaultValue="medium" className="w-full rounded-2xl bg-[#FFFFFF] border border-[#E8E2D9] text-[#1A1714] px-3 py-2 text-xs focus:outline-none focus:border-[#C8B89A] transition-colors">
+            <label className="block text-[10px] tracking-[0.08em] text-[#b0a89e] mb-1">Priority</label>
+            <select name="priority" defaultValue="medium" className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-3 py-2 text-xs focus:outline-none focus:border-[#C8B89A] transition-colors">
               <option value="high">High</option>
               <option value="medium">Medium</option>
               <option value="low">Low</option>
@@ -405,10 +405,10 @@ function AddRecurringTaskForm({ onClose }: { onClose: () => void }) {
         {state.error && <p className="text-xs text-[#9B2335]">{state.error}</p>}
 
         <div className="flex items-center gap-3 pt-1">
-          <button type="submit" disabled={pending} className="px-5 py-2 rounded-2xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-[0.1em] uppercase hover:bg-[#2C2520] transition-colors disabled:opacity-40">
+          <button type="submit" disabled={pending} className="px-5 py-2 rounded-2xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-[0.1em] hover:bg-[#2C2520] transition-colors disabled:opacity-40">
             {pending ? "Saving…" : "Save recurring task"}
           </button>
-          <button type="button" onClick={onClose} className="px-5 py-2 rounded-2xl text-xs tracking-[0.1em] uppercase text-[#8C8277] hover:text-[#1A1714] transition-colors">
+          <button type="button" onClick={onClose} className="px-5 py-2 rounded-2xl text-xs tracking-[0.1em] text-[#b0a89e] hover:text-[#1A1917] transition-colors">
             Cancel
           </button>
         </div>
@@ -419,7 +419,7 @@ function AddRecurringTaskForm({ onClose }: { onClose: () => void }) {
 
 // ─── Add one-time task form ───────────────────────────────────────────────────
 
-function AddTaskForm({ clients, onClose }: { clients: Client[]; onClose: () => void }) {
+function AddTaskForm({ clients, onClose, defaultClientId }: { clients: Client[]; onClose: () => void; defaultClientId?: string }) {
   const [state, formAction, pending] = useActionState(createFounderTaskAction, {});
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -429,34 +429,34 @@ function AddTaskForm({ clients, onClose }: { clients: Client[]; onClose: () => v
 
   return (
     <div className="rounded-3xl border border-[#DDD5C8] bg-[#FFFFFF] p-5 space-y-4" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
-      <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277]">New task</p>
+      <p className="text-[10px] tracking-[0.12em] text-[#b0a89e]">New task</p>
       <form ref={formRef} action={formAction} className="space-y-3">
         <input
           name="title" type="text" required placeholder="What needs doing?"
           autoFocus
-          className="w-full rounded-2xl bg-[#FFFFFF] border border-[#E8E2D9] text-[#1A1714] px-4 py-2.5 text-sm placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A] transition-colors"
+          className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-4 py-2.5 text-sm placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A] transition-colors"
         />
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-[10px] tracking-[0.08em] uppercase text-[#8C8277] mb-1">Client <span className="normal-case tracking-normal">(optional)</span></label>
-            <select name="clientProfileId" defaultValue="" className="w-full rounded-2xl bg-[#FFFFFF] border border-[#E8E2D9] text-[#1A1714] px-3 py-2 text-xs focus:outline-none focus:border-[#C8B89A] transition-colors">
+            <label className="block text-[10px] tracking-[0.08em] text-[#b0a89e] mb-1">Client <span className="normal-case tracking-normal">(optional)</span></label>
+            <select name="clientProfileId" defaultValue={defaultClientId ?? ""} className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-3 py-2 text-xs focus:outline-none focus:border-[#C8B89A] transition-colors">
               <option value="">Personal / no client</option>
               {clients.map((c) => <option key={c.id} value={c.id}>{c.founderName}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-[10px] tracking-[0.08em] uppercase text-[#8C8277] mb-1">Category</label>
-            <input name="category" type="text" placeholder="e.g. Admin, Strategy" defaultValue="General" className="w-full rounded-2xl bg-[#FFFFFF] border border-[#E8E2D9] text-[#1A1714] px-3 py-2 text-xs placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A] transition-colors" />
+            <label className="block text-[10px] tracking-[0.08em] text-[#b0a89e] mb-1">Category</label>
+            <input name="category" type="text" placeholder="e.g. Admin, Strategy" defaultValue="General" className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-3 py-2 text-xs placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A] transition-colors" />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-[10px] tracking-[0.08em] uppercase text-[#8C8277] mb-1">Due date <span className="normal-case tracking-normal">(optional)</span></label>
-            <input name="dueDate" type="date" className="w-full rounded-2xl bg-[#FFFFFF] border border-[#E8E2D9] text-[#1A1714] px-3 py-2 text-xs focus:outline-none focus:border-[#C8B89A] transition-colors" />
+            <label className="block text-[10px] tracking-[0.08em] text-[#b0a89e] mb-1">Due date <span className="normal-case tracking-normal">(optional)</span></label>
+            <input name="dueDate" type="date" className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-3 py-2 text-xs focus:outline-none focus:border-[#C8B89A] transition-colors" />
           </div>
           <div>
-            <label className="block text-[10px] tracking-[0.08em] uppercase text-[#8C8277] mb-1">Priority</label>
-            <select name="priority" defaultValue="medium" className="w-full rounded-2xl bg-[#FFFFFF] border border-[#E8E2D9] text-[#1A1714] px-3 py-2 text-xs focus:outline-none focus:border-[#C8B89A] transition-colors">
+            <label className="block text-[10px] tracking-[0.08em] text-[#b0a89e] mb-1">Priority</label>
+            <select name="priority" defaultValue="medium" className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-3 py-2 text-xs focus:outline-none focus:border-[#C8B89A] transition-colors">
               <option value="high">High</option>
               <option value="medium">Medium</option>
               <option value="low">Low</option>
@@ -464,15 +464,15 @@ function AddTaskForm({ clients, onClose }: { clients: Client[]; onClose: () => v
           </div>
         </div>
         <div>
-          <label className="block text-[10px] tracking-[0.08em] uppercase text-[#8C8277] mb-1">Notes <span className="normal-case tracking-normal">(optional)</span></label>
-          <textarea name="notes" rows={2} placeholder="Any context or detail…" className="w-full rounded-2xl bg-[#FFFFFF] border border-[#E8E2D9] text-[#1A1714] px-4 py-2.5 text-sm placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A] transition-colors resize-none" />
+          <label className="block text-[10px] tracking-[0.08em] text-[#b0a89e] mb-1">Notes <span className="normal-case tracking-normal">(optional)</span></label>
+          <textarea name="notes" rows={2} placeholder="Any context or detail…" className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-4 py-2.5 text-sm placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A] transition-colors resize-none" />
         </div>
         {state.error && <p className="text-xs text-[#9B2335]">{state.error}</p>}
         <div className="flex items-center gap-3 pt-1">
-          <button type="submit" disabled={pending} className="px-5 py-2 rounded-2xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-[0.1em] uppercase hover:bg-[#2C2520] transition-colors disabled:opacity-40">
+          <button type="submit" disabled={pending} className="px-5 py-2 rounded-2xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-[0.1em] hover:bg-[#2C2520] transition-colors disabled:opacity-40">
             {pending ? "Adding…" : "Add task"}
           </button>
-          <button type="button" onClick={onClose} className="px-5 py-2 rounded-2xl text-xs tracking-[0.1em] uppercase text-[#8C8277] hover:text-[#1A1714] transition-colors">
+          <button type="button" onClick={onClose} className="px-5 py-2 rounded-2xl text-xs tracking-[0.1em] text-[#b0a89e] hover:text-[#1A1917] transition-colors">
             Cancel
           </button>
         </div>
@@ -491,29 +491,29 @@ function RecurringTaskManager({ recurringTasks }: { recurringTasks: RecurringTas
 
   return (
     <div className="rounded-3xl border border-[#DDD5C8] bg-[#FFFFFF] overflow-hidden" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
-      <button onClick={() => setOpen((v) => !v)} className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-[#F2EDE4] transition-colors">
+      <button onClick={() => setOpen((v) => !v)} className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-[#F5F3EF] transition-colors">
         <div className="flex items-center gap-2.5">
-          <span className="text-[10px] tracking-[0.12em] uppercase font-medium text-[#8C8277]">Recurring tasks</span>
-          <span className="text-[10px] text-[#8C8277] bg-[#F2EDE4] px-1.5 py-0.5 rounded-full">{recurringTasks.length}</span>
+          <span className="text-[10px] tracking-[0.12em] font-medium text-[#b0a89e]">Recurring tasks</span>
+          <span className="text-[10px] text-[#b0a89e] bg-[#F5F3EF] px-1.5 py-0.5 rounded-full">{recurringTasks.length}</span>
         </div>
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2" className={`text-[#8C8277] transition-transform ${open ? "rotate-180" : ""}`}>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2" className={`text-[#b0a89e] transition-transform ${open ? "rotate-180" : ""}`}>
           <path d="M2 4l4 4 4-4" />
         </svg>
       </button>
       {open && (
-        <div className="divide-y divide-[#E8E2D9]">
+        <div className="divide-y divide-[#EDEBE6]">
           {recurringTasks.map((r) => (
             <div key={r.id} className="flex items-center justify-between px-5 py-3">
               <div>
-                <p className="text-sm text-[#1A1714]">{r.title}</p>
-                <p className="text-[10px] text-[#8C8277] mt-0.5">
+                <p className="text-sm text-[#1A1917]">{r.title}</p>
+                <p className="text-[10px] text-[#b0a89e] mt-0.5">
                   {r.days.split(",").map((d) => d.trim()).join(" · ")} · {r.category}
                 </p>
               </div>
               <button
                 onClick={() => startTransition(() => deleteRecurringTaskAction(r.id))}
                 disabled={isPending}
-                className="text-[10px] tracking-[0.06em] uppercase text-[#8C8277] hover:text-[#9B2335] transition-colors disabled:opacity-40"
+                className="text-[10px] tracking-[0.06em] text-[#b0a89e] hover:text-[#9B2335] transition-colors disabled:opacity-40"
               >
                 Remove
               </button>
@@ -533,16 +533,18 @@ export function FounderTaskList({
   clients,
   recurringTasks,
   weekStart,
+  defaultClientId,
 }: {
   tasks: Task[];
   recentlyCompleted: (Task & { completedAt?: Date | null })[];
   clients: Client[];
   recurringTasks: RecurringTask[];
   weekStart: string;
+  defaultClientId?: string;
 }) {
   const [groupMode, setGroupMode] = useState<GroupMode>("week");
   const [showCompleted, setShowCompleted] = useState(false);
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [showAddForm, setShowAddForm] = useState(() => !!defaultClientId);
   const [showRecurringForm, setShowRecurringForm] = useState(false);
 
   useEffect(() => {
@@ -590,8 +592,8 @@ export function FounderTaskList({
             <button
               key={mode}
               onClick={() => handleGroupChange(mode)}
-              className={`px-4 py-1.5 rounded-xl text-[10px] tracking-[0.1em] uppercase transition-all ${
-                groupMode === mode ? "bg-[#FFFFFF] text-[#1A1714] shadow-sm" : "text-[#5C5550] hover:text-[#1A1714]"
+              className={`px-4 py-1.5 rounded-xl text-[10px] tracking-[0.1em] transition-all ${
+                groupMode === mode ? "bg-[#FFFFFF] text-[#1A1917] shadow-sm" : "text-[#7a7268] hover:text-[#1A1917]"
               }`}
             >
               {mode === "week" ? "Week" : mode === "dueDate" ? "Due Date" : "Client"}
@@ -600,13 +602,13 @@ export function FounderTaskList({
         </div>
 
         <div className="flex items-center gap-3">
-          <button onClick={() => setShowCompleted((v) => !v)} className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277] hover:text-[#1A1714] transition-colors">
+          <button onClick={() => setShowCompleted((v) => !v)} className="text-[10px] tracking-[0.08em] text-[#b0a89e] hover:text-[#1A1917] transition-colors">
             {showCompleted ? "Hide completed" : `Completed (${recentlyCompleted.length})`}
           </button>
           {groupMode === "week" && (
             <button
               onClick={() => { setShowRecurringForm((v) => !v); setShowAddForm(false); }}
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-2xl border border-[#DDD5C8] text-[#5C5550] text-[10px] tracking-[0.1em] uppercase hover:border-[#C8B89A] transition-colors"
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-2xl border border-[#DDD5C8] text-[#7a7268] text-[10px] tracking-[0.1em] hover:border-[#C8B89A] transition-colors"
             >
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M5 1v8M1 5h8" />
@@ -616,7 +618,7 @@ export function FounderTaskList({
           )}
           <button
             onClick={() => { setShowAddForm((v) => !v); setShowRecurringForm(false); }}
-            className="flex items-center gap-1.5 px-4 py-1.5 rounded-2xl bg-[#1A1714] text-[#FAFAF8] text-[10px] tracking-[0.1em] uppercase hover:bg-[#2C2520] transition-colors"
+            className="flex items-center gap-1.5 px-4 py-1.5 rounded-2xl bg-[#1A1917] text-[#FAFAF8] text-[10px] tracking-[0.1em] hover:bg-[#2C2520] transition-colors"
           >
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M5 1v8M1 5h8" />
@@ -627,11 +629,11 @@ export function FounderTaskList({
       </div>
 
       {showRecurringForm && <AddRecurringTaskForm onClose={() => setShowRecurringForm(false)} />}
-      {showAddForm && <AddTaskForm clients={clients} onClose={() => setShowAddForm(false)} />}
+      {showAddForm && <AddTaskForm clients={clients} onClose={() => setShowAddForm(false)} defaultClientId={defaultClientId} />}
 
       {isEmpty && !showAddForm && !showRecurringForm && (
         <div className="rounded-3xl border border-[#DDD5C8] bg-[#FFFFFF] px-8 py-16 text-center" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
-          <p className="text-sm text-[#8C8277]">No tasks yet. Add a task or set up recurring ones with the buttons above.</p>
+          <p className="text-sm text-[#b0a89e]">No tasks yet. Add a task or set up recurring ones with the buttons above.</p>
         </div>
       )}
 
@@ -664,8 +666,8 @@ export function FounderTaskList({
       {/* Recently completed */}
       {showCompleted && recentlyCompleted.length > 0 && (
         <div className="space-y-1">
-          <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277] px-1">Completed this week</p>
-          <div className="rounded-3xl border border-[#DDD5C8] bg-[#FFFFFF] overflow-hidden divide-y divide-[#E8E2D9]" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
+          <p className="text-[10px] tracking-[0.12em] text-[#b0a89e] px-1">Completed this week</p>
+          <div className="rounded-3xl border border-[#DDD5C8] bg-[#FFFFFF] overflow-hidden divide-y divide-[#EDEBE6]" style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}>
             {recentlyCompleted.map((t) => <TaskRow key={t.id} task={t} showClient completed />)}
           </div>
         </div>

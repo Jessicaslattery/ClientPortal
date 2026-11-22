@@ -1,6 +1,39 @@
 "use client";
 
 import { useState } from "react";
+
+function getLoomEmbedUrl(url: string): string | null {
+  const match = url.match(/loom\.com\/share\/([a-zA-Z0-9]+)/);
+  if (match) return `https://www.loom.com/embed/${match[1]}`;
+  return null;
+}
+
+function getYouTubeEmbedUrl(url: string): string | null {
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+  if (match) return `https://www.youtube.com/embed/${match[1]}`;
+  return null;
+}
+
+function WelcomeVideoEmbed({ url }: { url: string }) {
+  const embedUrl = getLoomEmbedUrl(url) ?? getYouTubeEmbedUrl(url);
+  if (!embedUrl) {
+    return (
+      <a href={url} target="_blank" rel="noopener noreferrer" className="text-sm text-[#8C735A] underline underline-offset-2 hover:opacity-70 transition-opacity">
+        {url}
+      </a>
+    );
+  }
+  return (
+    <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+      <iframe
+        src={embedUrl}
+        className="absolute inset-0 w-full h-full rounded-xl"
+        allowFullScreen
+        allow="autoplay; fullscreen"
+      />
+    </div>
+  );
+}
 import { triggerOnboardingStep } from "@/app/(founder)/clients/[id]/onboarding-actions";
 
 type OnboardingStep = {
@@ -41,11 +74,29 @@ type IntakeSummary = {
 
 type FirstCallNotes = string | null;
 
+type SocialMediaIntakeSummary = {
+  primaryPlatform: string;
+  currentFollowers: string;
+  contentGoal: string;
+  targetAudience: string;
+  topPerformingContent: string;
+  contentChallenges: string;
+  brandVoice: string;
+  competitorAccounts: string;
+  postingFrequency: string;
+  contentCreationTime: string;
+  submittedAt: Date | null;
+} | null;
+
 type Props = {
   clientId: string;
   steps: OnboardingStep[];
   intake: IntakeSummary;
   firstCallNotes: FirstCallNotes;
+  welcomeVideoUrl?: string | null;
+  kickoffCallUrl?: string | null;
+  packageType?: string;
+  socialMediaIntake?: SocialMediaIntakeSummary;
 };
 
 const stepLabels: Record<number, string> = {
@@ -57,11 +108,11 @@ const stepLabels: Record<number, string> = {
 
 function stepStatusColour(status: string) {
   if (status === "complete") return "text-[#2D6A4F] bg-[#2D6A4F]/10";
-  if (status === "pending") return "text-[#8C8277] bg-[#F5F0E8]";
+  if (status === "pending") return "text-[#b0a89e] bg-[#F5F0E8]";
   return "text-[#C8B89A] bg-[#C8B89A]/10";
 }
 
-export function OnboardingTab({ clientId, steps, intake, firstCallNotes }: Props) {
+export function OnboardingTab({ clientId, steps, intake, firstCallNotes, welcomeVideoUrl, kickoffCallUrl, packageType, socialMediaIntake }: Props) {
   const [loading, setLoading] = useState<number | null>(null);
   const [triggered, setTriggered] = useState<Set<number>>(new Set());
 
@@ -80,8 +131,8 @@ export function OnboardingTab({ clientId, steps, intake, firstCallNotes }: Props
   return (
     <div className="space-y-6">
       {/* Step progress */}
-      <div className="rounded-2xl border border-[#E8E2D9] p-5">
-        <h3 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-5">
+      <div className="rounded-2xl border border-[#EDEBE6] p-5">
+        <h3 className="text-[10px] tracking-[0.15em] text-[#b0a89e] mb-5">
           Onboarding progress
         </h3>
         <div className="space-y-3">
@@ -92,14 +143,14 @@ export function OnboardingTab({ clientId, steps, intake, firstCallNotes }: Props
               <div key={stepNum} className="flex items-start justify-between gap-4 py-2 border-b border-[#F5F0E8] last:border-0">
                 <div className="flex items-start gap-3 flex-1 min-w-0">
                   <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-medium shrink-0 mt-0.5 ${
-                    status === "complete" ? "bg-[#2D6A4F] text-white" : "bg-[#E8E2D9] text-[#8C8277]"
+                    status === "complete" ? "bg-[#2D6A4F] text-white" : "bg-[#EDEBE6] text-[#b0a89e]"
                   }`}>
                     {status === "complete" ? "✓" : stepNum}
                   </div>
                   <div className="min-w-0">
-                    <p className="text-sm text-[#1A1714]">{stepLabels[stepNum]}</p>
+                    <p className="text-sm text-[#1A1917]">{stepLabels[stepNum]}</p>
                     {stepData?.completedAt && (
-                      <p className="text-xs text-[#8C8277] mt-0.5">
+                      <p className="text-xs text-[#b0a89e] mt-0.5">
                         Sent {new Date(stepData.completedAt).toLocaleDateString("en-AU", {
                           day: "numeric", month: "short", year: "numeric"
                         })}
@@ -115,7 +166,7 @@ export function OnboardingTab({ clientId, steps, intake, firstCallNotes }: Props
                     <button
                       onClick={() => handleTrigger(stepNum as 2 | 3 | 4)}
                       disabled={loading !== null}
-                      className="text-[10px] tracking-[0.1em] uppercase px-3 py-1 rounded-lg border border-[#E8E2D9] text-[#5C5550] hover:border-[#C8B89A] hover:text-[#1A1714] transition-colors disabled:opacity-50"
+                      className="text-[10px] tracking-[0.1em] px-3 py-1 rounded-lg border border-[#EDEBE6] text-[#7a7268] hover:border-[#C8B89A] hover:text-[#1A1917] transition-colors disabled:opacity-50"
                     >
                       {loading === stepNum ? "…" : "Trigger"}
                     </button>
@@ -130,9 +181,90 @@ export function OnboardingTab({ clientId, steps, intake, firstCallNotes }: Props
         </div>
       </div>
 
+      {/* Welcome video */}
+      {welcomeVideoUrl && (
+        <div className="rounded-2xl border border-[#EDEBE6] p-5">
+          <h3 className="text-[10px] tracking-[0.15em] text-[#b0a89e] mb-3">Welcome video</h3>
+          <WelcomeVideoEmbed url={welcomeVideoUrl} />
+        </div>
+      )}
+
+      {/* Kickoff call booking */}
+      {kickoffCallUrl && (
+        <div className="rounded-2xl border border-[#EDEBE6] p-5">
+          <h3 className="text-[10px] tracking-[0.15em] text-[#b0a89e] mb-3">Kickoff call</h3>
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-[#1A1917]">Booking link set</p>
+            <a
+              href={kickoffCallUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[10px] tracking-[0.1em] px-4 py-2 rounded-lg bg-[#1A1917] text-white hover:bg-[#2C2520] transition-colors"
+            >
+              Open booking link ↗
+            </a>
+          </div>
+        </div>
+      )}
+
+      {/* T&Cs */}
+      <div className="rounded-2xl border border-[#EDEBE6] p-5">
+        <h3 className="text-[10px] tracking-[0.15em] text-[#b0a89e] mb-3">Terms & Conditions</h3>
+        <div className="flex items-center justify-between">
+          <p className="text-sm text-[#1A1917]">
+            {packageType === "social" ? "Social Media Strategy T&Cs" : "Consulting Partnership T&Cs"}
+          </p>
+          <a
+            href={packageType === "social" ? "/terms/social" : "/terms/consulting"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[10px] tracking-[0.1em] px-4 py-2 rounded-lg border border-[#EDEBE6] text-[#7a7268] hover:border-[#C8B89A] hover:text-[#1A1917] transition-colors"
+          >
+            View T&Cs ↗
+          </a>
+        </div>
+      </div>
+
+      {/* Social media questionnaire (consulting clients only) */}
+      {packageType !== "social" && (
+        <div className="rounded-2xl border border-[#EDEBE6] p-5">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-[10px] tracking-[0.15em] text-[#b0a89e]">Social media questionnaire</h3>
+            {socialMediaIntake?.submittedAt && (
+              <span className="text-[10px] text-[#2D6A4F] bg-[#2D6A4F]/10 px-2 py-1 rounded-full">
+                Submitted {new Date(socialMediaIntake.submittedAt).toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" })}
+              </span>
+            )}
+          </div>
+          {socialMediaIntake?.submittedAt ? (
+            <div className="space-y-3">
+              {[
+                { label: "Primary platform", value: socialMediaIntake.primaryPlatform },
+                { label: "Current followers", value: socialMediaIntake.currentFollowers },
+                { label: "Content goal", value: socialMediaIntake.contentGoal },
+                { label: "Target audience", value: socialMediaIntake.targetAudience },
+                { label: "Top performing content", value: socialMediaIntake.topPerformingContent },
+                { label: "Content challenges", value: socialMediaIntake.contentChallenges },
+                { label: "Brand voice", value: socialMediaIntake.brandVoice },
+                { label: "Competitor accounts", value: socialMediaIntake.competitorAccounts },
+                { label: "Posting frequency", value: socialMediaIntake.postingFrequency },
+                { label: "Time available for content", value: socialMediaIntake.contentCreationTime },
+              ].filter(f => f.value).map(({ label, value }) => (
+                <div key={label} className="border-b border-[#F5F0E8] pb-2 last:border-0 last:pb-0">
+                  <p className="text-[10px] tracking-[0.1em] text-[#b0a89e]">{label}</p>
+                  <p className="text-sm text-[#1A1917] mt-0.5 leading-relaxed">{value}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-[#b0a89e]">Not yet submitted: the client will complete this in their portal.</p>
+          )}
+        </div>
+      )}
+
       {/* Intake form link */}
-      <div className="rounded-2xl border border-[#E8E2D9] p-5">
-        <h3 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-3">
+      <div className="rounded-2xl border border-[#EDEBE6] p-5">
+        <h3 className="text-[10px] tracking-[0.15em] text-[#b0a89e] mb-3">
           Intake form
         </h3>
         <div className="flex items-center justify-between">
@@ -144,14 +276,14 @@ export function OnboardingTab({ clientId, steps, intake, firstCallNotes }: Props
                 })}
               </p>
             ) : (
-              <p className="text-sm text-[#8C8277]">Not yet submitted</p>
+              <p className="text-sm text-[#b0a89e]">Not yet submitted</p>
             )}
           </div>
           <a
             href={intakeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[10px] tracking-[0.1em] uppercase px-4 py-2 rounded-lg border border-[#E8E2D9] text-[#5C5550] hover:border-[#C8B89A] hover:text-[#1A1714] transition-colors"
+            className="text-[10px] tracking-[0.1em] px-4 py-2 rounded-lg border border-[#EDEBE6] text-[#7a7268] hover:border-[#C8B89A] hover:text-[#1A1917] transition-colors"
           >
             Open intake form ↗
           </a>
@@ -160,8 +292,8 @@ export function OnboardingTab({ clientId, steps, intake, firstCallNotes }: Props
 
       {/* Intake answers */}
       {intake?.submittedAt && (
-        <div className="rounded-2xl border border-[#E8E2D9] p-5 space-y-6">
-          <h3 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277]">Intake answers</h3>
+        <div className="rounded-2xl border border-[#EDEBE6] p-5 space-y-6">
+          <h3 className="text-[10px] tracking-[0.15em] text-[#b0a89e]">Intake answers</h3>
 
           {[
             { section: "The Business", fields: [
@@ -199,12 +331,12 @@ export function OnboardingTab({ clientId, steps, intake, firstCallNotes }: Props
             if (filled.length === 0) return null;
             return (
               <div key={section}>
-                <p className="text-[10px] tracking-[0.12em] uppercase text-[#C8B89A] mb-3">{section}</p>
+                <p className="text-[10px] tracking-[0.12em] text-[#C8B89A] mb-3">{section}</p>
                 <div className="space-y-3">
                   {filled.map(({ label, value }) => (
                     <div key={label} className="border-b border-[#F5F0E8] pb-3 last:border-0 last:pb-0">
-                      <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1">{label}</p>
-                      <p className="text-sm text-[#1A1714] leading-6">{value}</p>
+                      <p className="text-[10px] tracking-[0.1em] text-[#b0a89e] mb-1">{label}</p>
+                      <p className="text-sm text-[#1A1917] leading-6">{value}</p>
                     </div>
                   ))}
                 </div>
@@ -217,10 +349,10 @@ export function OnboardingTab({ clientId, steps, intake, firstCallNotes }: Props
       {/* First call notes (founderNote from step 3) */}
       {firstCallNotes && (
         <div className="rounded-2xl bg-[#C8B89A]/10 border border-[#C8B89A]/30 p-5">
-          <h3 className="text-[10px] tracking-[0.15em] uppercase text-[#C8B89A] mb-3">
+          <h3 className="text-[10px] tracking-[0.15em] text-[#C8B89A] mb-3">
             First call notes
           </h3>
-          <p className="text-sm text-[#5C5550] leading-7 whitespace-pre-wrap">{firstCallNotes}</p>
+          <p className="text-sm text-[#7a7268] leading-7 whitespace-pre-wrap">{firstCallNotes}</p>
         </div>
       )}
     </div>

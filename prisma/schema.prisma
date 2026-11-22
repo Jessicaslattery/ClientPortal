@@ -57,6 +57,16 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model StaffAssignment {
+  id              String   @id @default(cuid())
+  staffUserId     String
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+  createdAt       DateTime @default(now())
+
+  @@unique([staffUserId, clientProfileId])
+}
+
 model ClientProfile {
   id                 String    @id @default(cuid())
   userId             String    @unique
@@ -95,9 +105,15 @@ model ClientProfile {
   platforms          String    @default("Instagram")
   onboardingComplete Boolean   @default(false)
   hiddenTabs         String[]  @default([])
+  package            String    @default("consulting")
+  welcomeVideoUrl    String?
+  kickoffCallUrl     String?
+  ownedByUserId      String?   // null = founder-owned; set to staff user ID for staff's own clients
 
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
+
+  staffAssignments StaffAssignment[]
 
   tasks        Task[]
   checkIns     CheckIn[]
@@ -112,16 +128,20 @@ model ClientProfile {
   scorecardTargets  ScorecardTargets?
   expenses          MonthlyExpense[]
   granolaTranscripts GranolaTranscript[]
-  businessContext_   BusinessContextIntake?
-  onboardingSteps   OnboardingStep[]
+  businessContext_      BusinessContextIntake?
+  socialMediaIntake     SocialMediaContextIntake?
+  onboardingSteps       OnboardingStep[]
   churnRisks        ChurnRisk[]
+  wins              ClientWin[]
   scheduledMessages ScheduledMessage[]
   contentPosts      ContentPost[]
   contentAnalytics  ContentAnalytics[]
   roadmaps          ClientRoadmap[]
   sessionSummaries  SessionSummary[]
-  agentOutputs      AgentOutput[]
-  smsClientProfile  SmsClientProfile?
+  agentOutputs          AgentOutput[]
+  smsClientProfile      SmsClientProfile?
+  questionnaireResponses QuestionnaireResponse[]
+  socialTrackerEntries  SocialPlanTracker[]
 }
 
 model Task {
@@ -146,6 +166,9 @@ model Task {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([clientProfileId])
+  @@index([clientProfileId, completed])
 }
 
 model CheckIn {
@@ -168,6 +191,8 @@ model CheckIn {
   preCallNote  String?
 
   createdAt DateTime @default(now())
+
+  @@index([clientProfileId])
 }
 
 model Message {
@@ -185,6 +210,9 @@ model Message {
   read           Boolean @default(false)
 
   createdAt DateTime @default(now())
+
+  @@index([clientProfileId])
+  @@index([clientProfileId, read])
 }
 
 model Deliverable {
@@ -201,6 +229,8 @@ model Deliverable {
 
   deliveredAt DateTime @default(now())
   createdAt   DateTime @default(now())
+
+  @@index([clientProfileId])
 }
 
 model Goal {
@@ -220,6 +250,8 @@ model Goal {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([clientProfileId])
 }
 
 model GoalProgressNote {
@@ -230,6 +262,8 @@ model GoalProgressNote {
   note      String
   progress  Int
   createdAt DateTime @default(now())
+
+  @@index([goalId])
 }
 
 model Call {
@@ -241,6 +275,7 @@ model Call {
   scheduledAt DateTime
   completedAt DateTime?
   granolaUrl  String?
+  notesUrl    String?
   transcript  String?
 
   summaryStatus  String  @default("pending")
@@ -250,6 +285,9 @@ model Call {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([clientProfileId])
+  @@index([clientProfileId, scheduledAt])
 }
 
 model SocialPlan {
@@ -437,6 +475,27 @@ model BusinessContextIntake {
   updatedAt   DateTime  @updatedAt
 }
 
+model SocialMediaContextIntake {
+  id              String        @id @default(cuid())
+  clientProfileId String        @unique
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  primaryPlatform       String @default("")
+  currentFollowers      String @default("")
+  contentGoal           String @default("")
+  targetAudience        String @default("")
+  topPerformingContent  String @default("")
+  contentChallenges     String @default("")
+  brandVoice            String @default("")
+  competitorAccounts    String @default("")
+  postingFrequency      String @default("")
+  contentCreationTime   String @default("")
+
+  submittedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
 model OnboardingStep {
   id              String        @id @default(cuid())
   clientProfileId String
@@ -449,6 +508,34 @@ model OnboardingStep {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// ─── Win Log ─────────────────────────────────────────────────────────────────
+
+model ClientWin {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  title           String
+  description     String?
+  category        String        @default("general") // revenue | milestone | personal | other
+  celebratedAt    DateTime      @default(now())
+  createdAt       DateTime      @default(now())
+
+  @@index([clientProfileId])
+}
+
+// ─── Announcements ───────────────────────────────────────────────────────────
+
+model Announcement {
+  id          String   @id @default(cuid())
+  title       String
+  body        String
+  audience    String   @default("all") // all | consulting | social | onboarding | active
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 // ─── Churn & Health ──────────────────────────────────────────────────────────
@@ -478,6 +565,9 @@ model ScheduledMessage {
   sentAt          DateTime?
 
   createdAt DateTime @default(now())
+
+  @@index([clientProfileId])
+  @@index([sent, scheduledFor])
 }
 
 // ─── Content Agent ───────────────────────────────────────────────────────────
@@ -488,6 +578,7 @@ model ContentPost {
   clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
 
   month           String        // e.g. "2026-07"
+
   postDate        DateTime
   contentType     String        // reel | carousel | picture | story
   funnel          String        @default("top") // top | middle | bottom (unused for stories)
@@ -528,6 +619,9 @@ model ContentPost {
   metricsLoggedAt DateTime?
 
   createdAt       DateTime      @default(now())
+
+  @@index([clientProfileId])
+  @@index([clientProfileId, month])
 }
 
 model ContentAnalytics {
@@ -545,6 +639,8 @@ model ContentAnalytics {
   insights        String
 
   createdAt       DateTime      @default(now())
+
+  @@index([clientProfileId])
 }
 
 // ─── Scribe Agent ────────────────────────────────────────────────────────────
@@ -567,6 +663,8 @@ model SessionSummary {
   agentDraftId    String?
 
   createdAt       DateTime      @default(now())
+
+  @@index([clientProfileId])
 }
 
 // ─── Goal Snapshots ──────────────────────────────────────────────────────────
@@ -652,6 +750,8 @@ model ClientRoadmap {
 
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
+
+  @@index([clientProfileId])
 }
 
 // ─── Founder Expenses ─────────────────────────────────────────────────────────
@@ -934,4 +1034,63 @@ model OutlineComment {
   userId        String
   content       String
   createdAt     DateTime    @default(now())
+}
+
+// ─── Questionnaires ──────────────────────────────────────────────────────────
+
+model QuestionnaireResponse {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+
+  type            String   // goal_setting | social_goal_setting | client_voice | monthly_momentum | 90_day_review
+  answersJson     String   // JSON object with question keys and answer values
+  submittedAt     DateTime @default(now())
+  createdAt       DateTime @default(now())
+
+  @@index([clientProfileId])
+  @@index([clientProfileId, type])
+}
+
+// ─── Reminders ───────────────────────────────────────────────────────────────
+
+model ReminderTemplate {
+  id          String   @id @default(cuid())
+  title       String
+  message     String   // supports {firstName} placeholder
+  dayOfWeek   String   @default("Monday") // Monday | Tuesday | Wednesday | Thursday | Friday
+  audience    String   @default("all") // all | consulting | sms | active
+  active      Boolean  @default(true)
+  sentHistory ReminderSent[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ReminderSent {
+  id                 String           @id @default(cuid())
+  reminderTemplateId String
+  reminderTemplate   ReminderTemplate @relation(fields: [reminderTemplateId], references: [id], onDelete: Cascade)
+  clientProfileId    String
+  sentAt             DateTime         @default(now())
+  status             String           @default("sent") // sent | failed | pending
+
+  @@index([reminderTemplateId])
+  @@index([clientProfileId, sentAt])
+}
+
+// ─── Social Plan Tracker ─────────────────────────────────────────────────────
+
+model SocialPlanTracker {
+  id              String        @id @default(cuid())
+  clientProfileId String
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id], onDelete: Cascade)
+  month           String        // "2026-12"
+  planStatus      String        @default("not_started") // not_started | in_progress | done
+  storiesStatus   String        @default("not_started")
+  reelsStatus     String        @default("not_started")
+  notes           String        @default("")
+  updatedAt       DateTime      @updatedAt
+
+  @@unique([clientProfileId, month])
+  @@index([month])
 }

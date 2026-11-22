@@ -100,15 +100,15 @@ export function FounderMessagesView({
   }
 
   return (
-    <div className="flex h-[calc(100vh-120px)] gap-0 rounded-3xl border border-[#E8E2D9] overflow-hidden">
-      {/* Left — conversation list */}
-      <div className="w-64 shrink-0 border-r border-[#E8E2D9] flex flex-col bg-[#FAFAF8]">
-        <div className="px-4 py-4 border-b border-[#E8E2D9]">
-          <p className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277]">Conversations</p>
+    <div className="flex h-[calc(100vh-120px)] gap-0 rounded-3xl border border-[#EDEBE6] overflow-hidden">
+      {/* Left: conversation list */}
+      <div className="w-64 shrink-0 border-r border-[#EDEBE6] flex flex-col bg-[#FAFAF8]">
+        <div className="px-4 py-4 border-b border-[#EDEBE6]">
+          <p className="text-[10px] tracking-[0.15em] text-[#b0a89e]">Conversations</p>
         </div>
         <div className="flex-1 overflow-y-auto">
           {conversations.length === 0 && (
-            <p className="text-xs text-[#8C8277] p-4">No clients yet.</p>
+            <p className="text-xs text-[#b0a89e] p-4">No clients yet.</p>
           )}
           {conversations.map((c) => {
             const active = c.clientId === activeClientId;
@@ -116,20 +116,20 @@ export function FounderMessagesView({
               <button
                 key={c.clientId}
                 onClick={() => router.push(`/inbox?client=${c.clientId}`)}
-                className={`w-full text-left px-4 py-3.5 border-b border-[#E8E2D9]/60 transition-colors ${
+                className={`w-full text-left px-4 py-3.5 border-b border-[#EDEBE6]/60 transition-colors ${
                   active ? "bg-[#EDE8E0]" : "hover:bg-[#F5F2ED]"
                 }`}
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0 flex-1">
-                    <p className={`text-xs truncate ${active ? "text-[#1A1714] font-medium" : "text-[#1A1714]"}`}>
+                    <p className={`text-xs truncate ${active ? "text-[#1A1917] font-medium" : "text-[#1A1917]"}`}>
                       {c.founderName}
                     </p>
-                    <p className="text-[10px] text-[#8C8277] truncate">{c.businessName}</p>
+                    <p className="text-[10px] text-[#b0a89e] truncate">{c.businessName}</p>
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
                     {c.lastMessage && (
-                      <span className="text-[9px] text-[#8C8277]">
+                      <span className="text-[9px] text-[#b0a89e]">
                         {formatRelative(c.lastMessage.createdAt)}
                       </span>
                     )}
@@ -141,7 +141,7 @@ export function FounderMessagesView({
                   </div>
                 </div>
                 {c.lastMessage && (
-                  <p className="text-[10px] text-[#8C8277] truncate mt-1 leading-4">
+                  <p className="text-[10px] text-[#b0a89e] truncate mt-1 leading-4">
                     {c.lastMessage.senderRole === "founder" ? "You: " : ""}
                     {c.lastMessage.content}
                   </p>
@@ -152,7 +152,7 @@ export function FounderMessagesView({
         </div>
       </div>
 
-      {/* Right — thread */}
+      {/* Right: thread */}
       <div className="flex-1 flex flex-col min-w-0 bg-[#FFFFFF]">
         {!activeClientId ? (
           <div className="flex-1 flex items-center justify-center">
@@ -162,15 +162,15 @@ export function FounderMessagesView({
                   <path d="M7 1C3.69 1 1 3.35 1 6.25c0 1.57.74 2.98 1.93 3.96L2.5 13l2.87-1.44A6.4 6.4 0 007 11.5c3.31 0 6-2.35 6-5.25S10.31 1 7 1z" />
                 </svg>
               </div>
-              <p className="text-sm text-[#8C8277]">Select a conversation</p>
+              <p className="text-sm text-[#b0a89e]">Select a conversation</p>
             </div>
           </div>
         ) : (
           <>
             {/* Thread header */}
-            <div className="px-6 py-4 border-b border-[#E8E2D9] flex items-center gap-3">
+            <div className="px-6 py-4 border-b border-[#EDEBE6] flex items-center gap-3">
               <div>
-                <p className="text-sm text-[#1A1714]">{activeClientName}</p>
+                <p className="text-sm text-[#1A1917]">{activeClientName}</p>
               </div>
             </div>
 
@@ -178,15 +178,15 @@ export function FounderMessagesView({
             <div className="flex-1 overflow-y-auto px-6 py-5 space-y-6 bg-[#FAFAF8]">
               {messages.length === 0 && (
                 <div className="flex items-center justify-center h-full">
-                  <p className="text-sm text-[#8C8277]">No messages yet. Send the first one.</p>
+                  <p className="text-sm text-[#b0a89e]">No messages yet. Send the first one.</p>
                 </div>
               )}
               {grouped.map(({ date, msgs }) => (
                 <div key={date}>
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="flex-1 h-px bg-[#E8E2D9]" />
-                    <span className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277]">{date}</span>
-                    <div className="flex-1 h-px bg-[#E8E2D9]" />
+                    <div className="flex-1 h-px bg-[#EDEBE6]" />
+                    <span className="text-[10px] tracking-[0.1em] text-[#b0a89e]">{date}</span>
+                    <div className="flex-1 h-px bg-[#EDEBE6]" />
                   </div>
                   <div className="space-y-3">
                     {msgs.map((msg) => {
@@ -196,12 +196,12 @@ export function FounderMessagesView({
                           <div className={`max-w-[72%] flex flex-col gap-1 ${isFounder ? "items-end" : "items-start"}`}>
                             <div className={`px-4 py-3 text-sm leading-6 ${
                               isFounder
-                                ? "bg-[#1A1714] text-[#FAFAF8] rounded-3xl"
-                                : "bg-[#FFFFFF] border border-[#E8E2D9] text-[#1A1714] rounded-2xl"
+                                ? "bg-[#1A1917] text-[#FAFAF8] rounded-3xl"
+                                : "bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] rounded-2xl"
                             }`}>
                               {msg.content}
                             </div>
-                            <span className="text-[10px] text-[#8C8277]">{formatTime(msg.createdAt)}</span>
+                            <span className="text-[10px] text-[#b0a89e]">{formatTime(msg.createdAt)}</span>
                           </div>
                         </div>
                       );
@@ -213,10 +213,10 @@ export function FounderMessagesView({
             </div>
 
             {/* Compose */}
-            <div className="border-t border-[#E8E2D9] px-4 py-3 bg-[#FFFFFF]">
+            <div className="border-t border-[#EDEBE6] px-4 py-3 bg-[#FFFFFF]">
               <div className="relative">
                 {showEmoji && (
-                  <div className="absolute bottom-full mb-2 left-0 bg-white border border-[#E8E2D9] rounded-2xl shadow-lg p-3 z-10 w-64">
+                  <div className="absolute bottom-full mb-2 left-0 bg-white border border-[#EDEBE6] rounded-2xl shadow-lg p-3 z-10 w-64">
                     <div className="grid grid-cols-10 gap-1">
                       {EMOJIS.map((emoji) => (
                         <button
@@ -244,12 +244,12 @@ export function FounderMessagesView({
                 )}
                 <form
                   onSubmit={handleSend}
-                  className="flex items-end gap-2 rounded-2xl border border-[#E8E2D9] bg-[#FAFAF8] px-4 py-3 focus-within:border-[#C8B89A]/60 transition-colors"
+                  className="flex items-end gap-2 rounded-2xl border border-[#EDEBE6] bg-[#FAFAF8] px-4 py-3 focus-within:border-[#C8B89A]/60 transition-colors"
                 >
                   <button
                     type="button"
                     onClick={() => setShowEmoji(v => !v)}
-                    className="flex-shrink-0 text-[#8C8277] hover:text-[#1A1714] transition-colors mb-0.5"
+                    className="flex-shrink-0 text-[#b0a89e] hover:text-[#1A1917] transition-colors mb-0.5"
                     aria-label="Emoji"
                   >
                     <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4">
@@ -271,13 +271,13 @@ export function FounderMessagesView({
                     }}
                     placeholder="Write a message to your client…"
                     rows={1}
-                    className="flex-1 bg-transparent text-sm text-[#1A1714] placeholder:text-[#8C8277] resize-none focus:outline-none leading-6"
+                    className="flex-1 bg-transparent text-sm text-[#1A1917] placeholder:text-[#b0a89e] resize-none focus:outline-none leading-6"
                     style={{ maxHeight: "120px", overflowY: "auto" }}
                   />
                   <button
                     type="submit"
                     disabled={!value.trim() || sending || pending}
-                    className="flex-shrink-0 w-8 h-8 rounded-full bg-[#1A1714] text-[#FAFAF8] flex items-center justify-center hover:bg-[#2C2520] transition-all disabled:opacity-30"
+                    className="flex-shrink-0 w-8 h-8 rounded-full bg-[#1A1917] text-[#FAFAF8] flex items-center justify-center hover:bg-[#2C2520] transition-all disabled:opacity-30"
                   >
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                       <path d="M12 7L2 2l2 5-2 5 10-5z" fill="currentColor" />
@@ -285,7 +285,7 @@ export function FounderMessagesView({
                   </button>
                 </form>
               </div>
-              <p className="text-[10px] text-[#8C8277]/60 mt-1.5 px-1">Press Enter to send · Shift+Enter for new line</p>
+              <p className="text-[10px] text-[#b0a89e]/60 mt-1.5 px-1">Press Enter to send · Shift+Enter for new line</p>
             </div>
           </>
         )}

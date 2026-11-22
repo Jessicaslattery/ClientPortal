@@ -13,12 +13,12 @@ const initialState = { error: "" };
 
 function Section({ number, title, children }: { number: number; title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-3xl border border-[#E8E2D9] p-6 space-y-5">
+    <div className="rounded-2xl border border-[#EDEBE6] p-6 space-y-5">
       <div className="flex items-center gap-3">
-        <span className="w-5 h-5 rounded-full border border-[#E8E2D9] flex items-center justify-center text-[9px] text-[#8C8277] tabular-nums shrink-0">
+        <span className="w-5 h-5 rounded-full border border-[#EDEBE6] flex items-center justify-center text-[9px] text-[#b0a89e] tabular-nums shrink-0">
           {number}
         </span>
-        <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#5C5550]">{title}</h2>
+        <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#7a7268]">{title}</h2>
       </div>
       {children}
     </div>
@@ -28,9 +28,9 @@ function Section({ number, title, children }: { number: number; title: string; c
 function LongField({ name, label, placeholder, required = true }: { name: string; label: string; placeholder?: string; required?: boolean }) {
   return (
     <div>
-      <label htmlFor={name} className="block text-xs text-[#1A1714] mb-2 leading-5">
+      <label htmlFor={name} className="block text-xs text-[#1A1917] mb-2 leading-5">
         {label}
-        {!required && <span className="ml-1.5 text-[#8C8277]">(optional)</span>}
+        {!required && <span className="ml-1.5 text-[#b0a89e]">(optional)</span>}
       </label>
       <textarea
         id={name}
@@ -38,7 +38,7 @@ function LongField({ name, label, placeholder, required = true }: { name: string
         required={required}
         rows={4}
         placeholder={placeholder}
-        className="w-full rounded-2xl bg-[#FFFFFF] border border-[#E8E2D9] text-[#1A1714] px-4 py-3 text-sm placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A]/40 transition-colors resize-none leading-6"
+        className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-4 py-3 text-sm placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A]/40 transition-colors resize-none leading-6"
       />
     </div>
   );
@@ -47,9 +47,9 @@ function LongField({ name, label, placeholder, required = true }: { name: string
 function ShortField({ name, label, placeholder, required = true }: { name: string; label: string; placeholder?: string; required?: boolean }) {
   return (
     <div>
-      <label htmlFor={name} className="block text-xs text-[#1A1714] mb-2 leading-5">
+      <label htmlFor={name} className="block text-xs text-[#1A1917] mb-2 leading-5">
         {label}
-        {!required && <span className="ml-1.5 text-[#8C8277]">(optional)</span>}
+        {!required && <span className="ml-1.5 text-[#b0a89e]">(optional)</span>}
       </label>
       <textarea
         id={name}
@@ -57,7 +57,7 @@ function ShortField({ name, label, placeholder, required = true }: { name: strin
         required={required}
         rows={2}
         placeholder={placeholder}
-        className="w-full rounded-2xl bg-[#FFFFFF] border border-[#E8E2D9] text-[#1A1714] px-4 py-3 text-sm placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A]/40 transition-colors resize-none leading-6"
+        className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-4 py-3 text-sm placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A]/40 transition-colors resize-none leading-6"
       />
     </div>
   );
@@ -104,10 +104,10 @@ export function CheckInForm({ clientProfileId, currentMonth, currentWeek }: Prop
       <Section number={3} title="Energy">
         <div>
           <div className="flex items-center justify-between mb-3">
-            <label className="text-xs text-[#1A1714]">
+            <label className="text-xs text-[#1A1917]">
               How is your energy and momentum this week?
             </label>
-            <span className="font-display text-2xl font-thin tracking-wide text-[#C8B89A] tabular-nums w-6 text-right">
+            <span className="text-2xl font-[300] tracking-wide text-[#C8B89A] tabular-nums w-6 text-right">
               {energy}
             </span>
           </div>
@@ -121,12 +121,12 @@ export function CheckInForm({ clientProfileId, currentMonth, currentWeek }: Prop
             style={{
               appearance: "none",
               height: "1px",
-              background: `linear-gradient(to right, #C8B89A ${(energy - 1) / 9 * 100}%, #E8E2D9 ${(energy - 1) / 9 * 100}%)`,
+              background: `linear-gradient(to right, #C8B89A ${(energy - 1) / 9 * 100}%, #EDEBE6 ${(energy - 1) / 9 * 100}%)`,
             }}
           />
           <div className="flex justify-between mt-2">
-            <span className="text-[9px] text-[#8C8277]">1 · Depleted</span>
-            <span className="text-[9px] text-[#8C8277]">10 · Energised</span>
+            <span className="text-[9px] text-[#b0a89e]">1 · Depleted</span>
+            <span className="text-[9px] text-[#b0a89e]">10 · Energised</span>
           </div>
         </div>
         <ShortField
@@ -172,7 +172,7 @@ export function CheckInForm({ clientProfileId, currentMonth, currentWeek }: Prop
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-2xl bg-[#1A1714] text-[#FAFAF8] px-6 py-3.5 text-xs tracking-[0.15em] uppercase font-medium hover:bg-[#2C2520] transition-colors disabled:opacity-50"
+        className="w-full rounded-2xl bg-[#1A1917] text-[#FAFAF8] px-6 py-3.5 text-xs tracking-[0.15em] uppercase font-medium hover:bg-[#2C2520] transition-colors disabled:opacity-50"
       >
         {pending ? "Submitting…" : "Submit check-in"}
       </button>

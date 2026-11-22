@@ -40,8 +40,8 @@ function monthLabel(key: string) {
   return `${MONTHS_LABEL[m] ?? m} ${year}`;
 }
 
-const inputClass = "w-full rounded-xl border border-[#E8E2D9] bg-[#FFFFFF] px-3 py-2 text-sm text-[#1A1714] placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A]";
-const labelClass = "text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1 block";
+const inputClass = "w-full rounded-xl border border-[#EDEBE6] bg-[#FFFFFF] px-3 py-2 text-sm text-[#1A1917] placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A]";
+const labelClass = "text-[10px] tracking-[0.1em] text-[#b0a89e] mb-1 block";
 
 function ExpenseRow({ expense }: { expense: Expense }) {
   const [editing, setEditing] = useState(false);
@@ -78,10 +78,10 @@ function ExpenseRow({ expense }: { expense: Expense }) {
         </div>
         {updateState.error && <p className="text-xs text-[#9B2335]">{updateState.error}</p>}
         <div className="flex items-center gap-3">
-          <button type="submit" disabled={updatePending} className="px-4 py-1.5 rounded-xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-[0.1em] uppercase disabled:opacity-50">
+          <button type="submit" disabled={updatePending} className="px-4 py-1.5 rounded-xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-[0.1em] disabled:opacity-50">
             {updatePending ? "Saving…" : "Save"}
           </button>
-          <button type="button" onClick={() => setEditing(false)} className="text-xs text-[#5C5550] hover:text-[#1A1714]">Cancel</button>
+          <button type="button" onClick={() => setEditing(false)} className="text-xs text-[#7a7268] hover:text-[#1A1917]">Cancel</button>
         </div>
       </form>
     );
@@ -90,18 +90,18 @@ function ExpenseRow({ expense }: { expense: Expense }) {
   return (
     <div className="flex items-center justify-between px-5 py-3.5">
       <div>
-        <p className="text-sm text-[#1A1714]">{expense.name}</p>
-        {expense.notes && <p className="text-xs text-[#8C8277] mt-0.5">{expense.notes}</p>}
+        <p className="text-sm text-[#1A1917]">{expense.name}</p>
+        {expense.notes && <p className="text-xs text-[#b0a89e] mt-0.5">{expense.notes}</p>}
       </div>
       <div className="flex items-center gap-4">
-        <p className="text-sm font-medium text-[#1A1714]">
+        <p className="text-sm font-medium text-[#1A1917]">
           ${expense.amount.toLocaleString("en-AU", { minimumFractionDigits: 2 })}
         </p>
-        <button onClick={() => setEditing(true)} className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277] hover:text-[#1A1714] transition-colors">
+        <button onClick={() => setEditing(true)} className="text-[10px] tracking-[0.08em] text-[#b0a89e] hover:text-[#1A1917] transition-colors">
           Edit
         </button>
         <form action={async () => { await deleteExpenseAction(expense.id); }}>
-          <button type="submit" className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277] hover:text-[#9B2335] transition-colors">
+          <button type="submit" className="text-[10px] tracking-[0.08em] text-[#b0a89e] hover:text-[#9B2335] transition-colors">
             Remove
           </button>
         </form>
@@ -137,10 +137,10 @@ function IncomeRow({ income }: { income: Income }) {
         </div>
         {updateState.error && <p className="text-xs text-[#9B2335]">{updateState.error}</p>}
         <div className="flex items-center gap-3">
-          <button type="submit" disabled={updatePending} className="px-4 py-1.5 rounded-xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-[0.1em] uppercase disabled:opacity-50">
+          <button type="submit" disabled={updatePending} className="px-4 py-1.5 rounded-xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-[0.1em] disabled:opacity-50">
             {updatePending ? "Saving…" : "Save"}
           </button>
-          <button type="button" onClick={() => setEditing(false)} className="text-xs text-[#5C5550] hover:text-[#1A1714]">Cancel</button>
+          <button type="button" onClick={() => setEditing(false)} className="text-xs text-[#7a7268] hover:text-[#1A1917]">Cancel</button>
         </div>
       </form>
     );
@@ -149,18 +149,18 @@ function IncomeRow({ income }: { income: Income }) {
   return (
     <div className="flex items-center justify-between px-5 py-3.5">
       <div>
-        <p className="text-sm text-[#1A1714]">{income.name}</p>
-        {income.notes && <p className="text-xs text-[#8C8277] mt-0.5">{income.notes}</p>}
+        <p className="text-sm text-[#1A1917]">{income.name}</p>
+        {income.notes && <p className="text-xs text-[#b0a89e] mt-0.5">{income.notes}</p>}
       </div>
       <div className="flex items-center gap-4">
         <p className="text-sm font-medium text-[#2D6A4F]">
           ${income.amount.toLocaleString("en-AU", { minimumFractionDigits: 2 })}
         </p>
-        <button onClick={() => setEditing(true)} className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277] hover:text-[#1A1714] transition-colors">
+        <button onClick={() => setEditing(true)} className="text-[10px] tracking-[0.08em] text-[#b0a89e] hover:text-[#1A1917] transition-colors">
           Edit
         </button>
         <form action={async () => { await deleteIncomeAction(income.id); }}>
-          <button type="submit" className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277] hover:text-[#9B2335] transition-colors">
+          <button type="submit" className="text-[10px] tracking-[0.08em] text-[#b0a89e] hover:text-[#9B2335] transition-colors">
             Remove
           </button>
         </form>
@@ -194,10 +194,20 @@ export function ExpenseTracker({
   const monthRevenue = revenueByMonth[selectedMonth] ?? 0;
   const monthProfit = monthRevenue - monthExpenseTotal;
 
-  // All unique months across expenses + income + current month
-  const allMonths = Array.from(
-    new Set([currentMonth, ...expenses.map((e) => e.month), ...incomes.map((i) => i.month)])
-  ).sort((a, b) => b.localeCompare(a));
+  // Build a list of months: last 24 months + any months that have data
+  const monthOptions = (() => {
+    const set = new Set<string>();
+    // Last 24 months
+    const now = new Date();
+    for (let i = 0; i < 24; i++) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      set.add(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`);
+    }
+    // Any months with existing data
+    expenses.forEach((e) => set.add(e.month));
+    incomes.forEach((i) => set.add(i.month));
+    return Array.from(set).sort((a, b) => b.localeCompare(a));
+  })();
 
   const groupedByCategory = filteredExpenses.reduce<Record<string, Expense[]>>((acc, e) => {
     acc[e.category] = acc[e.category] ?? [];
@@ -208,39 +218,43 @@ export function ExpenseTracker({
   return (
     <div className="space-y-6">
       {/* Month selector */}
-      <div className="flex items-center gap-2 flex-wrap">
-        {allMonths.map((m) => (
-          <button
-            key={m}
-            onClick={() => setSelectedMonth(m)}
-            className={`px-4 py-1.5 rounded-full text-xs tracking-[0.08em] border transition-colors ${
-              selectedMonth === m
-                ? "bg-[#1A1714] text-[#FAFAF8] border-[#1A1714]"
-                : "bg-[#FFFFFF] text-[#5C5550] border-[#E8E2D9] hover:border-[#C8B89A]"
-            }`}
+      <div className="flex items-center gap-3">
+        <label className="text-[10px] tracking-[0.12em] text-[#b0a89e]">Month</label>
+        <div className="relative">
+          <select
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(e.target.value)}
+            className="appearance-none rounded-xl border border-[#EDEBE6] bg-[#FFFFFF] pl-4 pr-9 py-2 text-sm text-[#1A1917] focus:outline-none focus:border-[#C8B89A] cursor-pointer"
           >
-            {monthLabel(m)}
-          </button>
-        ))}
+            {monthOptions.map((m) => (
+              <option key={m} value={m}>{monthLabel(m)}</option>
+            ))}
+          </select>
+          <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
+            <svg width="12" height="7" viewBox="0 0 12 7" fill="none">
+              <path d="M1 1L6 6L11 1" stroke="#8C735A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        </div>
       </div>
 
       {/* Month summary */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="rounded-2xl border border-[#E8E2D9] bg-[#FFFFFF] p-4">
-          <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277]">Income received</p>
-          <p className="font-display text-2xl font-light text-[#1A1714] mt-1">
+        <div className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] p-4">
+          <p className="text-[10px] tracking-[0.12em] text-[#b0a89e]">Income received</p>
+          <p className="text-2xl font-[300] text-[#1A1917] mt-1">
             ${monthRevenue.toLocaleString("en-AU", { minimumFractionDigits: 2 })}
           </p>
         </div>
-        <div className="rounded-2xl border border-[#E8E2D9] bg-[#FFFFFF] p-4">
-          <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277]">Expenses</p>
-          <p className="font-display text-2xl font-light text-[#1A1714] mt-1">
+        <div className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] p-4">
+          <p className="text-[10px] tracking-[0.12em] text-[#b0a89e]">Expenses</p>
+          <p className="text-2xl font-[300] text-[#1A1917] mt-1">
             ${monthExpenseTotal.toLocaleString("en-AU", { minimumFractionDigits: 2 })}
           </p>
         </div>
-        <div className="rounded-2xl border border-[#E8E2D9] bg-[#FFFFFF] p-4">
-          <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277]">Profit</p>
-          <p className={`font-display text-2xl font-light mt-1 ${monthProfit >= 0 ? "text-[#2D6A4F]" : "text-[#9B2335]"}`}>
+        <div className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] p-4">
+          <p className="text-[10px] tracking-[0.12em] text-[#b0a89e]">Profit</p>
+          <p className={`text-2xl font-[300] mt-1 ${monthProfit >= 0 ? "text-[#2D6A4F]" : "text-[#9B2335]"}`}>
             {monthProfit < 0 ? "-" : ""}${Math.abs(monthProfit).toLocaleString("en-AU", { minimumFractionDigits: 2 })}
           </p>
         </div>
@@ -249,12 +263,12 @@ export function ExpenseTracker({
       {/* Income list */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277]">
+          <h2 className="text-[10px] tracking-[0.15em] text-[#b0a89e]">
             {monthLabel(selectedMonth)} income received
           </h2>
           <button
             onClick={() => setShowAddIncome(!showAddIncome)}
-            className="px-4 py-1.5 rounded-2xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-[0.1em] uppercase hover:bg-[#2C2520] transition-colors"
+            className="px-4 py-1.5 rounded-2xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-[0.1em] hover:bg-[#2C2520] transition-colors"
           >
             {showAddIncome ? "Cancel" : "+ Add income"}
           </button>
@@ -281,24 +295,24 @@ export function ExpenseTracker({
               <input name="notes" placeholder="e.g. net of Stripe fees" className={inputClass} />
             </div>
             {addIncState.error && <p className="text-xs text-[#9B2335]">{addIncState.error}</p>}
-            <button type="submit" disabled={addIncPending} className="px-5 py-2 rounded-xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-[0.1em] uppercase disabled:opacity-50">
+            <button type="submit" disabled={addIncPending} className="px-5 py-2 rounded-xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-[0.1em] disabled:opacity-50">
               {addIncPending ? "Saving…" : "Save income"}
             </button>
           </form>
         )}
 
         {filteredIncomes.length === 0 && !showAddIncome ? (
-          <div className="rounded-2xl border border-[#E8E2D9] bg-[#FFFFFF] px-6 py-10 text-center">
-            <p className="text-sm text-[#8C8277]">No income logged for {monthLabel(selectedMonth)}.</p>
+          <div className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] px-6 py-10 text-center">
+            <p className="text-sm text-[#b0a89e]">No income logged for {monthLabel(selectedMonth)}.</p>
           </div>
         ) : (
           filteredIncomes.length > 0 && (
-            <div className="rounded-2xl border border-[#E8E2D9] bg-[#FFFFFF] divide-y divide-[#E8E2D9]"
+            <div className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] divide-y divide-[#EDEBE6]"
               style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}
             >
               {filteredIncomes.map((i) => <IncomeRow key={i.id} income={i} />)}
               <div className="flex justify-between px-5 py-2.5 bg-[#F5F2ED] rounded-b-2xl">
-                <p className="text-xs text-[#8C8277]">Total received</p>
+                <p className="text-xs text-[#b0a89e]">Total received</p>
                 <p className="text-xs font-medium text-[#2D6A4F]">
                   ${filteredIncomes.reduce((s, i) => s + i.amount, 0).toLocaleString("en-AU", { minimumFractionDigits: 2 })}
                 </p>
@@ -311,12 +325,12 @@ export function ExpenseTracker({
       {/* Expense list */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277]">
+          <h2 className="text-[10px] tracking-[0.15em] text-[#b0a89e]">
             {monthLabel(selectedMonth)} expenses
           </h2>
           <button
             onClick={() => setShowAddExpense(!showAddExpense)}
-            className="px-4 py-1.5 rounded-2xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-[0.1em] uppercase hover:bg-[#2C2520] transition-colors"
+            className="px-4 py-1.5 rounded-2xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-[0.1em] hover:bg-[#2C2520] transition-colors"
           >
             {showAddExpense ? "Cancel" : "+ Add expense"}
           </button>
@@ -374,7 +388,7 @@ export function ExpenseTracker({
             <button
               type="submit"
               disabled={addExpPending}
-              className="px-5 py-2 rounded-xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-[0.1em] uppercase disabled:opacity-50"
+              className="px-5 py-2 rounded-xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-[0.1em] disabled:opacity-50"
             >
               {addExpPending ? "Saving…" : "Save expense"}
             </button>
@@ -382,21 +396,21 @@ export function ExpenseTracker({
         )}
 
         {filteredExpenses.length === 0 && !showAddExpense && (
-          <div className="rounded-2xl border border-[#E8E2D9] bg-[#FFFFFF] px-6 py-10 text-center">
-            <p className="text-sm text-[#8C8277]">No expenses logged for {monthLabel(selectedMonth)}.</p>
+          <div className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] px-6 py-10 text-center">
+            <p className="text-sm text-[#b0a89e]">No expenses logged for {monthLabel(selectedMonth)}.</p>
           </div>
         )}
 
         {Object.entries(groupedByCategory).map(([cat, items]) => (
           <div key={cat} className="mb-4">
-            <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277] mb-2">{cat}</p>
-            <div className="rounded-2xl border border-[#E8E2D9] bg-[#FFFFFF] divide-y divide-[#E8E2D9]"
+            <p className="text-[10px] tracking-[0.12em] text-[#b0a89e] mb-2">{cat}</p>
+            <div className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] divide-y divide-[#EDEBE6]"
               style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}
             >
               {items.map((e) => <ExpenseRow key={e.id} expense={e} />)}
               <div className="flex justify-between px-5 py-2.5 bg-[#F5F2ED] rounded-b-2xl">
-                <p className="text-xs text-[#8C8277]">{cat} total</p>
-                <p className="text-xs font-medium text-[#1A1714]">
+                <p className="text-xs text-[#b0a89e]">{cat} total</p>
+                <p className="text-xs font-medium text-[#1A1917]">
                   ${items.reduce((s, e) => s + e.amount, 0).toLocaleString("en-AU", { minimumFractionDigits: 2 })}
                 </p>
               </div>

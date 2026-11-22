@@ -2,6 +2,13 @@
 
 import { useActionState } from "react";
 import { loginAction } from "./actions";
+import { Plus_Jakarta_Sans } from "next/font/google";
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500"],
+  variable: "--font-jakarta",
+});
 
 const initialState = { error: "" };
 
@@ -9,14 +16,17 @@ export default function LoginPage() {
   const [state, formAction, pending] = useActionState(loginAction, initialState);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#F2EDE4] px-4">
+    <div
+      className={`${jakarta.variable} min-h-screen flex items-center justify-center bg-white px-4`}
+      style={{ fontFamily: "var(--font-jakarta), sans-serif" }}
+    >
       <div className="w-full max-w-sm">
-        {/* Logo / wordmark */}
+        {/* Wordmark */}
         <div className="mb-12 text-center">
-          <h1 className="font-display text-4xl font-thin tracking-widest tracking-[0.2em] text-[#1A1714] uppercase">
-            Pivot Co.
-          </h1>
-          <p className="mt-2 text-xs tracking-[0.15em] text-[#5C5550] uppercase">
+          <div className="flex items-center justify-center mb-4">
+            <img src="/logo.svg" alt="Pivot Co." className="h-12 w-auto" />
+          </div>
+          <p className="text-[10px] tracking-[0.2em] text-[#b0a89e]">
             Portal
           </p>
         </div>
@@ -26,7 +36,7 @@ export default function LoginPage() {
           <div>
             <label
               htmlFor="email"
-              className="block text-xs tracking-[0.12em] uppercase text-[#5C5550] mb-2"
+              className="block text-[10px] tracking-[0.14em] text-[#7a7268] mb-2"
             >
               Email
             </label>
@@ -36,7 +46,7 @@ export default function LoginPage() {
               type="email"
               required
               autoComplete="email"
-              className="w-full rounded-2xl bg-[#FFFFFF] border border-[#E8E2D9] text-[#1A1714] px-4 py-3 text-sm placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A] transition-colors"
+              className="w-full rounded-xl bg-white border border-[#EDEBE6] text-[#1A1917] px-4 py-3 text-sm placeholder:text-[#b0a89e] focus:outline-none focus:border-[#8C735A] transition-colors"
               placeholder="your@email.com"
             />
           </div>
@@ -44,7 +54,7 @@ export default function LoginPage() {
           <div>
             <label
               htmlFor="password"
-              className="block text-xs tracking-[0.12em] uppercase text-[#5C5550] mb-2"
+              className="block text-[10px] tracking-[0.14em] text-[#7a7268] mb-2"
             >
               Password
             </label>
@@ -54,32 +64,32 @@ export default function LoginPage() {
               type="password"
               required
               autoComplete="current-password"
-              className="w-full rounded-2xl bg-[#FFFFFF] border border-[#E8E2D9] text-[#1A1714] px-4 py-3 text-sm placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A] transition-colors"
+              className="w-full rounded-xl bg-white border border-[#EDEBE6] text-[#1A1917] px-4 py-3 text-sm placeholder:text-[#b0a89e] focus:outline-none focus:border-[#8C735A] transition-colors"
               placeholder="••••••••"
             />
           </div>
 
           {state.error && (
-            <p className="text-xs text-[#9B2335] py-2">{state.error}</p>
+            <p className="text-xs text-[#9B2335] py-1">{state.error}</p>
           )}
 
           <button
             type="submit"
             disabled={pending}
-            className="w-full mt-2 rounded-2xl bg-[#1A1714] text-[#FAFAF8] px-6 py-3 text-xs tracking-[0.15em] uppercase font-medium hover:bg-[#2C2520] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full mt-2 rounded-xl bg-[#1A1917] text-white px-6 py-3 text-xs tracking-[0.14em] hover:bg-[#2C2520] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {pending ? "Signing in…" : "Sign in"}
           </button>
         </form>
 
-        <p className="mt-8 text-center text-xs text-[#8C8277] tracking-wider">
+        <p className="mt-10 text-center text-[11px] text-[#b0a89e]">
           Strategic business refinement for founder-led brands.
         </p>
 
-        <p className="mt-4 text-center text-xs text-[#8C8277]">
+        <p className="mt-3 text-center text-[11px] text-[#b0a89e]">
           Trouble logging in?{" "}
-          <a href="mailto:hello@pivotco.com.au" className="text-[#C8B89A] hover:opacity-70 transition-opacity">
-            Message Jess
+          <a href="mailto:jess@pivotco.com.au" className="text-[#8C735A] hover:opacity-70 transition-opacity">
+            Email Jess
           </a>
         </p>
       </div>

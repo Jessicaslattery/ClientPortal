@@ -88,7 +88,7 @@ export function MessageThread({
   );
 
   return (
-    <div className="flex flex-col rounded-3xl border border-[#E8E2D9] overflow-hidden bg-[#FFFFFF]" style={{ height: "calc(100vh - 200px)" }}>
+    <div className="flex flex-col rounded-2xl border border-[#EDEBE6] overflow-hidden bg-[#FFFFFF]" style={{ height: "calc(100vh - 200px)" }}>
       {/* Messages area */}
       <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6 bg-[#FAFAF8]">
         {messages.length === 0 && (
@@ -99,8 +99,8 @@ export function MessageThread({
                   <path d="M7 1C3.69 1 1 3.35 1 6.25c0 1.57.74 2.98 1.93 3.96L2.5 13l2.87-1.44A6.4 6.4 0 007 11.5c3.31 0 6-2.35 6-5.25S10.31 1 7 1z" />
                 </svg>
               </div>
-              <p className="text-sm text-[#8C8277]">No messages yet.</p>
-              <p className="text-xs text-[#8C8277]/70 mt-0.5">Start the conversation below.</p>
+              <p className="text-sm text-[#b0a89e]">No messages yet.</p>
+              <p className="text-xs text-[#b0a89e]/70 mt-0.5">Start the conversation below.</p>
             </div>
           </div>
         )}
@@ -109,7 +109,7 @@ export function MessageThread({
           <div key={date}>
             <div className="flex items-center gap-3 mb-4">
               <div className="flex-1 h-px bg-[#FFFFFF]" />
-              <span className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277]">{date}</span>
+              <span className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e]">{date}</span>
               <div className="flex-1 h-px bg-[#FFFFFF]" />
             </div>
 
@@ -125,8 +125,8 @@ export function MessageThread({
                       <div
                         className={`px-4 py-3 text-sm leading-6 ${
                           isClient
-                            ? "bg-[#C8B89A]/15 rounded-3xl border border-[#C8B89A]/20 text-[#1A1714]"
-                            : "rounded-2xl bg-[#FFFFFF] border border-[#E8E2D9] text-[#1A1714]"
+                            ? "bg-[#C8B89A]/15 rounded-2xl border border-[#C8B89A]/20 text-[#1A1917]"
+                            : "rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917]"
                         }`}
                       >
                         {msg.content}
@@ -141,7 +141,7 @@ export function MessageThread({
                           </div>
                         )}
                       </div>
-                      <span className="text-[10px] text-[#8C8277]">{formatTime(msg.createdAt)}</span>
+                      <span className="text-[10px] text-[#b0a89e]">{formatTime(msg.createdAt)}</span>
                     </div>
                   </div>
                 );
@@ -153,10 +153,10 @@ export function MessageThread({
       </div>
 
       {/* Compose area */}
-      <div className="border-t border-[#E8E2D9] px-4 py-3 bg-[#FFFFFF]">
+      <div className="border-t border-[#EDEBE6] px-4 py-3 bg-[#FFFFFF]">
         <div className="relative">
           {showEmoji && (
-            <div className="absolute bottom-full mb-2 left-0 bg-white border border-[#E8E2D9] rounded-2xl shadow-lg p-3 z-10 w-64">
+            <div className="absolute bottom-full mb-2 left-0 bg-white border border-[#EDEBE6] rounded-2xl shadow-lg p-3 z-10 w-64">
               <div className="grid grid-cols-10 gap-1">
                 {EMOJIS.map((emoji) => (
                   <button
@@ -182,11 +182,11 @@ export function MessageThread({
               </div>
             </div>
           )}
-          <form onSubmit={handleSend} className="flex items-end gap-2 rounded-2xl border border-[#E8E2D9] bg-[#FAFAF8] px-4 py-3 focus-within:border-[#C8B89A]/60 transition-colors">
+          <form onSubmit={handleSend} className="flex items-end gap-2 rounded-2xl border border-[#EDEBE6] bg-[#FAFAF8] px-4 py-3 focus-within:border-[#C8B89A]/60 transition-colors">
             <button
               type="button"
               onClick={() => setShowEmoji(v => !v)}
-              className="flex-shrink-0 text-[#8C8277] hover:text-[#1A1714] transition-colors mb-0.5"
+              className="flex-shrink-0 text-[#b0a89e] hover:text-[#1A1917] transition-colors mb-0.5"
               aria-label="Emoji"
             >
               <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4">
@@ -208,13 +208,13 @@ export function MessageThread({
               }}
               placeholder="Write a message…"
               rows={1}
-              className="flex-1 bg-transparent text-sm text-[#1A1714] placeholder:text-[#8C8277] resize-none focus:outline-none leading-6"
+              className="flex-1 bg-transparent text-sm text-[#1A1917] placeholder:text-[#b0a89e] resize-none focus:outline-none leading-6"
               style={{ maxHeight: "120px", overflowY: "auto" }}
             />
             <button
               type="submit"
               disabled={!value.trim() || sending}
-              className="flex-shrink-0 w-8 h-8 rounded-full bg-[#1A1714] text-[#FAFAF8] flex items-center justify-center hover:bg-[#2C2520] transition-all disabled:opacity-30 disabled:cursor-default"
+              className="flex-shrink-0 w-8 h-8 rounded-full bg-[#1A1917] text-[#FAFAF8] flex items-center justify-center hover:bg-[#2C2520] transition-all disabled:opacity-30 disabled:cursor-default"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M12 7L2 2l2 5-2 5 10-5z" fill="currentColor" />
@@ -222,7 +222,7 @@ export function MessageThread({
             </button>
           </form>
         </div>
-        <p className="text-[10px] text-[#8C8277]/60 mt-1.5 px-1">Press Enter to send · Shift+Enter for new line</p>
+        <p className="text-[10px] text-[#b0a89e]/60 mt-1.5 px-1">Press Enter to send · Shift+Enter for new line</p>
       </div>
     </div>
   );

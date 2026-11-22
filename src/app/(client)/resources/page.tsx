@@ -43,10 +43,10 @@ export default async function ClientResourcesPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">
+        <h1 className="text-4xl font-[200] text-[#1A1917]">
           Resource Library
         </h1>
-        <p className="mt-1.5 text-sm text-[#5C5550]">
+        <p className="mt-1.5 text-sm text-[#7a7268]">
           {resources.length} resource{resources.length !== 1 ? "s" : ""} available to you
         </p>
       </div>

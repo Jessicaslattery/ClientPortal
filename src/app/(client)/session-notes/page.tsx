@@ -17,17 +17,17 @@ export default async function SessionNotesPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-3xl font-thin tracking-widest text-[#1A1714] uppercase">
+        <h1 className="text-3xl font-[200] text-[#1A1917]">
           Session Notes
         </h1>
-        <p className="mt-1 text-sm text-[#5C5550]">
+        <p className="mt-1 text-sm text-[#7a7268]">
           Summaries from your Pivot Co. sessions, ready when you need them.
         </p>
       </div>
 
       {summaries.length === 0 ? (
-        <div className="rounded-3xl border border-[#E8E2D9] p-8 text-center">
-          <p className="text-sm text-[#8C8277]">No session notes yet.</p>
+        <div className="rounded-2xl border border-[#EDEBE6] p-8 text-center">
+          <p className="text-sm text-[#b0a89e]">No session notes yet.</p>
           <p className="text-xs text-[#C8B89A] mt-1">Notes will appear here after each session is reviewed.</p>
         </div>
       ) : (
@@ -44,25 +44,25 @@ export default async function SessionNotesPage() {
             });
 
             return (
-              <div key={s.id} className="rounded-3xl border border-[#E8E2D9] p-6 space-y-5">
+              <div key={s.id} className="rounded-2xl border border-[#EDEBE6] p-6 space-y-5">
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277]">Session</p>
-                    <p className="text-sm text-[#1A1714] mt-0.5">{dateStr}</p>
+                    <p className="text-[10px] tracking-[0.15em] uppercase text-[#b0a89e]">Session</p>
+                    <p className="text-sm text-[#1A1917] mt-0.5">{dateStr}</p>
                   </div>
                 </div>
 
                 <div>
-                  <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-2">Summary</p>
-                  <p className="text-sm text-[#5C5550] leading-6">{s.summary}</p>
+                  <p className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] mb-2">Summary</p>
+                  <p className="text-sm text-[#7a7268] leading-6">{s.summary}</p>
                 </div>
 
                 {keyDecisions.length > 0 && (
                   <div>
-                    <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-2">Key Decisions</p>
+                    <p className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] mb-2">Key Decisions</p>
                     <ul className="space-y-1.5">
                       {keyDecisions.map((d, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-[#5C5550]">
+                        <li key={i} className="flex items-start gap-2 text-sm text-[#7a7268]">
                           <span className="mt-1.5 w-1 h-1 rounded-full bg-[#C8B89A] shrink-0" />
                           {d}
                         </li>
@@ -73,10 +73,10 @@ export default async function SessionNotesPage() {
 
                 {commitments.length > 0 && (
                   <div>
-                    <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-2">Your Commitments</p>
+                    <p className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] mb-2">Your Commitments</p>
                     <ul className="space-y-1.5">
                       {commitments.map((c, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-[#5C5550]">
+                        <li key={i} className="flex items-start gap-2 text-sm text-[#7a7268]">
                           <span className="mt-1.5 w-1 h-1 rounded-full bg-[#2D6A4F] shrink-0" />
                           {c}
                         </li>
@@ -87,12 +87,12 @@ export default async function SessionNotesPage() {
 
                 {themes.length > 0 && (
                   <div>
-                    <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-2">Themes</p>
+                    <p className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] mb-2">Themes</p>
                     <div className="flex flex-wrap gap-2">
                       {themes.map((t, i) => (
                         <span
                           key={i}
-                          className="rounded-full border border-[#E8E2D9] px-3 py-1 text-xs text-[#5C5550]"
+                          className="rounded-full border border-[#EDEBE6] px-3 py-1 text-xs text-[#7a7268]"
                         >
                           {t}
                         </span>

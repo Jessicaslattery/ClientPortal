@@ -18,8 +18,8 @@ export default async function MeetingsPage() {
     <div className="space-y-8">
       <div className="flex items-end justify-between">
         <div>
-          <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">Meeting Hub</h1>
-          <p className="mt-1.5 text-sm text-[#5C5550]">
+          <h1 className="text-4xl font-[200] text-[#1A1917]">Meeting Hub</h1>
+          <p className="mt-1.5 text-sm text-[#7a7268]">
             {calls.length} session{calls.length !== 1 ? "s" : ""} total
           </p>
         </div>
@@ -27,7 +27,7 @@ export default async function MeetingsPage() {
           href="https://calendar.app.google/FbQgWUjAyyQ5t53b9"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-5 py-2.5 rounded-2xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-[0.12em] uppercase hover:bg-[#2C2520] transition-colors"
+          className="px-5 py-2.5 rounded-2xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-[0.12em] uppercase hover:bg-[#2C2520] transition-colors"
         >
           Book a call
         </a>
@@ -36,14 +36,14 @@ export default async function MeetingsPage() {
       {/* Upcoming */}
       {upcoming.length > 0 && (
         <div>
-          <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-3">
+          <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#b0a89e] mb-3">
             Upcoming
           </h2>
-          <div className="rounded-3xl border border-[#C8B89A]/20 divide-y divide-[#C8B89A]/10">
+          <div className="rounded-2xl border border-[#C8B89A]/20 divide-y divide-[#C8B89A]/10">
             {upcoming.map((call) => (
               <div key={call.id} className="px-5 py-4">
                 <div className="flex items-center justify-between">
-                  <p className="text-sm text-[#1A1714]">{call.title}</p>
+                  <p className="text-sm text-[#1A1917]">{call.title}</p>
                   <p className="text-xs text-[#C8B89A] tabular-nums">
                     {new Date(call.scheduledAt).toLocaleDateString("en-AU", {
                       weekday: "long",
@@ -61,17 +61,17 @@ export default async function MeetingsPage() {
       {/* Past sessions */}
       {past.length > 0 && (
         <div>
-          <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-3">
+          <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#b0a89e] mb-3">
             Session History
           </h2>
           <div className="space-y-4">
             {past.map((call) => (
-              <div key={call.id} className="rounded-3xl border border-[#E8E2D9]">
+              <div key={call.id} className="rounded-2xl border border-[#EDEBE6]">
                 {/* Header */}
-                <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8E2D9]">
+                <div className="flex items-center justify-between px-5 py-4 border-b border-[#EDEBE6]">
                   <div>
-                    <p className="text-sm text-[#1A1714]">{call.title}</p>
-                    <p className="text-xs text-[#5C5550] mt-0.5">
+                    <p className="text-sm text-[#1A1917]">{call.title}</p>
+                    <p className="text-xs text-[#7a7268] mt-0.5">
                       {new Date(call.scheduledAt).toLocaleDateString("en-AU", {
                         day: "numeric",
                         month: "long",
@@ -93,23 +93,23 @@ export default async function MeetingsPage() {
                 {/* Summary */}
                 {call.summaryStatus === "approved" && call.summaryContent && (
                   <div className="px-5 py-4">
-                    <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277] mb-3">
+                    <p className="text-[10px] tracking-[0.12em] uppercase text-[#b0a89e] mb-3">
                       Session summary
                     </p>
-                    <p className="text-sm text-[#5C5550] leading-6 whitespace-pre-wrap">
+                    <p className="text-sm text-[#7a7268] leading-6 whitespace-pre-wrap">
                       {call.summaryContent}
                     </p>
 
                     {call.keyDecisions && (
                       <div className="mt-4">
-                        <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277] mb-2">
+                        <p className="text-[10px] tracking-[0.12em] uppercase text-[#b0a89e] mb-2">
                           Key decisions
                         </p>
                         <div className="space-y-1.5">
                           {(JSON.parse(call.keyDecisions) as string[]).map((d, i) => (
                             <div key={i} className="flex items-start gap-2">
                               <span className="text-[#C8B89A] mt-0.5">·</span>
-                              <p className="text-xs text-[#5C5550]">{d}</p>
+                              <p className="text-xs text-[#7a7268]">{d}</p>
                             </div>
                           ))}
                         </div>
@@ -118,29 +118,29 @@ export default async function MeetingsPage() {
 
                     {call.nextSteps && (
                       <div className="mt-4">
-                        <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277] mb-2">
+                        <p className="text-[10px] tracking-[0.12em] uppercase text-[#b0a89e] mb-2">
                           Next steps
                         </p>
                         <div className="space-y-1.5">
                           {(JSON.parse(call.nextSteps) as string[]).map((s, i) => (
                             <div key={i} className="flex items-start gap-2">
                               <span className="text-[#C8B89A] mt-0.5">→</span>
-                              <p className="text-xs text-[#5C5550]">{s}</p>
+                              <p className="text-xs text-[#7a7268]">{s}</p>
                             </div>
                           ))}
                         </div>
                       </div>
                     )}
 
-                    {call.granolaUrl && (
-                      <div className="mt-4 pt-4 border-t border-[#E8E2D9]">
+                    {call.notesUrl && (
+                      <div className="mt-4 pt-4 border-t border-[#EDEBE6]">
                         <a
-                          href={call.granolaUrl}
+                          href={call.notesUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-xs tracking-[0.1em] uppercase text-[#C8B89A] hover:opacity-70 transition-opacity"
                         >
-                          View full transcript →
+                          View in Gemini Notes →
                         </a>
                       </div>
                     )}
@@ -153,9 +153,9 @@ export default async function MeetingsPage() {
       )}
 
       {calls.length === 0 && (
-        <div className="rounded-3xl border border-[#E8E2D9] px-8 py-16 text-center">
-          <p className="font-display text-2xl font-thin tracking-wide text-[#1A1714]">No sessions yet</p>
-          <p className="mt-2 text-sm text-[#5C5550]">
+        <div className="rounded-2xl border border-[#EDEBE6] px-8 py-16 text-center">
+          <p className="text-2xl font-[200] text-[#1A1917]">No sessions yet</p>
+          <p className="mt-2 text-sm text-[#7a7268]">
             Your first call will appear here.
           </p>
         </div>

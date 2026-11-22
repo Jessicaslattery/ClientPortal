@@ -50,14 +50,14 @@ export function PhaseControls({
 
   return (
     <div
-      className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] p-5"
+      className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF] p-5"
       style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}
     >
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277]">Programme</h3>
+        <h3 className="text-[10px] tracking-[0.15em] text-[#b0a89e]">Programme</h3>
         <button
           onClick={() => setShowEdit((v) => !v)}
-          className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] hover:text-[#1A1714] transition-colors"
+          className="text-[10px] tracking-[0.1em] text-[#b0a89e] hover:text-[#1A1917] transition-colors"
         >
           {showEdit ? "Cancel" : "Edit"}
         </button>
@@ -66,17 +66,17 @@ export function PhaseControls({
       {!showEdit ? (
         <div className="space-y-4">
           <div>
-            <p className="font-display text-3xl font-light text-[#1A1714]">
+            <p className="text-3xl font-[300] text-[#1A1917]">
               Month {currentMonth}
             </p>
-            <p className="text-sm text-[#5C5550] mt-0.5">
+            <p className="text-sm text-[#7a7268] mt-0.5">
               Week {currentWeek} of 4
               {calendarLabel && (
-                <span className="text-[#8C8277]"> · {calendarLabel}</span>
+                <span className="text-[#b0a89e]"> · {calendarLabel}</span>
               )}
             </p>
             {startDateLabel && (
-              <p className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277] mt-2">
+              <p className="text-[10px] tracking-[0.08em] text-[#b0a89e] mt-2">
                 Started {startDateLabel}
               </p>
             )}
@@ -92,7 +92,7 @@ export function PhaseControls({
                     ? "bg-[#C8B89A]"
                     : w === currentWeek
                     ? "bg-[#C8B89A]/50"
-                    : "bg-[#E8E2D9]"
+                    : "bg-[#EDEBE6]"
                 }`}
               />
             ))}
@@ -101,7 +101,7 @@ export function PhaseControls({
       ) : (
         <form action={handleSetPhase} className="space-y-3">
           <div className="space-y-1.5">
-            <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277]">
+            <label className="text-[10px] tracking-[0.1em] text-[#b0a89e]">
               Start date
             </label>
             <input
@@ -109,9 +109,9 @@ export function PhaseControls({
               type="date"
               defaultValue={startDateValue}
               required
-              className="w-full bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl px-3 py-2 text-sm text-[#1A1714] focus:outline-none focus:border-[#C8B89A] transition-colors"
+              className="w-full bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl px-3 py-2 text-sm text-[#1A1917] focus:outline-none focus:border-[#C8B89A] transition-colors"
             />
-            <p className="text-[10px] text-[#8C8277] leading-relaxed">
+            <p className="text-[10px] text-[#b0a89e] leading-relaxed">
               Month and week will be calculated automatically from this date.
             </p>
           </div>
@@ -119,7 +119,7 @@ export function PhaseControls({
           <button
             type="submit"
             disabled={isPending}
-            className="w-full py-2 text-[10px] tracking-[0.1em] uppercase text-[#FAFAF8] bg-[#1A1714] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40"
+            className="w-full py-2 text-[10px] tracking-[0.1em] text-[#FAFAF8] bg-[#1A1917] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40"
           >
             {isPending ? "Saving…" : "Save"}
           </button>

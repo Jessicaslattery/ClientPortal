@@ -8,7 +8,7 @@ const TYPE_STYLES: Record<string, string> = {
   PDF:      "bg-[#2D6A4F]/12 text-[#2D6A4F] border-[#2D6A4F]/20",
   Guide:    "bg-[#C8B89A]/12 text-[#C8B89A] border-[#C8B89A]/20",
   Template: "bg-[#b89060]/12 text-[#b89060] border-[#b89060]/20",
-  Link:     "bg-[#5C5550]/12 text-[#5C5550] border-[#5C5550]/20",
+  Link:     "bg-[#7a7268]/12 text-[#7a7268] border-[#7a7268]/20",
 };
 
 const VISIBILITY_LABELS: Record<string, string> = {
@@ -45,10 +45,10 @@ export default async function FounderResourcesPage() {
     <div className="space-y-8">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">
+          <h1 className="text-4xl font-[300] tracking-tight text-[#1A1917]">
             Resource Library
           </h1>
-          <p className="mt-1.5 text-sm text-[#5C5550]">
+          <p className="mt-1.5 text-sm text-[#7a7268]">
             {resources.length} resource{resources.length !== 1 ? "s" : ""} across {Object.keys(grouped).length} categories
           </p>
         </div>
@@ -56,15 +56,15 @@ export default async function FounderResourcesPage() {
       </div>
 
       {resources.length === 0 ? (
-        <div className="rounded-3xl border border-[#E8E2D9] px-6 py-16 text-center">
-          <p className="text-sm text-[#8C8277]">No resources yet. Add your first one above.</p>
+        <div className="rounded-3xl border border-[#EDEBE6] px-6 py-16 text-center">
+          <p className="text-sm text-[#b0a89e]">No resources yet. Add your first one above.</p>
         </div>
       ) : (
         <div className="space-y-8">
           {Object.entries(grouped).map(([category, items]) => (
             <div key={category}>
-              <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-3">{category}</h2>
-              <div className="rounded-3xl border border-[#E8E2D9] divide-y divide-[#E8E2D9]">
+              <h2 className="text-[10px] tracking-[0.15em] text-[#b0a89e] mb-3">{category}</h2>
+              <div className="rounded-3xl border border-[#EDEBE6] divide-y divide-[#EDEBE6]">
                 {items.map((r) => (
                   <div key={r.id} className="flex items-start justify-between px-5 py-4 gap-4">
                     <div className="flex-1 min-w-0">
@@ -73,28 +73,28 @@ export default async function FounderResourcesPage() {
                           href={r.fileUrl ?? "#"}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-sm text-[#1A1714] hover:text-[#C8B89A] transition-colors truncate"
+                          className="text-sm text-[#1A1917] hover:text-[#C8B89A] transition-colors truncate"
                         >
                           {r.title}
                         </a>
                         {isNew(r.createdAt) && (
-                          <span className="shrink-0 text-[9px] tracking-[0.1em] uppercase px-1.5 py-0.5 rounded-full bg-[#C8B89A]/10 text-[#C8B89A] border border-[#C8B89A]/20">
+                          <span className="shrink-0 text-[9px] tracking-[0.1em] px-1.5 py-0.5 rounded-full bg-[#C8B89A]/10 text-[#C8B89A] border border-[#C8B89A]/20">
                             New
                           </span>
                         )}
                       </div>
                       {r.description && (
-                        <p className="text-xs text-[#5C5550] leading-5 line-clamp-2">{r.description}</p>
+                        <p className="text-xs text-[#7a7268] leading-5 line-clamp-2">{r.description}</p>
                       )}
                       <div className="flex items-center gap-3 mt-2">
-                        <span className={`text-[9px] tracking-[0.1em] uppercase px-2 py-0.5 rounded-full border ${TYPE_STYLES[r.type] ?? TYPE_STYLES.Link}`}>
+                        <span className={`text-[9px] tracking-[0.1em] px-2 py-0.5 rounded-full border ${TYPE_STYLES[r.type] ?? TYPE_STYLES.Link}`}>
                           {r.type}
                         </span>
-                        <span className="text-[10px] text-[#8C8277]">
+                        <span className="text-[10px] text-[#b0a89e]">
                           {VISIBILITY_LABELS[r.visibility] ?? r.visibility}
                           {r.specificClient && ` · ${r.specificClient.founderName}`}
                         </span>
-                        <span className="text-[10px] text-[#8C8277]">
+                        <span className="text-[10px] text-[#b0a89e]">
                           {r.createdAt.toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" })}
                         </span>
                       </div>
@@ -107,7 +107,7 @@ export default async function FounderResourcesPage() {
                     >
                       <button
                         type="submit"
-                        className="text-[#8C8277] hover:text-[#9B2335] transition-colors shrink-0 mt-0.5"
+                        className="text-[#b0a89e] hover:text-[#9B2335] transition-colors shrink-0 mt-0.5"
                         title="Delete"
                       >
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2">

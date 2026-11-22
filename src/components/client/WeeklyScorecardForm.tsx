@@ -35,14 +35,14 @@ type ScorecardRow = {
 };
 
 function rag(value: number | null, target: number): string {
-  if (value == null) return "text-[#8C8277]";
+  if (value == null) return "text-[#b0a89e]";
   if (value >= target) return "text-[#2D6A4F]";
   if (value >= target * 0.6) return "text-[#B7791F]";
   return "text-[#9B2335]";
 }
 
 function ragDot(value: number | null, target: number): string {
-  if (value == null) return "bg-[#E8E2D9]";
+  if (value == null) return "bg-[#EDEBE6]";
   if (value >= target) return "bg-[#2D6A4F]";
   if (value >= target * 0.6) return "bg-[#B7791F]";
   return "bg-[#9B2335]";
@@ -59,8 +59,8 @@ function Field({
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between">
-        <label className="text-xs text-[#5C5550]">{label}</label>
-        <span className="text-[10px] text-[#8C8277]">Target: {target}{suffix}</span>
+        <label className="text-xs text-[#7a7268]">{label}</label>
+        <span className="text-[10px] text-[#b0a89e]">Target: {target}{suffix}</span>
       </div>
       {name === "energyScore" ? (
         <div className="flex items-center gap-3">
@@ -79,7 +79,7 @@ function Field({
             value={v}
             onChange={(e) => setV(e.target.value)}
             placeholder="-"
-            className="w-full bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl px-4 py-2.5 text-sm text-[#1A1714] placeholder-[#8C8277] focus:outline-none focus:border-[#C8B89A]/40 transition-colors pr-8"
+            className="w-full bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl px-4 py-2.5 text-sm text-[#1A1917] placeholder-[#b0a89e] focus:outline-none focus:border-[#C8B89A]/40 transition-colors pr-8"
           />
           <span className={`absolute right-3 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full ${ragDot(!isNaN(num) && v ? num : null, target)}`} />
         </div>
@@ -96,17 +96,17 @@ function SimpleField({
   const [v, setV] = useState(value?.toString() ?? "");
   return (
     <div className="space-y-1.5">
-      <label className="text-xs text-[#5C5550] block">{label}</label>
+      <label className="text-xs text-[#7a7268] block">{label}</label>
       <div className="relative">
         {prefix && (
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-[#8C8277]">{prefix}</span>
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-[#b0a89e]">{prefix}</span>
         )}
         <input
           type={type} name={name} step={step ?? 1}
           value={v}
           onChange={(e) => setV(e.target.value)}
           placeholder="-"
-          className={`w-full bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl py-2.5 text-sm text-[#1A1714] placeholder-[#8C8277] focus:outline-none focus:border-[#C8B89A]/40 transition-colors ${prefix ? "pl-7 pr-4" : "px-4"}`}
+          className={`w-full bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl py-2.5 text-sm text-[#1A1917] placeholder-[#b0a89e] focus:outline-none focus:border-[#C8B89A]/40 transition-colors ${prefix ? "pl-7 pr-4" : "px-4"}`}
         />
       </div>
     </div>
@@ -121,14 +121,14 @@ function TextAreaField({
   const [v, setV] = useState(value ?? "");
   return (
     <div className="space-y-1.5 col-span-2">
-      <label className="text-xs text-[#5C5550] block">{label}</label>
+      <label className="text-xs text-[#7a7268] block">{label}</label>
       <textarea
         name={name}
         value={v}
         onChange={(e) => setV(e.target.value)}
         placeholder="Type here…"
         rows={2}
-        className="w-full bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl px-4 py-2.5 text-sm text-[#1A1714] placeholder-[#8C8277] focus:outline-none focus:border-[#C8B89A]/40 transition-colors resize-none"
+        className="w-full bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl px-4 py-2.5 text-sm text-[#1A1917] placeholder-[#b0a89e] focus:outline-none focus:border-[#C8B89A]/40 transition-colors resize-none"
       />
     </div>
   );
@@ -136,7 +136,7 @@ function TextAreaField({
 
 function SectionHeading({ label }: { label: string }) {
   return (
-    <p className="col-span-2 text-[10px] tracking-[0.15em] uppercase text-[#8C8277] border-b border-[#E8E2D9] pb-2 mt-2">{label}</p>
+    <p className="col-span-2 text-[10px] tracking-[0.15em] uppercase text-[#b0a89e] border-b border-[#EDEBE6] pb-2 mt-2">{label}</p>
   );
 }
 
@@ -177,24 +177,24 @@ export function WeeklyScorecardForm({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="font-display text-2xl font-thin tracking-widest text-[#1A1714] uppercase">Weekly Scorecard</h2>
+          <h2 className="text-2xl font-[300] text-[#1A1917] uppercase">Weekly Scorecard</h2>
           <div className="flex items-center gap-2 mt-0.5">
             <button
               type="button"
               onClick={() => setWeekOffset((o) => o - 1)}
-              className="text-[#8C8277] hover:text-[#1A1714] transition-colors"
+              className="text-[#b0a89e] hover:text-[#1A1917] transition-colors"
               aria-label="Previous week"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4">
                 <path d="M9 2L4 7l5 5" />
               </svg>
             </button>
-            <p className="text-xs text-[#8C8277]">{weekLabel}</p>
+            <p className="text-xs text-[#b0a89e]">{weekLabel}</p>
             <button
               type="button"
               onClick={() => setWeekOffset((o) => o + 1)}
               disabled={weekOffset >= 0}
-              className="text-[#8C8277] hover:text-[#1A1714] disabled:opacity-30 transition-colors"
+              className="text-[#b0a89e] hover:text-[#1A1917] disabled:opacity-30 transition-colors"
               aria-label="Next week"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4">
@@ -205,13 +205,13 @@ export function WeeklyScorecardForm({
         </div>
         <div className="flex items-center gap-4">
           {totalExpenses != null && totalExpenses > 0 && (
-            <span className="text-[10px] tracking-[0.1em] uppercase text-[#5C5550]">
-              Monthly expenses: <span className="text-[#1A1714]">${totalExpenses.toLocaleString("en-AU")}</span>
+            <span className="text-[10px] tracking-[0.1em] uppercase text-[#7a7268]">
+              Monthly expenses: <span className="text-[#1A1917]">${totalExpenses.toLocaleString("en-AU")}</span>
             </span>
           )}
           <button
             onClick={() => setShowTargets(!showTargets)}
-            className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] hover:text-[#1A1714] transition-colors"
+            className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] hover:text-[#1A1917] transition-colors"
           >
             {showTargets ? "Hide targets" : "Edit targets"}
           </button>
@@ -220,8 +220,8 @@ export function WeeklyScorecardForm({
 
       {/* Target editing panel */}
       {showTargets && (
-        <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] p-6">
-          <p className="text-[10px] tracking-[0.15em] uppercase text-[#5C5550] mb-4">Your Weekly Targets</p>
+        <div className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] p-6">
+          <p className="text-[10px] tracking-[0.15em] uppercase text-[#7a7268] mb-4">Your Weekly Targets</p>
           <form action={targetAction} className="grid grid-cols-2 gap-4">
             {[
               { label: "Revenue target ($)", name: "revenueTarget", val: t.revenueTarget },
@@ -234,10 +234,10 @@ export function WeeklyScorecardForm({
               { label: "Monthly revenue target ($)", name: "monthlyRevenueTarget", val: t.monthlyRevenueTarget },
             ].map(({ label, name, val }) => (
               <div key={name}>
-                <label className="block text-xs text-[#5C5550] mb-1.5">{label}</label>
+                <label className="block text-xs text-[#7a7268] mb-1.5">{label}</label>
                 <input
                   type="number" name={name} defaultValue={val} step="any"
-                  className="w-full bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl px-4 py-2.5 text-sm text-[#1A1714] focus:outline-none focus:border-[#C8B89A]/40 transition-colors"
+                  className="w-full bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl px-4 py-2.5 text-sm text-[#1A1917] focus:outline-none focus:border-[#C8B89A]/40 transition-colors"
                 />
               </div>
             ))}
@@ -246,7 +246,7 @@ export function WeeklyScorecardForm({
             <div className="col-span-2 flex justify-end">
               <button
                 type="submit" disabled={targetPending}
-                className="px-5 py-2.5 text-xs tracking-[0.1em] uppercase bg-[#1A1714] text-[#FAFAF8] rounded-2xl hover:bg-[#2C2520] disabled:opacity-40 transition-colors"
+                className="px-5 py-2.5 text-xs tracking-[0.1em] uppercase bg-[#1A1917] text-[#FAFAF8] rounded-2xl hover:bg-[#2C2520] disabled:opacity-40 transition-colors"
               >
                 {targetPending ? "Saving…" : "Save targets"}
               </button>
@@ -256,7 +256,7 @@ export function WeeklyScorecardForm({
       )}
 
       {/* Scorecard form */}
-      <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] p-6">
+      <div className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] p-6">
         <form key={weekOffset} action={submitAction} className="space-y-5">
           <input type="hidden" name="weekStart" value={selectedWeekIso} />
           <div className="grid grid-cols-2 gap-x-6 gap-y-5">
@@ -294,7 +294,7 @@ export function WeeklyScorecardForm({
           <div className="flex justify-end">
             <button
               type="submit" disabled={pending}
-              className="px-6 py-2.5 text-xs tracking-[0.1em] uppercase bg-[#1A1714] text-[#FAFAF8] rounded-2xl hover:bg-[#2C2520] disabled:opacity-40 transition-colors"
+              className="px-6 py-2.5 text-xs tracking-[0.1em] uppercase bg-[#1A1917] text-[#FAFAF8] rounded-2xl hover:bg-[#2C2520] disabled:opacity-40 transition-colors"
             >
               {pending ? "Saving…" : "Save scorecard"}
             </button>
@@ -307,7 +307,7 @@ export function WeeklyScorecardForm({
         <div>
           <button
             onClick={() => setShowHistory(!showHistory)}
-            className="flex items-center gap-2 text-[10px] tracking-[0.1em] uppercase text-[#8C8277] hover:text-[#1A1714] transition-colors"
+            className="flex items-center gap-2 text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] hover:text-[#1A1917] transition-colors"
           >
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.2">
               <path d={showHistory ? "M1 7l4-4 4 4" : "M1 3l4 4 4-4"} />
@@ -316,26 +316,26 @@ export function WeeklyScorecardForm({
           </button>
 
           {showHistory && (
-            <div className="mt-3 rounded-3xl border border-[#E8E2D9] overflow-x-auto">
+            <div className="mt-3 rounded-2xl border border-[#EDEBE6] overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
-                  <tr className="border-b border-[#E8E2D9]">
+                  <tr className="border-b border-[#EDEBE6]">
                     {["Week", "Revenue", "Leads", "Calls Bkd", "Converted", "Clients", "Content", "Followers", "Hours", "Energy"].map((h) => (
-                      <th key={h} className="px-4 py-3 text-left text-[10px] tracking-[0.1em] uppercase text-[#8C8277] font-normal whitespace-nowrap">{h}</th>
+                      <th key={h} className="px-4 py-3 text-left text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] font-normal whitespace-nowrap">{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {history.map((row) => (
-                    <tr key={row.weekStart.toString()} className="border-b border-[#E8E2D9] last:border-0">
-                      <td className="px-4 py-3 text-[#5C5550] whitespace-nowrap">{formatWeekLabel(row.weekStart)}</td>
+                    <tr key={row.weekStart.toString()} className="border-b border-[#EDEBE6] last:border-0">
+                      <td className="px-4 py-3 text-[#7a7268] whitespace-nowrap">{formatWeekLabel(row.weekStart)}</td>
                       <td className={`px-4 py-3 ${rag(row.revenue, t.revenueTarget)}`}>{row.revenue != null ? `$${row.revenue.toLocaleString("en-AU")}` : "-"}</td>
                       <td className={`px-4 py-3 ${rag(row.leads, t.leadsTarget)}`}>{row.leads ?? "-"}</td>
                       <td className={`px-4 py-3 ${rag(row.callsBooked, t.callsBookedTarget)}`}>{row.callsBooked ?? "-"}</td>
                       <td className={`px-4 py-3 ${rag(row.callsConverted, t.callsConvertedTarget)}`}>{row.callsConverted ?? "-"}</td>
-                      <td className="px-4 py-3 text-[#5C5550]">{row.currentClients ?? "-"}</td>
+                      <td className="px-4 py-3 text-[#7a7268]">{row.currentClients ?? "-"}</td>
                       <td className={`px-4 py-3 ${rag(row.contentPieces, t.contentTarget)}`}>{row.contentPieces ?? "-"}</td>
-                      <td className="px-4 py-3 text-[#5C5550]">{row.followerGrowth != null ? `+${row.followerGrowth}` : "-"}</td>
+                      <td className="px-4 py-3 text-[#7a7268]">{row.followerGrowth != null ? `+${row.followerGrowth}` : "-"}</td>
                       <td className={`px-4 py-3 ${rag(row.hoursWorked, t.hoursTarget)}`}>{row.hoursWorked ?? "-"}</td>
                       <td className={`px-4 py-3 ${rag(row.energyScore, t.energyTarget)}`}>{row.energyScore ?? "-"}/10</td>
                     </tr>

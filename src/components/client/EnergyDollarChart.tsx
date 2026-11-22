@@ -54,37 +54,37 @@ export function EnergyDollarChart({ weeks }: { weeks: Week[] }) {
   const insight = buildInsight(weeks);
 
   return (
-    <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] p-6 space-y-5">
+    <div className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] p-6 space-y-5">
       <div className="flex items-center justify-between">
-        <p className="text-[10px] tracking-[0.15em] uppercase text-[#5C5550]">Energy Per Dollar</p>
+        <p className="text-[10px] tracking-[0.15em] uppercase text-[#7a7268]">Energy Per Dollar</p>
         {current?.ratio != null && (
           <div className="text-right">
-            <span className="font-display text-2xl font-thin text-[#1A1714]">
+            <span className="text-2xl font-[300] text-[#1A1917]">
               ${current.ratio.toFixed(0)}
             </span>
-            <span className="text-[10px] text-[#8C8277] ml-1">revenue / energy pt</span>
+            <span className="text-[10px] text-[#b0a89e] ml-1">revenue / energy pt</span>
           </div>
         )}
       </div>
 
       {insight && (
-        <p className="text-xs text-[#5C5550] italic">{insight}</p>
+        <p className="text-xs text-[#7a7268] italic">{insight}</p>
       )}
 
       {ratios.some((r) => r > 0) ? (
         <div>
           <div className="flex items-center justify-between mb-2">
-            <p className="text-[9px] tracking-[0.1em] uppercase text-[#8C8277]">Revenue per energy point · 8 weeks</p>
+            <p className="text-[9px] tracking-[0.1em] uppercase text-[#b0a89e]">Revenue per energy point · 8 weeks</p>
           </div>
           <Sparkline values={ratios} color="#C8B89A" />
           <div className="flex justify-between mt-1">
             {weeks.map((w) => (
-              <span key={w.weekLabel} className="text-[8px] text-[#8C8277]">{w.weekLabel}</span>
+              <span key={w.weekLabel} className="text-[8px] text-[#b0a89e]">{w.weekLabel}</span>
             ))}
           </div>
         </div>
       ) : (
-        <p className="text-xs text-[#8C8277] italic">
+        <p className="text-xs text-[#b0a89e] italic">
           Complete your weekly scorecard with revenue and energy scores to see this trend.
         </p>
       )}

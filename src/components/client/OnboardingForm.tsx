@@ -35,8 +35,8 @@ const initial: { error?: string; success?: string } = {};
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] p-6 space-y-5">
-      <p className="text-[10px] tracking-[0.15em] uppercase text-[#5C5550]">{title}</p>
+    <div className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] p-6 space-y-5">
+      <p className="text-[10px] tracking-[0.15em] uppercase text-[#7a7268]">{title}</p>
       {children}
     </div>
   );
@@ -59,7 +59,7 @@ function Field({
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277]">
+      <label className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e]">
         {label}{required && <span className="text-[#9B2335] ml-1">*</span>}
       </label>
       {rows === 1 ? (
@@ -68,7 +68,7 @@ function Field({
           defaultValue={defaultValue ?? ""}
           placeholder={placeholder}
           required={required}
-          className="w-full bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl px-4 py-2.5 text-sm text-[#1A1714] placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A]/40"
+          className="w-full bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl px-4 py-2.5 text-sm text-[#1A1917] placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A]/40"
         />
       ) : (
         <textarea
@@ -77,7 +77,7 @@ function Field({
           placeholder={placeholder}
           required={required}
           rows={rows}
-          className="w-full bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl px-4 py-3 text-sm text-[#1A1714] placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A]/40 resize-y"
+          className="w-full bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl px-4 py-3 text-sm text-[#1A1917] placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A]/40 resize-y"
         />
       )}
     </div>
@@ -292,12 +292,12 @@ export function OnboardingForm({ existing }: { existing: Intake | null }) {
       <button
         type="submit"
         disabled={pending}
-        className="w-full py-3.5 text-sm tracking-[0.1em] uppercase text-[#FAFAF8] bg-[#1A1714] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40 font-medium"
+        className="w-full py-3.5 text-sm tracking-[0.1em] uppercase text-[#FAFAF8] bg-[#1A1917] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40 font-medium"
       >
         {pending ? "Submitting…" : "Submit Intake"}
       </button>
 
-      <p className="text-xs text-[#8C8277] text-center">
+      <p className="text-xs text-[#b0a89e] text-center">
         Your answers are private and shared only with Jess. You can update them at any time.
       </p>
     </form>

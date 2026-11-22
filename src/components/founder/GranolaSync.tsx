@@ -88,10 +88,10 @@ export function GranolaSync({
   return (
     <div className="space-y-8">
       {/* Sync strip */}
-      <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] p-6 flex items-center justify-between gap-4">
+      <div className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF] p-6 flex items-center justify-between gap-4">
         <div>
-          <p className="text-sm text-[#1A1714]">Granola API Sync</p>
-          <p className="text-xs text-[#5C5550] mt-0.5">
+          <p className="text-sm text-[#1A1917]">Granola API Sync</p>
+          <p className="text-xs text-[#7a7268] mt-0.5">
             {hasApiToken
               ? "MCP token configured · syncs today's meetings from Granola"
               : "No GRANOLA_MCP_TOKEN in .env · use manual paste below"}
@@ -103,7 +103,7 @@ export function GranolaSync({
         <button
           onClick={handleSync}
           disabled={isPending || !hasApiToken}
-          className="px-5 py-2.5 text-xs tracking-[0.1em] uppercase text-[#FAFAF8] bg-[#1A1714] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
+          className="px-5 py-2.5 text-xs tracking-[0.1em] text-[#FAFAF8] bg-[#1A1917] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
         >
           {isPending ? "Syncing…" : "Sync Now"}
         </button>
@@ -111,17 +111,17 @@ export function GranolaSync({
 
       {/* Recent sync log */}
       {initialLogs.length > 0 && (
-        <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] p-6">
-          <p className="text-[10px] tracking-[0.15em] uppercase text-[#5C5550] mb-4">Recent Sync Logs</p>
+        <div className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF] p-6">
+          <p className="text-[10px] tracking-[0.15em] text-[#7a7268] mb-4">Recent Sync Logs</p>
           <div className="space-y-2">
             {initialLogs.map((log) => (
               <div key={log.id} className="flex items-center justify-between text-xs">
-                <span className="text-[#5C5550]">
+                <span className="text-[#7a7268]">
                   {new Date(log.runAt).toLocaleDateString("en-AU", {
                     day: "numeric", month: "short", hour: "2-digit", minute: "2-digit",
                   })}
                 </span>
-                <span className="text-[#1A1714]">
+                <span className="text-[#1A1917]">
                   {log.transcriptsSaved} saved · {log.unmatched} unmatched · {log.meetingsFound} found
                 </span>
                 {log.errors && (
@@ -140,10 +140,10 @@ export function GranolaSync({
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 text-xs tracking-[0.1em] uppercase rounded-2xl transition-colors ${
+              className={`px-4 py-2 text-xs tracking-[0.1em] rounded-2xl transition-colors ${
                 activeTab === tab.id
                   ? "text-[#C8B89A] bg-[#C8B89A]/8"
-                  : "text-[#5C5550] hover:text-[#1A1714]"
+                  : "text-[#7a7268] hover:text-[#1A1917]"
               }`}
             >
               {tab.label}
@@ -153,34 +153,34 @@ export function GranolaSync({
 
         {/* Paste tab */}
         {activeTab === "paste" && (
-          <form ref={formRef} action={handlePaste} className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] p-6 space-y-5">
-            <p className="text-[10px] tracking-[0.15em] uppercase text-[#5C5550]">Paste Transcript</p>
+          <form ref={formRef} action={handlePaste} className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF] p-6 space-y-5">
+            <p className="text-[10px] tracking-[0.15em] text-[#7a7268]">Paste Transcript</p>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277]">Meeting title</label>
+                <label className="text-[10px] tracking-[0.1em] text-[#b0a89e]">Meeting title</label>
                 <input
                   name="title"
                   required
                   placeholder="e.g. Sarah · M2W3 Strategy Call"
-                  className="w-full bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl px-4 py-2.5 text-sm text-[#1A1714] placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A]/40"
+                  className="w-full bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl px-4 py-2.5 text-sm text-[#1A1917] placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A]/40"
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277]">Date</label>
+                <label className="text-[10px] tracking-[0.1em] text-[#b0a89e]">Date</label>
                 <input
                   name="date"
                   type="date"
-                  className="w-full bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl px-4 py-2.5 text-sm text-[#1A1714] focus:outline-none focus:border-[#C8B89A]/40"
+                  className="w-full bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl px-4 py-2.5 text-sm text-[#1A1917] focus:outline-none focus:border-[#C8B89A]/40"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277]">Assign to client (optional · auto-matched if blank)</label>
+              <label className="text-[10px] tracking-[0.1em] text-[#b0a89e]">Assign to client (optional · auto-matched if blank)</label>
               <select
                 name="clientProfileId"
-                className="w-full bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl px-4 py-2.5 text-sm text-[#1A1714] focus:outline-none focus:border-[#C8B89A]/40"
+                className="w-full bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl px-4 py-2.5 text-sm text-[#1A1917] focus:outline-none focus:border-[#C8B89A]/40"
               >
                 <option value="">Auto-match by name</option>
                 {clients.map((c) => (
@@ -190,23 +190,23 @@ export function GranolaSync({
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277]">Transcript</label>
+              <label className="text-[10px] tracking-[0.1em] text-[#b0a89e]">Transcript</label>
               <textarea
                 name="transcript"
                 required
                 rows={10}
                 placeholder="Paste the full session transcript here…"
-                className="w-full bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl px-4 py-3 text-sm text-[#1A1714] placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A]/40 resize-y"
+                className="w-full bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl px-4 py-3 text-sm text-[#1A1917] placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A]/40 resize-y"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277]">Summary (optional)</label>
+              <label className="text-[10px] tracking-[0.1em] text-[#b0a89e]">Summary (optional)</label>
               <textarea
                 name="summary"
                 rows={3}
                 placeholder="Optional · Granola's AI summary of the meeting…"
-                className="w-full bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl px-4 py-3 text-sm text-[#1A1714] placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A]/40 resize-y"
+                className="w-full bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl px-4 py-3 text-sm text-[#1A1917] placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A]/40 resize-y"
               />
             </div>
 
@@ -219,7 +219,7 @@ export function GranolaSync({
             <button
               type="submit"
               disabled={isPending}
-              className="px-6 py-2.5 text-xs tracking-[0.1em] uppercase text-[#FAFAF8] bg-[#1A1714] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40"
+              className="px-6 py-2.5 text-xs tracking-[0.1em] text-[#FAFAF8] bg-[#1A1917] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40"
             >
               {isPending ? "Saving…" : "Save Transcript"}
             </button>
@@ -228,9 +228,9 @@ export function GranolaSync({
 
         {/* Unmatched tab */}
         {activeTab === "unmatched" && (
-          <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] divide-y divide-[#E8E2D9]">
+          <div className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF] divide-y divide-[#EDEBE6]">
             {initialUnmatched.length === 0 ? (
-              <div className="px-6 py-10 text-center text-sm text-[#8C8277]">
+              <div className="px-6 py-10 text-center text-sm text-[#b0a89e]">
                 No unmatched transcripts · all sessions have been assigned.
               </div>
             ) : (
@@ -238,8 +238,8 @@ export function GranolaSync({
                 <div key={t.id} className="px-6 py-5 space-y-3">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="text-sm text-[#1A1714]">{t.title}</p>
-                      <p className="text-xs text-[#5C5550] mt-0.5">
+                      <p className="text-sm text-[#1A1917]">{t.title}</p>
+                      <p className="text-xs text-[#7a7268] mt-0.5">
                         {new Date(t.date).toLocaleDateString("en-AU", {
                           day: "numeric", month: "short", year: "numeric",
                         })}
@@ -248,7 +248,7 @@ export function GranolaSync({
                     <button
                       onClick={() => handleDelete(t.id)}
                       disabled={isPending}
-                      className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] hover:text-[#9B2335] transition-colors"
+                      className="text-[10px] tracking-[0.1em] text-[#b0a89e] hover:text-[#9B2335] transition-colors"
                     >
                       Delete
                     </button>
@@ -256,7 +256,7 @@ export function GranolaSync({
                   <div className="flex items-center gap-2">
                     <select
                       id={`assign-${t.id}`}
-                      className="flex-1 bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl px-3 py-2 text-xs text-[#1A1714] focus:outline-none focus:border-[#C8B89A]/40"
+                      className="flex-1 bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl px-3 py-2 text-xs text-[#1A1917] focus:outline-none focus:border-[#C8B89A]/40"
                     >
                       <option value="">Select client…</option>
                       {clients.map((c) => (
@@ -269,12 +269,12 @@ export function GranolaSync({
                         if (sel.value) handleAssign(t.id, sel.value);
                       }}
                       disabled={isPending}
-                      className="px-4 py-2 text-xs tracking-[0.1em] uppercase text-[#FAFAF8] bg-[#1A1714] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40"
+                      className="px-4 py-2 text-xs tracking-[0.1em] text-[#FAFAF8] bg-[#1A1917] rounded-2xl hover:bg-[#2C2520] transition-colors disabled:opacity-40"
                     >
                       Assign
                     </button>
                   </div>
-                  <p className="text-[11px] text-[#8C8277] line-clamp-2">{t.transcript}</p>
+                  <p className="text-[11px] text-[#b0a89e] line-clamp-2">{t.transcript}</p>
                 </div>
               ))
             )}
@@ -283,27 +283,27 @@ export function GranolaSync({
 
         {/* Saved tab */}
         {activeTab === "saved" && (
-          <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] divide-y divide-[#E8E2D9]">
+          <div className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF] divide-y divide-[#EDEBE6]">
             {initialTranscripts.length === 0 ? (
-              <div className="px-6 py-10 text-center text-sm text-[#8C8277]">
+              <div className="px-6 py-10 text-center text-sm text-[#b0a89e]">
                 No transcripts saved yet.
               </div>
             ) : (
               initialTranscripts.map((t) => (
                 <div key={t.id} className="px-6 py-4 flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-[#1A1714]">{t.title}</p>
-                    <p className="text-xs text-[#5C5550] mt-0.5">
+                    <p className="text-sm text-[#1A1917]">{t.title}</p>
+                    <p className="text-xs text-[#7a7268] mt-0.5">
                       {t.clientProfile?.founderName} · {new Date(t.date).toLocaleDateString("en-AU", {
                         day: "numeric", month: "short", year: "numeric",
                       })}
                     </p>
                   </div>
                   <span
-                    className={`text-[10px] tracking-[0.1em] uppercase px-2.5 py-1 rounded-full ${
+                    className={`text-[10px] tracking-[0.1em] px-2.5 py-1 rounded-full ${
                       t.processed
                         ? "text-[#2D6A4F] bg-[#2D6A4F]/10"
-                        : "text-[#8C8277] bg-[#E8E2D9]"
+                        : "text-[#b0a89e] bg-[#EDEBE6]"
                     }`}
                   >
                     {t.processed ? "Processed" : "Pending"}

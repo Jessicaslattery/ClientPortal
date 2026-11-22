@@ -57,7 +57,7 @@ type Post = {
 
 const TYPE_COLORS: Record<string, string> = {
   reel: "#2D6A4F",
-  carousel: "#5C5550",
+  carousel: "#7a7268",
   picture: "#B7791F",
   [STORY_CONTENT_TYPE]: "#9B7DB8",
 };
@@ -109,13 +109,13 @@ function StatusButtons({ post, onChange }: { post: Post; onChange?: (status: str
       </span>
       {status !== "working_on_it" && (
         <button disabled={pending} onClick={() => setStatus("working_on_it")}
-          className="text-[10px] px-3 py-1 rounded-full border border-[#E8E2D9] text-[#5C5550] hover:border-[#B7791F] hover:text-[#B7791F] transition-colors disabled:opacity-50 uppercase tracking-[0.08em]">
+          className="text-[10px] px-3 py-1 rounded-full border border-[#EDEBE6] text-[#7a7268] hover:border-[#B7791F] hover:text-[#B7791F] transition-colors disabled:opacity-50 uppercase tracking-[0.08em]">
           Working on it
         </button>
       )}
       {status !== "complete" && (
         <button disabled={pending} onClick={() => setStatus("complete")}
-          className="text-[10px] px-3 py-1 rounded-full border border-[#E8E2D9] text-[#5C5550] hover:border-[#2D6A4F] hover:text-[#2D6A4F] transition-colors disabled:opacity-50 uppercase tracking-[0.08em]">
+          className="text-[10px] px-3 py-1 rounded-full border border-[#EDEBE6] text-[#7a7268] hover:border-[#2D6A4F] hover:text-[#2D6A4F] transition-colors disabled:opacity-50 uppercase tracking-[0.08em]">
           Complete
         </button>
       )}
@@ -123,7 +123,7 @@ function StatusButtons({ post, onChange }: { post: Post; onChange?: (status: str
   );
 }
 
-// ── Outcome picker — client chooses what this piece is built to drive ─────────
+// ── Outcome picker: client chooses what this piece is built to drive ─────────
 
 function OutcomePicker({ post }: { post: Post }) {
   const [pending, startTransition] = useTransition();
@@ -137,12 +137,12 @@ function OutcomePicker({ post }: { post: Post }) {
 
   return (
     <div>
-      <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1">Outcome they want</p>
+      <p className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] mb-1">Outcome they want</p>
       <select
         value={value}
         disabled={pending}
         onChange={(e) => handleChange(e.target.value)}
-        className="w-full rounded-xl border border-[#E8E2D9] px-3 py-2 text-sm text-[#1A1714] bg-white focus:outline-none focus:border-[#C8B89A] disabled:opacity-50"
+        className="w-full rounded-xl border border-[#EDEBE6] px-3 py-2 text-sm text-[#1A1917] bg-white focus:outline-none focus:border-[#C8B89A] disabled:opacity-50"
       >
         <option value="">Not set yet</option>
         {OUTCOMES.map((o) => <option key={o} value={o}>{OUTCOME_LABELS[o]}</option>)}
@@ -167,11 +167,11 @@ function MetricsPanel({ post }: { post: Post }) {
   );
 
   return (
-    <div className="border-t border-[#E8E2D9] pt-4 space-y-3">
+    <div className="border-t border-[#EDEBE6] pt-4 space-y-3">
       <div className="flex items-center justify-between">
-        <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277]">Performance</p>
+        <p className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e]">Performance</p>
         {!showForm && (
-          <button onClick={() => setShowForm(true)} className="text-[10px] text-[#C8B89A] hover:text-[#1A1714] transition-colors">
+          <button onClick={() => setShowForm(true)} className="text-[10px] text-[#C8B89A] hover:text-[#1A1917] transition-colors">
             {hasMetrics ? "Update" : "Log stats"}
           </button>
         )}
@@ -184,18 +184,18 @@ function MetricsPanel({ post }: { post: Post }) {
               if (val == null) return null;
               return (
                 <div key={key} className="rounded-xl bg-[#F5F2ED] px-3 py-2.5 text-center">
-                  <p className="text-base font-light text-[#1A1714]">{val.toLocaleString("en-AU")}</p>
-                  <p className="text-[10px] text-[#8C8277] mt-0.5">{label}</p>
+                  <p className="text-base font-[300] text-[#1A1917]">{val.toLocaleString("en-AU")}</p>
+                  <p className="text-[10px] text-[#b0a89e] mt-0.5">{label}</p>
                 </div>
               );
             })}
           </div>
           {post.metricsLoggedAt && (
-            <p className="text-[10px] text-[#8C8277]">Updated {new Date(post.metricsLoggedAt).toLocaleDateString("en-AU", { day: "numeric", month: "short" })}</p>
+            <p className="text-[10px] text-[#b0a89e]">Updated {new Date(post.metricsLoggedAt).toLocaleDateString("en-AU", { day: "numeric", month: "short" })}</p>
           )}
         </>
       )}
-      {!hasMetrics && !showForm && <p className="text-sm text-[#8C8277]">No stats logged yet.</p>}
+      {!hasMetrics && !showForm && <p className="text-sm text-[#b0a89e]">No stats logged yet.</p>}
       {showForm && <MetricsForm post={post} formAction={formAction} pending={pending} onCancel={() => setShowForm(false)} />}
     </div>
   );
@@ -208,20 +208,20 @@ function MetricsForm({ post, formAction, pending, onCancel }: { post: Post; form
       <div className="grid grid-cols-3 gap-3">
         {METRICS.map(({ key, label }) => (
           <div key={key}>
-            <label className="text-[10px] text-[#8C8277] block mb-1">{label}</label>
+            <label className="text-[10px] text-[#b0a89e] block mb-1">{label}</label>
             <input type="number" name={key} min={0}
               defaultValue={(post[key as keyof Post] as number | null | undefined) ?? ""}
               placeholder="0"
-              className="w-full rounded-xl border border-[#E8E2D9] px-3 py-2 text-sm text-[#1A1714] bg-white focus:outline-none focus:border-[#C8B89A]" />
+              className="w-full rounded-xl border border-[#EDEBE6] px-3 py-2 text-sm text-[#1A1917] bg-white focus:outline-none focus:border-[#C8B89A]" />
           </div>
         ))}
       </div>
       <div className="flex items-center gap-3">
         <button type="submit" disabled={pending}
-          className="px-4 py-2 rounded-xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-wide hover:bg-[#2a2420] transition-colors disabled:opacity-50">
+          className="px-4 py-2 rounded-xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-wide hover:bg-[#2a2420] transition-colors disabled:opacity-50">
           {pending ? "Saving…" : "Save Stats"}
         </button>
-        <button type="button" onClick={onCancel} className="text-xs text-[#5C5550] hover:text-[#1A1714] transition-colors">Cancel</button>
+        <button type="button" onClick={onCancel} className="text-xs text-[#7a7268] hover:text-[#1A1917] transition-colors">Cancel</button>
       </div>
     </form>
   );
@@ -246,7 +246,7 @@ function ApprovalPanel({ post }: { post: Post }) {
   return (
     <div className="rounded-2xl border border-[#C8B89A] bg-[#FDF9F0] p-4 space-y-3">
       <p className="text-[10px] tracking-[0.1em] uppercase text-[#B7791F]">Awaiting your approval</p>
-      <p className="text-xs text-[#5C5550]">Jess planned this. Approve it to lock it in, or ask for changes.</p>
+      <p className="text-xs text-[#7a7268]">Jess planned this. Approve it to lock it in, or ask for changes.</p>
       {!showFeedback ? (
         <div className="flex items-center gap-3">
           <button onClick={handleApprove} disabled={pending}
@@ -254,7 +254,7 @@ function ApprovalPanel({ post }: { post: Post }) {
             {pending ? "Saving…" : "Approve"}
           </button>
           <button onClick={() => setShowFeedback(true)}
-            className="text-xs text-[#5C5550] hover:text-[#1A1714] transition-colors">
+            className="text-xs text-[#7a7268] hover:text-[#1A1917] transition-colors">
             Request changes
           </button>
         </div>
@@ -262,13 +262,13 @@ function ApprovalPanel({ post }: { post: Post }) {
         <form action={handleRequestChanges} className="space-y-2">
           <input type="hidden" name="postId" value={post.id} />
           <textarea name="feedback" required rows={2} placeholder="What would you like changed?"
-            className="w-full rounded-xl border border-[#E8E2D9] px-3 py-2 text-sm text-[#1A1714] bg-white focus:outline-none focus:border-[#C8B89A] resize-none" />
+            className="w-full rounded-xl border border-[#EDEBE6] px-3 py-2 text-sm text-[#1A1917] bg-white focus:outline-none focus:border-[#C8B89A] resize-none" />
           <div className="flex items-center gap-3">
             <button type="submit" disabled={pending}
-              className="px-4 py-2 rounded-xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-wide hover:bg-[#2a2420] transition-colors disabled:opacity-50">
+              className="px-4 py-2 rounded-xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-wide hover:bg-[#2a2420] transition-colors disabled:opacity-50">
               {pending ? "Sending…" : "Send feedback"}
             </button>
-            <button type="button" onClick={() => setShowFeedback(false)} className="text-xs text-[#5C5550] hover:text-[#1A1714] transition-colors">
+            <button type="button" onClick={() => setShowFeedback(false)} className="text-xs text-[#7a7268] hover:text-[#1A1917] transition-colors">
               Cancel
             </button>
           </div>
@@ -290,8 +290,8 @@ function AddPostForm({ defaultDate, onClose }: { defaultDate: string; onClose: (
     });
   }
 
-  const inputClass = "w-full rounded-2xl border border-[#E8E2D9] px-4 py-3 text-sm text-[#1A1714] bg-white focus:outline-none focus:border-[#C8B89A]";
-  const labelClass = "text-[10px] tracking-[0.1em] uppercase text-[#8C8277] block mb-1.5";
+  const inputClass = "w-full rounded-2xl border border-[#EDEBE6] px-4 py-3 text-sm text-[#1A1917] bg-white focus:outline-none focus:border-[#C8B89A]";
+  const labelClass = "text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] block mb-1.5";
 
   return (
     <form action={handleSubmit} className="space-y-5">
@@ -335,7 +335,7 @@ function AddPostForm({ defaultDate, onClose }: { defaultDate: string; onClose: (
       </div>
       <div>
         <label className={labelClass}>Details / plan structure</label>
-        <textarea name="planDetails" rows={6} placeholder="How this piece plays out — structure, talking points, shots…" className={`${inputClass} resize-none`} />
+        <textarea name="planDetails" rows={6} placeholder="How this piece plays out: structure, talking points, shots…" className={`${inputClass} resize-none`} />
       </div>
       <div>
         <label className={labelClass}>Outcome they want</label>
@@ -345,10 +345,10 @@ function AddPostForm({ defaultDate, onClose }: { defaultDate: string; onClose: (
         </select>
       </div>
       <div className="flex items-center gap-3 pt-1">
-        <button type="submit" className="px-5 py-2.5 rounded-full bg-[#1A1714] text-[#FAFAF8] text-[10px] tracking-[0.12em] uppercase hover:bg-[#2C2520] transition-colors">
+        <button type="submit" className="px-5 py-2.5 rounded-full bg-[#1A1917] text-[#FAFAF8] text-[10px] tracking-[0.12em] uppercase hover:bg-[#2C2520] transition-colors">
           Add Post
         </button>
-        <button type="button" onClick={onClose} className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] hover:text-[#1A1714] transition-colors">
+        <button type="button" onClick={onClose} className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] hover:text-[#1A1917] transition-colors">
           Cancel
         </button>
       </div>
@@ -366,8 +366,8 @@ function AddStoryForm({ defaultDate, onClose }: { defaultDate: string; onClose: 
     });
   }
 
-  const inputClass = "w-full rounded-2xl border border-[#E8E2D9] px-4 py-3 text-sm text-[#1A1714] bg-white focus:outline-none focus:border-[#C8B89A]";
-  const labelClass = "text-[10px] tracking-[0.1em] uppercase text-[#8C8277] block mb-1.5";
+  const inputClass = "w-full rounded-2xl border border-[#EDEBE6] px-4 py-3 text-sm text-[#1A1917] bg-white focus:outline-none focus:border-[#C8B89A]";
+  const labelClass = "text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] block mb-1.5";
 
   return (
     <form action={handleSubmit} className="space-y-5">
@@ -380,10 +380,10 @@ function AddStoryForm({ defaultDate, onClose }: { defaultDate: string; onClose: 
         <textarea name="outline" rows={6} required placeholder="What happens across this story sequence…" className={`${inputClass} resize-none`} />
       </div>
       <div className="flex items-center gap-3 pt-1">
-        <button type="submit" className="px-5 py-2.5 rounded-full bg-[#1A1714] text-[#FAFAF8] text-[10px] tracking-[0.12em] uppercase hover:bg-[#2C2520] transition-colors">
+        <button type="submit" className="px-5 py-2.5 rounded-full bg-[#1A1917] text-[#FAFAF8] text-[10px] tracking-[0.12em] uppercase hover:bg-[#2C2520] transition-colors">
           Add Story
         </button>
-        <button type="button" onClick={onClose} className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] hover:text-[#1A1714] transition-colors">
+        <button type="button" onClick={onClose} className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] hover:text-[#1A1917] transition-colors">
           Cancel
         </button>
       </div>
@@ -425,27 +425,27 @@ function AnalyticsOverview({ posts }: { posts: Post[] }) {
   ];
 
   return (
-    <div className="rounded-3xl border border-[#E8E2D9] p-6 space-y-6" style={{ boxShadow: "0 1px 4px rgba(92,71,48,0.06)" }}>
+    <div className="rounded-2xl border border-[#EDEBE6] p-6 space-y-6" style={{ boxShadow: "0 1px 4px rgba(92,71,48,0.06)" }}>
       <div>
-        <p className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277]">Month Overview</p>
-        <p className="text-xs text-[#5C5550] mt-0.5">{withMetrics.length} piece{withMetrics.length !== 1 ? "s" : ""} with stats logged · {completeCount} complete this month</p>
+        <p className="text-[10px] tracking-[0.15em] uppercase text-[#b0a89e]">Month Overview</p>
+        <p className="text-xs text-[#7a7268] mt-0.5">{withMetrics.length} piece{withMetrics.length !== 1 ? "s" : ""} with stats logged · {completeCount} complete this month</p>
       </div>
       <div className="grid grid-cols-3 gap-3">
         {statCards.map(({ label, value }) => (
           <div key={label} className="rounded-2xl bg-[#F5F2ED] px-4 py-4 text-center">
-            <p className="text-xl font-light text-[#1A1714]">{value}</p>
-            <p className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277] mt-1">{label}</p>
+            <p className="text-xl font-[300] text-[#1A1917]">{value}</p>
+            <p className="text-[10px] tracking-[0.08em] uppercase text-[#b0a89e] mt-1">{label}</p>
           </div>
         ))}
       </div>
       {bestPost && (
-        <div className="rounded-2xl bg-[#FAFAF8] border border-[#E8E2D9] px-5 py-4 space-y-2">
+        <div className="rounded-2xl bg-[#FAFAF8] border border-[#EDEBE6] px-5 py-4 space-y-2">
           <p className="text-[10px] tracking-[0.12em] uppercase text-[#C8B89A]">Top performing piece</p>
-          <p className="text-sm font-medium text-[#1A1714]">{isStory(bestPost) ? "Story" : (bestPost.topic || bestPost.hook || "Untitled")}</p>
+          <p className="text-sm font-medium text-[#1A1917]">{isStory(bestPost) ? "Story" : (bestPost.topic || bestPost.hook || "Untitled")}</p>
           <div className="flex items-center gap-4 flex-wrap">
-            {bestPost.views != null && <span className="text-xs text-[#1A1714]">{bestPost.views.toLocaleString("en-AU")} views</span>}
-            {bestPost.likes != null && <span className="text-xs text-[#1A1714]">{bestPost.likes.toLocaleString("en-AU")} likes</span>}
-            {bestPost.saves != null && <span className="text-xs text-[#1A1714]">{bestPost.saves.toLocaleString("en-AU")} saves</span>}
+            {bestPost.views != null && <span className="text-xs text-[#1A1917]">{bestPost.views.toLocaleString("en-AU")} views</span>}
+            {bestPost.likes != null && <span className="text-xs text-[#1A1917]">{bestPost.likes.toLocaleString("en-AU")} likes</span>}
+            {bestPost.saves != null && <span className="text-xs text-[#1A1917]">{bestPost.saves.toLocaleString("en-AU")} saves</span>}
           </div>
         </div>
       )}
@@ -453,7 +453,7 @@ function AnalyticsOverview({ posts }: { posts: Post[] }) {
   );
 }
 
-// ── Post content (no header/close — reused by the day modal and list view) ────
+// ── Post content (no header/close: reused by the day modal and list view) ────
 
 function PostContent({ post }: { post: Post }) {
   const story = isStory(post);
@@ -467,8 +467,8 @@ function PostContent({ post }: { post: Post }) {
     null
   );
 
-  const inputClass = "w-full rounded-xl border border-[#E8E2D9] px-3 py-2 text-sm text-[#1A1714] bg-white focus:outline-none focus:border-[#C8B89A]";
-  const labelClass = "text-[10px] tracking-[0.1em] uppercase text-[#8C8277] block mb-1";
+  const inputClass = "w-full rounded-xl border border-[#EDEBE6] px-3 py-2 text-sm text-[#1A1917] bg-white focus:outline-none focus:border-[#C8B89A]";
+  const labelClass = "text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] block mb-1";
 
   return (
     <div className="space-y-4">
@@ -484,7 +484,7 @@ function PostContent({ post }: { post: Post }) {
           )}
         </div>
         {!editing && (
-          <button onClick={() => setEditing(true)} className="text-[10px] text-[#C8B89A] hover:text-[#1A1714] transition-colors uppercase tracking-[0.08em]">
+          <button onClick={() => setEditing(true)} className="text-[10px] text-[#C8B89A] hover:text-[#1A1917] transition-colors uppercase tracking-[0.08em]">
             Edit
           </button>
         )}
@@ -553,10 +553,10 @@ function PostContent({ post }: { post: Post }) {
           )}
           <div className="flex items-center gap-3">
             <button type="submit" disabled={saving}
-              className="px-4 py-2 rounded-xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-wide hover:bg-[#2a2420] transition-colors disabled:opacity-50">
+              className="px-4 py-2 rounded-xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-wide hover:bg-[#2a2420] transition-colors disabled:opacity-50">
               {saving ? "Saving…" : "Save changes"}
             </button>
-            <button type="button" onClick={() => setEditing(false)} className="text-xs text-[#5C5550] hover:text-[#1A1714] transition-colors">
+            <button type="button" onClick={() => setEditing(false)} className="text-xs text-[#7a7268] hover:text-[#1A1917] transition-colors">
               Cancel
             </button>
           </div>
@@ -565,26 +565,26 @@ function PostContent({ post }: { post: Post }) {
         <>
           {story ? (
             <div>
-              <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1">Outline</p>
-              <p className="text-sm text-[#1A1714] whitespace-pre-wrap leading-relaxed">{post.planDetails || "—"}</p>
+              <p className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] mb-1">Outline</p>
+              <p className="text-sm text-[#1A1917] whitespace-pre-wrap leading-relaxed">{post.planDetails || ""}</p>
             </div>
           ) : (
             <>
               {post.topic && (
                 <div>
-                  <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1">Topic</p>
-                  <p className="text-sm text-[#1A1714]">{post.topic}</p>
+                  <p className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] mb-1">Topic</p>
+                  <p className="text-sm text-[#1A1917]">{post.topic}</p>
                 </div>
               )}
               {post.hook && (
                 <div>
-                  <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1">Hook · {HOOK_TYPE_LABELS[post.hookType]}</p>
-                  <p className="text-sm font-medium text-[#1A1714]">{post.hook}</p>
+                  <p className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] mb-1">Hook · {HOOK_TYPE_LABELS[post.hookType]}</p>
+                  <p className="text-sm font-medium text-[#1A1917]">{post.hook}</p>
                 </div>
               )}
               {post.inspirationLink && (
                 <div>
-                  <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1">Inspo</p>
+                  <p className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] mb-1">Inspo</p>
                   <a href={post.inspirationLink} target="_blank" rel="noopener noreferrer" className="text-sm text-[#C8B89A] hover:opacity-70 break-all underline underline-offset-2">
                     {post.inspirationLink}
                   </a>
@@ -592,8 +592,8 @@ function PostContent({ post }: { post: Post }) {
               )}
               {post.planDetails && (
                 <div>
-                  <p className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] mb-1">Details / plan structure</p>
-                  <p className="text-sm text-[#1A1714] whitespace-pre-wrap leading-relaxed">{post.planDetails}</p>
+                  <p className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] mb-1">Details / plan structure</p>
+                  <p className="text-sm text-[#1A1917] whitespace-pre-wrap leading-relaxed">{post.planDetails}</p>
                 </div>
               )}
               <OutcomePicker post={post} />
@@ -607,25 +607,25 @@ function PostContent({ post }: { post: Post }) {
   );
 }
 
-// ── Day modal — pops up the content planned for a clicked calendar date ───────
+// ── Day modal: pops up the content planned for a clicked calendar date ───────
 
 function DayModal({ date, posts, onClose }: { date: string; posts: Post[]; onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/30" />
       <div
-        className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-3xl border border-[#E8E2D9] bg-white p-6 space-y-6"
+        className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-2xl border border-[#EDEBE6] bg-white p-6 space-y-6"
         style={{ boxShadow: "0 8px 30px rgba(26,23,20,0.15)" }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-4">
-          <p className="text-sm font-medium text-[#1A1714]">
+          <p className="text-sm font-medium text-[#1A1917]">
             {new Date(date).toLocaleDateString("en-AU", { weekday: "long", day: "numeric", month: "long" })}
           </p>
-          <button onClick={onClose} className="text-[#8C8277] hover:text-[#1A1714] transition-colors text-lg leading-none">×</button>
+          <button onClick={onClose} className="text-[#b0a89e] hover:text-[#1A1917] transition-colors text-lg leading-none">×</button>
         </div>
         {posts.map((post, i) => (
-          <div key={post.id} className={i > 0 ? "pt-6 border-t border-[#E8E2D9]" : ""}>
+          <div key={post.id} className={i > 0 ? "pt-6 border-t border-[#EDEBE6]" : ""}>
             <PostContent post={post} />
           </div>
         ))}
@@ -683,25 +683,25 @@ export function ContentCalendar({
           <button
             onClick={() => { setCurrentMonth(availableMonths[currentIndex - 1]); setModalDate(null); }}
             disabled={!canGoBack}
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-[#E8E2D9] text-[#5C5550] hover:border-[#1A1714] hover:text-[#1A1714] disabled:opacity-30 transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-full border border-[#EDEBE6] text-[#7a7268] hover:border-[#1A1917] hover:text-[#1A1917] disabled:opacity-30 transition-colors"
           >←</button>
-          <h2 className="font-display text-lg font-thin tracking-widest text-[#1A1714] uppercase min-w-[180px] text-center">
+          <h2 className="text-lg font-[300] text-[#1A1917] uppercase min-w-[180px] text-center">
             {monthLabel(currentMonth)}
           </h2>
           <button
             onClick={() => { setCurrentMonth(availableMonths[currentIndex + 1]); setModalDate(null); }}
             disabled={!canGoForward}
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-[#E8E2D9] text-[#5C5550] hover:border-[#1A1714] hover:text-[#1A1714] disabled:opacity-30 transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-full border border-[#EDEBE6] text-[#7a7268] hover:border-[#1A1917] hover:text-[#1A1917] disabled:opacity-30 transition-colors"
           >→</button>
         </div>
-        <div className="flex items-center rounded-xl border border-[#E8E2D9] overflow-hidden">
+        <div className="flex items-center rounded-xl border border-[#EDEBE6] overflow-hidden">
           <button
             onClick={() => setView("calendar")}
-            className={`px-3 py-1.5 text-[10px] tracking-[0.1em] uppercase transition-colors ${view === "calendar" ? "bg-[#1A1714] text-[#FAFAF8]" : "text-[#5C5550] hover:text-[#1A1714]"}`}
+            className={`px-3 py-1.5 text-[10px] tracking-[0.1em] uppercase transition-colors ${view === "calendar" ? "bg-[#1A1917] text-[#FAFAF8]" : "text-[#7a7268] hover:text-[#1A1917]"}`}
           >Calendar</button>
           <button
             onClick={() => setView("list")}
-            className={`px-3 py-1.5 text-[10px] tracking-[0.1em] uppercase transition-colors ${view === "list" ? "bg-[#1A1714] text-[#FAFAF8]" : "text-[#5C5550] hover:text-[#1A1714]"}`}
+            className={`px-3 py-1.5 text-[10px] tracking-[0.1em] uppercase transition-colors ${view === "list" ? "bg-[#1A1917] text-[#FAFAF8]" : "text-[#7a7268] hover:text-[#1A1917]"}`}
           >List</button>
         </div>
       </div>
@@ -727,7 +727,7 @@ export function ContentCalendar({
                   style={{ backgroundColor: `${TYPE_COLORS[post.contentType]}15` }}
                 >
                   <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: TYPE_COLORS[post.contentType] }} />
-                  <span className="truncate text-[#1A1714]">{isStory(post) ? "Story" : (post.topic.slice(0, 22) || "Untitled")}</span>
+                  <span className="truncate text-[#1A1917]">{isStory(post) ? "Story" : (post.topic.slice(0, 22) || "Untitled")}</span>
                   {pendingApproval && <span className="ml-auto text-[#B7791F] flex-shrink-0" title="Awaiting your approval">●</span>}
                   {!pendingApproval && post.status === "complete" && <span className="ml-auto text-[#2D6A4F] flex-shrink-0">✓</span>}
                 </div>
@@ -737,18 +737,18 @@ export function ContentCalendar({
         />
       )}
 
-      {/* Add post/story — opens below calendar when a day "+" is clicked */}
+      {/* Add post/story: opens below calendar when a day "+" is clicked */}
       {addForDate && (
-        <div className="rounded-3xl border border-[#E8E2D9] bg-white p-6" style={{ boxShadow: "0 1px 4px rgba(92,71,48,0.07)" }}>
-          <p className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-1">
+        <div className="rounded-2xl border border-[#EDEBE6] bg-white p-6" style={{ boxShadow: "0 1px 4px rgba(92,71,48,0.07)" }}>
+          <p className="text-[10px] tracking-[0.15em] uppercase text-[#b0a89e] mb-1">
             {addKind === "story" ? "New Story" : addKind === "post" ? "New Post" : "Add to"} {new Date(addForDate).toLocaleDateString("en-AU", { weekday: "long", day: "numeric", month: "long" })}
           </p>
           {!addKind && (
             <div className="flex items-center gap-3 mt-4">
-              <button onClick={() => setAddKind("post")} className="px-5 py-2.5 rounded-full bg-[#1A1714] text-[#FAFAF8] text-[10px] tracking-[0.12em] uppercase hover:bg-[#2C2520] transition-colors">
+              <button onClick={() => setAddKind("post")} className="px-5 py-2.5 rounded-full bg-[#1A1917] text-[#FAFAF8] text-[10px] tracking-[0.12em] uppercase hover:bg-[#2C2520] transition-colors">
                 Add Post
               </button>
-              <button onClick={() => setAddKind("story")} className="px-5 py-2.5 rounded-full border border-[#E8E2D9] text-[#5C5550] text-[10px] tracking-[0.12em] uppercase hover:border-[#1A1714] hover:text-[#1A1714] transition-colors">
+              <button onClick={() => setAddKind("story")} className="px-5 py-2.5 rounded-full border border-[#EDEBE6] text-[#7a7268] text-[10px] tracking-[0.12em] uppercase hover:border-[#1A1917] hover:text-[#1A1917] transition-colors">
                 Add Story
               </button>
             </div>
@@ -761,7 +761,7 @@ export function ContentCalendar({
       {/* List view */}
       {view === "list" && <ListView posts={posts} />}
 
-      {/* Day modal — pops up when a calendar date with content is clicked */}
+      {/* Day modal: pops up when a calendar date with content is clicked */}
       {modalDate && modalPosts.length > 0 && (
         <DayModal date={modalDate} posts={modalPosts} onClose={() => setModalDate(null)} />
       )}
@@ -798,8 +798,8 @@ function ListView({ posts }: { posts: Post[] }) {
         const weekLabel = `${weekDate.toLocaleDateString("en-AU", { day: "numeric", month: "short" })} – ${weekEnd.toLocaleDateString("en-AU", { day: "numeric", month: "short" })}`;
         return (
           <div key={weekStart}>
-            <p className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-3">{weekLabel}</p>
-            <div className="rounded-2xl border border-[#E8E2D9] divide-y divide-[#E8E2D9]">
+            <p className="text-[10px] tracking-[0.15em] uppercase text-[#b0a89e] mb-3">{weekLabel}</p>
+            <div className="rounded-2xl border border-[#EDEBE6] divide-y divide-[#EDEBE6]">
               {weekPosts.map((post) => {
                 const isExpanded = expandedId === post.id;
                 const story = isStory(post);
@@ -812,7 +812,7 @@ function ListView({ posts }: { posts: Post[] }) {
                       <div className="flex items-center justify-between gap-4">
                         <div className="min-w-0 space-y-2">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-xs text-[#5C5550]">
+                            <span className="text-xs text-[#7a7268]">
                               {new Date(post.postDate).toLocaleDateString("en-AU", { weekday: "short", day: "numeric", month: "short" })}
                             </span>
                             <span
@@ -825,7 +825,7 @@ function ListView({ posts }: { posts: Post[] }) {
                               </span>
                             )}
                           </div>
-                          <p className="text-sm text-[#1A1714] font-medium leading-snug">{story ? (post.planDetails?.slice(0, 60) || "Story") : (post.hook || "Untitled")}</p>
+                          <p className="text-sm text-[#1A1917] font-medium leading-snug">{story ? (post.planDetails?.slice(0, 60) || "Story") : (post.hook || "Untitled")}</p>
                         </div>
                         <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-full uppercase tracking-[0.08em]" style={{ backgroundColor: STATUS_BG[post.status], color: STATUS_TEXT[post.status] }}>
                           {STATUS_LABELS[post.status]}
@@ -833,7 +833,7 @@ function ListView({ posts }: { posts: Post[] }) {
                       </div>
                     </button>
                     {isExpanded && (
-                      <div className="px-5 pb-5 border-t border-[#E8E2D9] bg-[#FAFAF8] pt-5">
+                      <div className="px-5 pb-5 border-t border-[#EDEBE6] bg-[#FAFAF8] pt-5">
                         <PostContent post={post} />
                       </div>
                     )}

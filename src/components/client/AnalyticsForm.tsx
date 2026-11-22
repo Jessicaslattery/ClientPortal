@@ -35,7 +35,7 @@ export function AnalyticsForm({ clientProfileId }: { clientProfileId: string }) 
       <div className="flex items-center gap-3">
         <button
           onClick={() => setOpen(true)}
-          className="px-4 py-2 rounded-xl border border-[#E8E2D9] text-xs tracking-wide text-[#5C5550] hover:border-[#C8B89A] hover:text-[#1A1714] transition-colors"
+          className="px-4 py-2 rounded-xl border border-[#EDEBE6] text-xs tracking-wide text-[#7a7268] hover:border-[#C8B89A] hover:text-[#1A1917] transition-colors"
         >
           + Log this week's stats
         </button>
@@ -55,14 +55,14 @@ export function AnalyticsForm({ clientProfileId }: { clientProfileId: string }) 
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-2xl border border-[#E8E2D9] bg-white p-5 space-y-4"
+      className="rounded-2xl border border-[#EDEBE6] bg-white p-5 space-y-4"
     >
       <div className="flex items-center justify-between">
-        <p className="text-sm text-[#1A1714]">Log weekly analytics</p>
+        <p className="text-sm text-[#1A1917]">Log weekly analytics</p>
         <button
           type="button"
           onClick={() => setOpen(false)}
-          className="text-[#8C8277] hover:text-[#1A1714] text-lg leading-none"
+          className="text-[#b0a89e] hover:text-[#1A1917] text-lg leading-none"
         >
           ×
         </button>
@@ -70,13 +70,13 @@ export function AnalyticsForm({ clientProfileId }: { clientProfileId: string }) 
 
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] block mb-1">
+          <label className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] block mb-1">
             Platform
           </label>
           <select
             name="platform"
             required
-            className="w-full rounded-xl border border-[#E8E2D9] px-3 py-2 text-sm text-[#1A1714] bg-white focus:outline-none focus:border-[#C8B89A]"
+            className="w-full rounded-xl border border-[#EDEBE6] px-3 py-2 text-sm text-[#1A1917] bg-white focus:outline-none focus:border-[#C8B89A]"
           >
             {PLATFORMS.map((p) => (
               <option key={p} value={p}>{p}</option>
@@ -84,7 +84,7 @@ export function AnalyticsForm({ clientProfileId }: { clientProfileId: string }) 
           </select>
         </div>
         <div>
-          <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] block mb-1">
+          <label className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] block mb-1">
             Week of
           </label>
           <input
@@ -92,11 +92,11 @@ export function AnalyticsForm({ clientProfileId }: { clientProfileId: string }) 
             name="weekOf"
             defaultValue={defaultWeekOf}
             required
-            className="w-full rounded-xl border border-[#E8E2D9] px-3 py-2 text-sm text-[#1A1714] bg-white focus:outline-none focus:border-[#C8B89A]"
+            className="w-full rounded-xl border border-[#EDEBE6] px-3 py-2 text-sm text-[#1A1917] bg-white focus:outline-none focus:border-[#C8B89A]"
           />
         </div>
         <div>
-          <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] block mb-1">
+          <label className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] block mb-1">
             Reach
           </label>
           <input
@@ -105,11 +105,11 @@ export function AnalyticsForm({ clientProfileId }: { clientProfileId: string }) 
             required
             min={0}
             placeholder="e.g. 4200"
-            className="w-full rounded-xl border border-[#E8E2D9] px-3 py-2 text-sm text-[#1A1714] bg-white focus:outline-none focus:border-[#C8B89A]"
+            className="w-full rounded-xl border border-[#EDEBE6] px-3 py-2 text-sm text-[#1A1917] bg-white focus:outline-none focus:border-[#C8B89A]"
           />
         </div>
         <div>
-          <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] block mb-1">
+          <label className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] block mb-1">
             Engagement Rate (%)
           </label>
           <input
@@ -120,11 +120,11 @@ export function AnalyticsForm({ clientProfileId }: { clientProfileId: string }) 
             max={100}
             step={0.1}
             placeholder="e.g. 4.2"
-            className="w-full rounded-xl border border-[#E8E2D9] px-3 py-2 text-sm text-[#1A1714] bg-white focus:outline-none focus:border-[#C8B89A]"
+            className="w-full rounded-xl border border-[#EDEBE6] px-3 py-2 text-sm text-[#1A1917] bg-white focus:outline-none focus:border-[#C8B89A]"
           />
         </div>
         <div>
-          <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] block mb-1">
+          <label className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] block mb-1">
             Follower Growth
           </label>
           <input
@@ -132,16 +132,16 @@ export function AnalyticsForm({ clientProfileId }: { clientProfileId: string }) 
             name="followerGrowth"
             required
             placeholder="e.g. 47"
-            className="w-full rounded-xl border border-[#E8E2D9] px-3 py-2 text-sm text-[#1A1714] bg-white focus:outline-none focus:border-[#C8B89A]"
+            className="w-full rounded-xl border border-[#EDEBE6] px-3 py-2 text-sm text-[#1A1917] bg-white focus:outline-none focus:border-[#C8B89A]"
           />
         </div>
         <div>
-          <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] block mb-1">
+          <label className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] block mb-1">
             Top Format
           </label>
           <select
             name="topFormat"
-            className="w-full rounded-xl border border-[#E8E2D9] px-3 py-2 text-sm text-[#1A1714] bg-white focus:outline-none focus:border-[#C8B89A]"
+            className="w-full rounded-xl border border-[#EDEBE6] px-3 py-2 text-sm text-[#1A1917] bg-white focus:outline-none focus:border-[#C8B89A]"
           >
             <option value="">Select…</option>
             {FORMATS.map((f) => (
@@ -152,26 +152,26 @@ export function AnalyticsForm({ clientProfileId }: { clientProfileId: string }) 
       </div>
 
       <div>
-        <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] block mb-1">
+        <label className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] block mb-1">
           Top Performing Post (describe it briefly)
         </label>
         <input
           type="text"
           name="topPost"
           placeholder="e.g. The reel about my morning routine"
-          className="w-full rounded-xl border border-[#E8E2D9] px-3 py-2 text-sm text-[#1A1714] bg-white focus:outline-none focus:border-[#C8B89A]"
+          className="w-full rounded-xl border border-[#EDEBE6] px-3 py-2 text-sm text-[#1A1917] bg-white focus:outline-none focus:border-[#C8B89A]"
         />
       </div>
 
       <div>
-        <label className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] block mb-1">
+        <label className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] block mb-1">
           Insights / Notes (optional)
         </label>
         <textarea
           name="insights"
           rows={2}
           placeholder="Anything that stood out this week…"
-          className="w-full rounded-xl border border-[#E8E2D9] px-3 py-2 text-sm text-[#1A1714] bg-white focus:outline-none focus:border-[#C8B89A] resize-none"
+          className="w-full rounded-xl border border-[#EDEBE6] px-3 py-2 text-sm text-[#1A1917] bg-white focus:outline-none focus:border-[#C8B89A] resize-none"
         />
       </div>
 
@@ -181,14 +181,14 @@ export function AnalyticsForm({ clientProfileId }: { clientProfileId: string }) 
         <button
           type="submit"
           disabled={loading}
-          className="px-4 py-2 rounded-xl bg-[#1A1714] text-[#FAFAF8] text-xs tracking-wide hover:bg-[#2a2420] transition-colors disabled:opacity-50"
+          className="px-4 py-2 rounded-xl bg-[#1A1917] text-[#FAFAF8] text-xs tracking-wide hover:bg-[#2a2420] transition-colors disabled:opacity-50"
         >
           {loading ? "Saving…" : "Save Analytics"}
         </button>
         <button
           type="button"
           onClick={() => setOpen(false)}
-          className="text-xs text-[#5C5550] hover:text-[#1A1714] transition-colors"
+          className="text-xs text-[#7a7268] hover:text-[#1A1917] transition-colors"
         >
           Cancel
         </button>

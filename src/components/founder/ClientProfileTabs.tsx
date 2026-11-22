@@ -13,7 +13,7 @@ export function ClientProfileTabs({ profileContent, onboardingContent, hasOnboar
 
   return (
     <div>
-      <div className="flex items-center gap-1 border-b border-[#E8E2D9] mb-8">
+      <div className="flex items-center gap-1 border-b border-[#EDEBE6] mb-8">
         {[
           { key: "profile", label: "Profile" },
           { key: "onboarding", label: "Onboarding", alert: hasOnboardingAlert },
@@ -21,10 +21,10 @@ export function ClientProfileTabs({ profileContent, onboardingContent, hasOnboar
           <button
             key={key}
             onClick={() => setActiveTab(key as "profile" | "onboarding")}
-            className={`relative px-5 py-3 text-xs tracking-[0.1em] uppercase transition-colors ${
+            className={`relative px-5 py-3 text-xs tracking-[0.1em] transition-colors ${
               activeTab === key
-                ? "text-[#1A1714] border-b-2 border-[#C8B89A] -mb-px"
-                : "text-[#8C8277] hover:text-[#5C5550]"
+                ? "text-[#1A1917] border-b-2 border-[#C8B89A] -mb-px"
+                : "text-[#b0a89e] hover:text-[#7a7268]"
             }`}
           >
             {label}

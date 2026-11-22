@@ -66,7 +66,6 @@ export default async function BusinessHealthPage() {
     churnRisks,
     recentCheckins,
     founderTasks,
-    pendingDrafts,
   ] = await Promise.all([
     prisma.clientProfile.findMany({
       select: {
@@ -120,8 +119,6 @@ export default async function BusinessHealthPage() {
       orderBy: [{ dueDate: "asc" }, { createdAt: "asc" }],
     }),
 
-    // Pending agent drafts
-    prisma.agentDraft.count({ where: { status: "pending" } }),
   ]);
 
   // ── Revenue calculations ──────────────────────────────────────────────────
@@ -161,7 +158,7 @@ export default async function BusinessHealthPage() {
     clientsWithRecentCheckin: recentCheckinClientIds.size,
     overdueFounderTasks: overdueTasks.length,
     totalFounderTasks: founderTasks.length,
-    pendingAgentDrafts: pendingDrafts,
+    pendingAgentDrafts: 0,
     newClientsThisMonth,
     clientsWithCompletedOnboarding,
   });
@@ -181,10 +178,10 @@ export default async function BusinessHealthPage() {
     <div className="space-y-8 pb-16">
       {/* Header */}
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">
+        <h1 className="text-4xl font-[300] tracking-tight text-[#1A1917]">
           Business Health
         </h1>
-        <p className="mt-1.5 text-sm text-[#5C5550]">
+        <p className="mt-1.5 text-sm text-[#7a7268]">
           {now.toLocaleDateString("en-AU", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
         </p>
       </div>
@@ -193,31 +190,30 @@ export default async function BusinessHealthPage() {
       <PivotHealthHero breakdown={breakdown} insight={insight} />
 
       {/* Stat row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {[
           { label: "Monthly MRR", value: `$${totalMRR.toLocaleString("en-AU")}` },
           { label: "Revenue this month", value: `$${thisMonthRevenue.toLocaleString("en-AU")}` },
           { label: "Active clients", value: clients.length },
-          { label: "Pending drafts", value: pendingDrafts },
         ].map((s) => (
           <div key={s.label}
-            className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] p-5"
+            className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF] p-5"
             style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}
           >
-            <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277]">{s.label}</p>
-            <p className="font-display text-3xl font-light text-[#1A1714] mt-1">{s.value}</p>
+            <p className="text-[10px] tracking-[0.12em] text-[#b0a89e]">{s.label}</p>
+            <p className="text-3xl font-[300] text-[#1A1917] mt-1">{s.value}</p>
           </div>
         ))}
       </div>
 
       {/* Client health grid */}
       <div>
-        <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-3">Client Overview</h2>
-        <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] divide-y divide-[#E8E2D9]"
+        <h2 className="text-[10px] tracking-[0.15em] text-[#b0a89e] mb-3">Client Overview</h2>
+        <div className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF] divide-y divide-[#EDEBE6]"
           style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}
         >
           {clients.length === 0 && (
-            <p className="px-6 py-8 text-sm text-[#8C8277]">No clients yet.</p>
+            <p className="px-6 py-8 text-sm text-[#b0a89e]">No clients yet.</p>
           )}
           {clients.map((client) => {
             const hasChurnRisk = activeChurnRiskClientIds.has(client.id);
@@ -234,31 +230,31 @@ export default async function BusinessHealthPage() {
               <Link
                 key={client.id}
                 href={`/clients/${client.id}`}
-                className="flex items-center justify-between px-6 py-4 hover:bg-[#F2EDE4] transition-colors group"
+                className="flex items-center justify-between px-6 py-4 hover:bg-[#F5F3EF] transition-colors group"
               >
                 <div className="flex items-center gap-4">
                   <span className={`w-2 h-2 rounded-full shrink-0 ${status.dot}`} />
                   <div>
-                    <p className="text-sm text-[#1A1714] group-hover:text-[#C8B89A] transition-colors">
+                    <p className="text-sm text-[#1A1917] group-hover:text-[#C8B89A] transition-colors">
                       {client.founderName}
                     </p>
-                    <p className="text-xs text-[#8C8277]">{client.businessName}</p>
+                    <p className="text-xs text-[#b0a89e]">{client.businessName}</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-8 text-right">
                   <div>
-                    <p className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277]">Revenue this month</p>
-                    <p className="text-xs text-[#1A1714] mt-0.5">
+                    <p className="text-[10px] tracking-[0.08em] text-[#b0a89e]">Revenue this month</p>
+                    <p className="text-xs text-[#1A1917] mt-0.5">
                       {monthRevenue > 0 ? `$${monthRevenue.toLocaleString("en-AU")}` : "-"}
                     </p>
                   </div>
                   <div>
-                    <p className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277]">Progress</p>
-                    <p className="text-xs text-[#1A1714] mt-0.5">Month {client.currentMonth}, Week {client.currentWeek}</p>
+                    <p className="text-[10px] tracking-[0.08em] text-[#b0a89e]">Progress</p>
+                    <p className="text-xs text-[#1A1917] mt-0.5">Month {client.currentMonth}, Week {client.currentWeek}</p>
                   </div>
                   <div>
-                    <p className={`text-[10px] tracking-[0.08em] uppercase ${status.text}`}>{status.label}</p>
+                    <p className={`text-[10px] tracking-[0.08em] ${status.text}`}>{status.label}</p>
                   </div>
                 </div>
               </Link>
@@ -270,20 +266,20 @@ export default async function BusinessHealthPage() {
       {/* Overdue tasks */}
       {overdueTasks.length > 0 && (
         <div>
-          <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-3">
+          <h2 className="text-[10px] tracking-[0.15em] text-[#b0a89e] mb-3">
             Overdue Tasks ({overdueTasks.length})
           </h2>
-          <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] divide-y divide-[#E8E2D9]"
+          <div className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF] divide-y divide-[#EDEBE6]"
             style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}
           >
             {overdueTasks.map((t) => (
               <div key={t.id} className="flex items-center justify-between px-6 py-3.5">
                 <div className="flex items-center gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#9B2335] shrink-0" />
-                  <p className="text-sm text-[#1A1714]">{t.title}</p>
+                  <p className="text-sm text-[#1A1917]">{t.title}</p>
                 </div>
                 <div className="flex items-center gap-6 text-right">
-                  <p className="text-xs text-[#8C8277]">{t.clientProfile?.founderName}</p>
+                  <p className="text-xs text-[#b0a89e]">{t.clientProfile?.founderName}</p>
                   {t.dueDate && (
                     <p className="text-xs text-[#9B2335]">
                       Due {new Date(t.dueDate).toLocaleDateString("en-AU", { day: "numeric", month: "short" })}
@@ -297,31 +293,31 @@ export default async function BusinessHealthPage() {
       )}
 
       {/* Revenue trend: this month vs last */}
-      <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] p-6"
+      <div className="rounded-3xl border border-[#EDEBE6] bg-[#FFFFFF] p-6"
         style={{ boxShadow: "0 1px 3px rgba(92,71,48,0.08)" }}
       >
-        <p className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-4">Revenue Summary</p>
+        <p className="text-[10px] tracking-[0.15em] text-[#b0a89e] mb-4">Revenue Summary</p>
         <div className="grid grid-cols-3 gap-6">
           <div>
-            <p className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277]">This month</p>
-            <p className="font-display text-3xl font-light text-[#1A1714] mt-1">
+            <p className="text-[10px] tracking-[0.08em] text-[#b0a89e]">This month</p>
+            <p className="text-3xl font-[300] text-[#1A1917] mt-1">
               ${thisMonthRevenue.toLocaleString("en-AU")}
             </p>
           </div>
           <div>
-            <p className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277]">Last month</p>
-            <p className="font-display text-3xl font-light text-[#5C5550] mt-1">
+            <p className="text-[10px] tracking-[0.08em] text-[#b0a89e]">Last month</p>
+            <p className="text-3xl font-[300] text-[#7a7268] mt-1">
               ${lastMonthRevenue.toLocaleString("en-AU")}
             </p>
           </div>
           <div>
-            <p className="text-[10px] tracking-[0.08em] uppercase text-[#8C8277]">Movement</p>
+            <p className="text-[10px] tracking-[0.08em] text-[#b0a89e]">Movement</p>
             {(() => {
               const diff = thisMonthRevenue - lastMonthRevenue;
               const pct = lastMonthRevenue > 0 ? Math.round((diff / lastMonthRevenue) * 100) : null;
               const positive = diff >= 0;
               return (
-                <p className={`font-display text-3xl font-light mt-1 ${positive ? "text-[#2D6A4F]" : "text-[#9B2335]"}`}>
+                <p className={`text-3xl font-[300] mt-1 ${positive ? "text-[#2D6A4F]" : "text-[#9B2335]"}`}>
                   {positive ? "+" : ""}{diff > 0 || diff < 0 ? `$${Math.abs(diff).toLocaleString("en-AU")}` : "-"}
                   {pct !== null && (
                     <span className="text-sm ml-1">({positive ? "+" : ""}{pct}%)</span>
@@ -337,10 +333,10 @@ export default async function BusinessHealthPage() {
       {churnRisks.length > 0 && (
         <div>
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277]">
+            <h2 className="text-[10px] tracking-[0.15em] text-[#b0a89e]">
               Active Churn Signals ({churnRisks.length})
             </h2>
-            <Link href="/dashboard" className="text-[10px] tracking-[0.08em] uppercase text-[#C8B89A] hover:opacity-70 transition-opacity">
+            <Link href="/dashboard" className="text-[10px] tracking-[0.08em] text-[#C8B89A] hover:opacity-70 transition-opacity">
               View in dashboard
             </Link>
           </div>

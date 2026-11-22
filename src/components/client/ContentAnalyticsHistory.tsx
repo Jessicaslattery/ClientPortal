@@ -49,15 +49,15 @@ function BreakdownBars({ title, rows }: { title: string; rows: { label: string; 
   if (rows.every((r) => r.value === 0)) return null;
   return (
     <div>
-      <p className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-3">{title}</p>
+      <p className="text-[10px] tracking-[0.15em] uppercase text-[#b0a89e] mb-3">{title}</p>
       <div className="space-y-2">
         {rows.map((r) => (
           <div key={r.label} className="flex items-center gap-3">
-            <span className="text-xs text-[#5C5550] w-32 shrink-0 truncate">{r.label}</span>
+            <span className="text-xs text-[#7a7268] w-32 shrink-0 truncate">{r.label}</span>
             <div className="flex-1 h-2 rounded-full bg-[#F5F2ED] overflow-hidden">
               <div className="h-full rounded-full" style={{ width: `${(r.value / max) * 100}%`, backgroundColor: r.color ?? "#C8B89A" }} />
             </div>
-            <span className="text-xs text-[#1A1714] w-14 shrink-0 text-right">{r.value.toLocaleString("en-AU")}</span>
+            <span className="text-xs text-[#1A1917] w-14 shrink-0 text-right">{r.value.toLocaleString("en-AU")}</span>
           </div>
         ))}
       </div>
@@ -99,24 +99,24 @@ export function ContentAnalyticsHistory({
     .sort((a, b) => b.value - a.value);
 
   return (
-    <div className="rounded-3xl border border-[#E8E2D9] bg-white p-6 space-y-6">
+    <div className="rounded-2xl border border-[#EDEBE6] bg-white p-6 space-y-6">
       <div>
-        <p className="text-[10px] tracking-[0.15em] uppercase text-[#5C5550]">Performance over time</p>
-        <p className="text-xs text-[#8C8277] mt-0.5">{withMetrics.length} complete with stats logged · {sortedWeeks.length} weekly logs</p>
+        <p className="text-[10px] tracking-[0.15em] uppercase text-[#7a7268]">Performance over time</p>
+        <p className="text-xs text-[#b0a89e] mt-0.5">{withMetrics.length} complete with stats logged · {sortedWeeks.length} weekly logs</p>
       </div>
 
       {sortedWeeks.length >= 2 && (
         <div className="grid grid-cols-2 gap-6">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <p className="text-[9px] tracking-[0.1em] uppercase text-[#8C8277]">Reach trend</p>
+              <p className="text-[9px] tracking-[0.1em] uppercase text-[#b0a89e]">Reach trend</p>
             </div>
             <Sparkline values={reachValues} color="#C8B89A" />
           </div>
           <div>
             <div className="flex items-center justify-between mb-2">
-              <p className="text-[9px] tracking-[0.1em] uppercase text-[#8C8277]">Engagement rate</p>
-              {avgEngagement && <span className="text-[10px] text-[#5C5550]">avg {avgEngagement}%</span>}
+              <p className="text-[9px] tracking-[0.1em] uppercase text-[#b0a89e]">Engagement rate</p>
+              {avgEngagement && <span className="text-[10px] text-[#7a7268]">avg {avgEngagement}%</span>}
             </div>
             <Sparkline values={engagementValues} color="#9B7DB8" />
           </div>

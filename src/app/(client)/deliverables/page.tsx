@@ -15,33 +15,33 @@ export default async function DeliverablesPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">Deliverables</h1>
-        <p className="mt-1.5 text-sm text-[#5C5550]">
+        <h1 className="text-4xl font-[200] text-[#1A1917]">Deliverables</h1>
+        <p className="mt-1.5 text-sm text-[#7a7268]">
           {deliverables.length} document{deliverables.length !== 1 ? "s" : ""} delivered
         </p>
       </div>
 
       {deliverables.length === 0 ? (
-        <div className="rounded-3xl border border-[#E8E2D9] px-8 py-16 text-center">
-          <p className="font-display text-2xl font-thin tracking-wide text-[#1A1714]">
+        <div className="rounded-2xl border border-[#EDEBE6] px-8 py-16 text-center">
+          <p className="text-2xl font-[200] text-[#1A1917]">
             Coming soon
           </p>
-          <p className="mt-2 text-sm text-[#5C5550]">
+          <p className="mt-2 text-sm text-[#7a7268]">
             Your deliverables will appear here as the programme progresses.
           </p>
         </div>
       ) : (
-        <div className="rounded-3xl border border-[#E8E2D9] divide-y divide-[#E8E2D9]">
+        <div className="rounded-2xl border border-[#EDEBE6] divide-y divide-[#EDEBE6]">
           {deliverables.map((doc) => (
                   <div key={doc.id} className="flex items-center justify-between px-5 py-4">
                     <div className="flex items-center gap-4">
-                      <div className="w-8 h-8 border border-[#E8E2D9] flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 border border-[#EDEBE6] flex items-center justify-center flex-shrink-0">
                         <svg
                           width="14"
                           height="14"
                           viewBox="0 0 14 14"
                           fill="none"
-                          stroke="#5C5550"
+                          stroke="#7a7268"
                           strokeWidth="1.2"
                         >
                           <path d="M2.5 1.5h6l3 3v8a.5.5 0 01-.5.5h-8.5a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5z" />
@@ -49,11 +49,11 @@ export default async function DeliverablesPage() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-sm text-[#1A1714]">{doc.title}</p>
+                        <p className="text-sm text-[#1A1917]">{doc.title}</p>
                         {doc.description && (
-                          <p className="text-xs text-[#5C5550] mt-0.5">{doc.description}</p>
+                          <p className="text-xs text-[#7a7268] mt-0.5">{doc.description}</p>
                         )}
-                        <p className="text-xs text-[#8C8277] mt-0.5">
+                        <p className="text-xs text-[#b0a89e] mt-0.5">
                           Delivered{" "}
                           {new Date(doc.deliveredAt).toLocaleDateString("en-AU", {
                             day: "numeric",

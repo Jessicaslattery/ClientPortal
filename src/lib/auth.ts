@@ -14,8 +14,9 @@ export type SessionUser = {
   id: string;
   email: string;
   name: string | null;
-  role: "founder" | "client";
+  role: "founder" | "client" | "staff";
   clientProfileId?: string;
+  package?: "sms" | "consulting";
 };
 
 function hmac(data: string): string {
@@ -44,7 +45,7 @@ async function verifySession(token: string): Promise<SessionUser | null> {
   }
 }
 
-export async function login(email: string, password: string): Promise<{ error?: string; role?: string }> {
+export async function login(email: string, password: string): Promise<{ error?: string; role?: string; package?: "sms" | "consulting" }> {
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user) return { error: "Invalid email or password." };
 
@@ -52,9 +53,12 @@ export async function login(email: string, password: string): Promise<{ error?: 
   if (!valid) return { error: "Invalid email or password." };
 
   let clientProfileId: string | undefined;
+  let pkg: "sms" | "consulting" | undefined;
   if (user.role === "client") {
     const profile = await prisma.clientProfile.findUnique({ where: { userId: user.id } });
-    clientProfileId = profile?.id;
+    if (!profile?.isActive) return { error: "Your access has been disabled. Please contact your coach." };
+    clientProfileId = profile.id;
+    pkg = ((profile.package ?? "consulting") as "sms" | "consulting");
   }
 
   const sessionUser: SessionUser = {
@@ -63,6 +67,7 @@ export async function login(email: string, password: string): Promise<{ error?: 
     name: user.name,
     role: user.role as "founder" | "client",
     clientProfileId,
+    package: pkg,
   };
 
   const token = await signSession(sessionUser);
@@ -75,7 +80,7 @@ export async function login(email: string, password: string): Promise<{ error?: 
     path: "/",
   });
 
-  return { role: user.role };
+  return { role: user.role, package: pkg };
 }
 
 export async function logout() {
@@ -91,10 +96,23 @@ export async function getSession(): Promise<SessionUser | null> {
   return verifySession(token);
 }
 
-export async function requireAuth(role?: "founder" | "client"): Promise<SessionUser> {
+export async function requireAuth(
+  role?: "founder" | "client" | "staff" | Array<"founder" | "client" | "staff">
+): Promise<SessionUser> {
   const session = await getSession();
   if (!session) redirect("/login");
-  if (role && session.role !== role) redirect("/login");
+  if (role) {
+    const allowed = Array.isArray(role) ? role : [role];
+    if (!allowed.includes(session.role)) redirect("/login");
+  }
+  // For client sessions, re-check isActive on every request so lock-out takes effect immediately
+  if (session.role === "client" && session.clientProfileId) {
+    const profile = await prisma.clientProfile.findUnique({
+      where: { id: session.clientProfileId },
+      select: { isActive: true },
+    });
+    if (!profile?.isActive) redirect("/login");
+  }
   return session;
 }
 

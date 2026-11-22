@@ -55,12 +55,12 @@ function EditableText({
         onClick={() => { setDraft(value); setEditing(true); }}
         title="Click to edit"
       >
-        {value || <span className="text-[#8C8277] italic">{placeholder}</span>}
+        {value || <span className="text-[#b0a89e] italic">{placeholder}</span>}
       </span>
     );
   }
 
-  const sharedClass = `bg-[#F5F2ED] border border-[#C8B89A]/50 rounded-xl px-3 py-1.5 focus:outline-none text-[#1A1714] w-full ${className ?? ""}`;
+  const sharedClass = `bg-[#F5F2ED] border border-[#C8B89A]/50 rounded-xl px-3 py-1.5 focus:outline-none text-[#1A1917] w-full ${className ?? ""}`;
 
   return multiline ? (
     <textarea
@@ -108,7 +108,7 @@ function TaskRow({ task }: { task: Task }) {
 
   return (
     <div
-      className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] px-6 py-5 group transition-shadow hover:shadow-sm"
+      className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] px-6 py-5 group transition-shadow hover:shadow-sm"
       style={{ boxShadow: "0 1px 4px rgba(92,71,48,0.07)" }}
     >
       <div className="flex items-start gap-4">
@@ -116,7 +116,7 @@ function TaskRow({ task }: { task: Task }) {
         <button
           onClick={handleComplete}
           disabled={completing}
-          className="mt-0.5 w-5 h-5 border-2 border-[#E8E2D9] rounded-full flex-shrink-0 hover:border-[#1A1714] hover:bg-[#1A1714]/5 transition-colors disabled:opacity-50 flex items-center justify-center"
+          className="mt-0.5 w-5 h-5 border-2 border-[#EDEBE6] rounded-full flex-shrink-0 hover:border-[#1A1917] hover:bg-[#1A1917]/5 transition-colors disabled:opacity-50 flex items-center justify-center"
           aria-label="Complete task"
         >
           {completing && <div className="w-2 h-2 rounded-full bg-[#C8B89A] animate-pulse" />}
@@ -127,7 +127,7 @@ function TaskRow({ task }: { task: Task }) {
           <div className="flex items-start justify-between gap-3">
             <EditableText
               value={task.title}
-              className="text-sm text-[#1A1714] leading-5 font-medium"
+              className="text-sm text-[#1A1917] leading-5 font-medium"
               onSave={(v) => { if (v) save("title", v); }}
             />
             <div className="flex items-center gap-2 flex-shrink-0">
@@ -136,10 +136,10 @@ function TaskRow({ task }: { task: Task }) {
                   Consultant
                 </span>
               )}
-              <span className={`w-1.5 h-1.5 rounded-full ${priorityColors[task.priority] ?? "bg-[#E8E2D9]"}`} />
+              <span className={`w-1.5 h-1.5 rounded-full ${priorityColors[task.priority] ?? "bg-[#EDEBE6]"}`} />
               <button
                 onClick={() => setExpanded((v) => !v)}
-                className="text-[#C8B89A] hover:text-[#1A1714] transition-colors opacity-0 group-hover:opacity-100"
+                className="text-[#C8B89A] hover:text-[#1A1917] transition-colors opacity-0 group-hover:opacity-100"
                 title="Edit details"
               >
                 <svg width="13" height="13" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2">
@@ -153,10 +153,10 @@ function TaskRow({ task }: { task: Task }) {
           {(task.description || task.dueDate || task.priority) && !expanded && (
             <div className="flex items-center gap-3 mt-2 flex-wrap">
               {task.description && (
-                <p className="text-xs text-[#5C5550] leading-5">{task.description}</p>
+                <p className="text-xs text-[#7a7268] leading-5">{task.description}</p>
               )}
               {task.dueDate && (
-                <span className="text-[10px] tracking-[0.06em] uppercase text-[#8C8277] bg-[#F5F2ED] px-2 py-0.5 rounded-full">
+                <span className="text-[10px] tracking-[0.06em] uppercase text-[#b0a89e] bg-[#F5F2ED] px-2 py-0.5 rounded-full">
                   Due {new Date(task.dueDate).toLocaleDateString("en-AU", { day: "numeric", month: "short" })}
                 </span>
               )}
@@ -167,37 +167,37 @@ function TaskRow({ task }: { task: Task }) {
           {expanded && (
             <div className="mt-4 space-y-4 border-t border-[#F0EBE3] pt-4">
               <div>
-                <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277] mb-1.5">Description</p>
+                <p className="text-[10px] tracking-[0.12em] uppercase text-[#b0a89e] mb-1.5">Description</p>
                 <EditableText
                   value={task.description ?? ""}
                   placeholder="Add a description"
                   multiline
-                  className="text-xs text-[#5C5550] leading-5"
+                  className="text-xs text-[#7a7268] leading-5"
                   onSave={(v) => save("description", v)}
                 />
               </div>
               <div>
-                <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277] mb-1.5">Notes</p>
+                <p className="text-[10px] tracking-[0.12em] uppercase text-[#b0a89e] mb-1.5">Notes</p>
                 <EditableText
                   value={task.notes ?? ""}
                   placeholder="Add a note"
                   multiline
-                  className="text-xs text-[#5C5550] leading-5"
+                  className="text-xs text-[#7a7268] leading-5"
                   onSave={(v) => save("notes", v)}
                 />
               </div>
               <div>
-                <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277] mb-1.5">Due date</p>
+                <p className="text-[10px] tracking-[0.12em] uppercase text-[#b0a89e] mb-1.5">Due date</p>
                 <input
                   type="date"
                   defaultValue={dueDateStr}
                   onBlur={(e) => save("dueDate", e.target.value)}
-                  className="bg-[#F5F2ED] border border-[#E8E2D9] rounded-xl px-3 py-1.5 text-xs text-[#1A1714] focus:outline-none focus:border-[#C8B89A]"
+                  className="bg-[#F5F2ED] border border-[#EDEBE6] rounded-xl px-3 py-1.5 text-xs text-[#1A1917] focus:outline-none focus:border-[#C8B89A]"
                 />
               </div>
               <button
                 onClick={() => setExpanded(false)}
-                className="text-[10px] tracking-[0.1em] uppercase text-[#8C8277] hover:text-[#1A1714] transition-colors"
+                className="text-[10px] tracking-[0.1em] uppercase text-[#b0a89e] hover:text-[#1A1917] transition-colors"
               >
                 Done
               </button>

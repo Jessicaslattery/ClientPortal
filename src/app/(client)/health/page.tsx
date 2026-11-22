@@ -14,7 +14,7 @@ import { PLSnapshot } from "@/components/client/PLSnapshot";
 import { ContentScoreChart } from "@/components/client/ContentScoreChart";
 import { EnergyDollarChart } from "@/components/client/EnergyDollarChart";
 
-// Simple AI insight generator — falls back gracefully if no API key
+// Simple AI insight generator: falls back gracefully if no API key
 async function generateInsight(
   score: number,
   breakdown: { revenue: number; energy: number; goals: number; pipeline: number },
@@ -187,10 +187,10 @@ export default async function HealthPage() {
     <div className="space-y-8 pb-16">
       {/* Page header */}
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">
+        <h1 className="text-4xl font-[200] text-[#1A1917]">
           Business Health
         </h1>
-        <p className="mt-1.5 text-sm text-[#5C5550]">
+        <p className="mt-1.5 text-sm text-[#7a7268]">
           {now.toLocaleDateString("en-AU", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
         </p>
       </div>
@@ -233,8 +233,8 @@ export default async function HealthPage() {
 
       {/* Goal progress pulled automatically */}
       {goals.length > 0 && (
-        <div className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] p-6">
-          <p className="text-[10px] tracking-[0.15em] uppercase text-[#5C5550] mb-4">Goal Progress</p>
+        <div className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] p-6">
+          <p className="text-[10px] tracking-[0.15em] uppercase text-[#7a7268] mb-4">Goal Progress</p>
           <div className="space-y-4">
             {goals.map((g, i) => {
               const pct = g.progressPercent;
@@ -242,10 +242,10 @@ export default async function HealthPage() {
               return (
                 <div key={i} className="space-y-1.5">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-[#1A1714]">Goal {i + 1}</span>
+                    <span className="text-[#1A1917]">Goal {i + 1}</span>
                     <span style={{ color }}>{pct}%</span>
                   </div>
-                  <div className="h-1.5 bg-[#F2EDE4] rounded-full overflow-hidden">
+                  <div className="h-1.5 bg-[#F5F3EF] rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all duration-700"
                       style={{ width: `${pct}%`, backgroundColor: color }}
@@ -255,7 +255,7 @@ export default async function HealthPage() {
               );
             })}
           </div>
-          <p className="text-[10px] text-[#8C8277] mt-4 italic">
+          <p className="text-[10px] text-[#b0a89e] mt-4 italic">
             Update goal percentages in the Goals section to keep this current.
           </p>
         </div>

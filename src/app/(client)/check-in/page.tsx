@@ -51,10 +51,10 @@ export default async function CheckInPage() {
     <div className="space-y-10 max-w-2xl">
       {/* Header */}
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">
+        <h1 className="text-4xl font-[200] text-[#1A1917]">
           Weekly Check-in
         </h1>
-        <p className="mt-1.5 text-sm text-[#5C5550]">
+        <p className="mt-1.5 text-sm text-[#7a7268]">
           Growth Partnership
         </p>
       </div>
@@ -62,19 +62,19 @@ export default async function CheckInPage() {
       {/* This week */}
       {thisWeek ? (
         <div className="space-y-4">
-          <div className="rounded-3xl border border-[#2D6A4F]/25 bg-[#2D6A4F]/5 px-5 py-4 flex items-center gap-3">
+          <div className="rounded-2xl border border-[#2D6A4F]/25 bg-[#2D6A4F]/5 px-5 py-4 flex items-center gap-3">
             <span className="w-1.5 h-1.5 rounded-full bg-[#2D6A4F] shrink-0" />
             <p className="text-sm text-[#2D6A4F]">
               Check-in submitted this week
             </p>
           </div>
-          <div className="rounded-3xl border border-[#E8E2D9] divide-y divide-[#E8E2D9]">
+          <div className="rounded-2xl border border-[#EDEBE6] divide-y divide-[#EDEBE6]">
             {buildSections(thisWeek).map((item) => (
               <div key={item.label} className="px-5 py-4">
-                <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277] mb-1.5">
+                <p className="text-[10px] tracking-[0.12em] uppercase text-[#b0a89e] mb-1.5">
                   {item.label}
                 </p>
-                <p className="text-sm text-[#1A1714] leading-6">{item.value}</p>
+                <p className="text-sm text-[#1A1917] leading-6">{item.value}</p>
               </div>
             ))}
           </div>
@@ -90,15 +90,15 @@ export default async function CheckInPage() {
       {/* Previous submissions log */}
       {previous.length > 0 && (
         <div>
-          <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-4">
+          <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#b0a89e] mb-4">
             Previous check-ins
           </h2>
-          <div className="rounded-3xl border border-[#E8E2D9] divide-y divide-[#E8E2D9]">
+          <div className="rounded-2xl border border-[#EDEBE6] divide-y divide-[#EDEBE6]">
             {previous.map((ci) => (
               <details key={ci.id} className="group">
                 <summary className="flex items-center justify-between px-5 py-4 cursor-pointer list-none hover:bg-[#F5F2ED] transition-colors">
                   <div>
-                    <span className="text-sm text-[#1A1714]">
+                    <span className="text-sm text-[#1A1917]">
                       {new Date(ci.createdAt).toLocaleDateString("en-AU", {
                         day: "numeric",
                         month: "long",
@@ -117,19 +117,19 @@ export default async function CheckInPage() {
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="1.2"
-                      className="text-[#8C8277] group-open:rotate-180 transition-transform"
+                      className="text-[#b0a89e] group-open:rotate-180 transition-transform"
                     >
                       <path d="M2 3.5l3 3 3-3" />
                     </svg>
                   </div>
                 </summary>
-                <div className="divide-y divide-[#E8E2D9] border-t border-[#E8E2D9]">
+                <div className="divide-y divide-[#EDEBE6] border-t border-[#EDEBE6]">
                   {buildSections(ci).map((item) => (
                     <div key={item.label} className="px-5 py-3.5">
-                      <p className="text-[10px] tracking-[0.12em] uppercase text-[#8C8277] mb-1.5">
+                      <p className="text-[10px] tracking-[0.12em] uppercase text-[#b0a89e] mb-1.5">
                         {item.label}
                       </p>
-                      <p className="text-xs text-[#5C5550] leading-5">{item.value}</p>
+                      <p className="text-xs text-[#7a7268] leading-5">{item.value}</p>
                     </div>
                   ))}
                 </div>

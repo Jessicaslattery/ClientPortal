@@ -25,8 +25,8 @@ export default async function MessagesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">Messages</h1>
-        <p className="mt-1.5 text-sm text-[#5C5550]">
+        <h1 className="text-4xl font-[200] text-[#1A1917]">Messages</h1>
+        <p className="mt-1.5 text-sm text-[#7a7268]">
           Private conversation with your consultant
         </p>
       </div>

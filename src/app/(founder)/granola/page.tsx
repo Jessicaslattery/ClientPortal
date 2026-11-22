@@ -27,10 +27,10 @@ export default async function GranolaPage() {
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">
+        <h1 className="text-4xl font-[300] tracking-tight text-[#1A1917]">
           Granola
         </h1>
-        <p className="mt-1.5 text-sm text-[#5C5550]">Sync and manage session transcripts</p>
+        <p className="mt-1.5 text-sm text-[#7a7268]">Sync and manage session transcripts</p>
       </div>
 
       <GranolaSync

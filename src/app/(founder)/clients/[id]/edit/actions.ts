@@ -27,6 +27,8 @@ export async function updateClientAction(clientProfileId: string, formData: Form
   const personalityNotes = (formData.get("personalityNotes") as string)?.trim();
   const communicationStyle = (formData.get("communicationStyle") as string)?.trim();
   const nextSessionFocus = (formData.get("nextSessionFocus") as string)?.trim();
+  const welcomeVideoUrl = (formData.get("welcomeVideoUrl") as string)?.trim() || null;
+  const kickoffCallUrl = (formData.get("kickoffCallUrl") as string)?.trim() || null;
 
   if (!founderName || !businessName || !email) return;
 
@@ -52,6 +54,8 @@ export async function updateClientAction(clientProfileId: string, formData: Form
       personalityNotes: personalityNotes || null,
       communicationStyle: communicationStyle || null,
       nextSessionFocus: nextSessionFocus || null,
+      welcomeVideoUrl,
+      kickoffCallUrl,
     },
   });
 

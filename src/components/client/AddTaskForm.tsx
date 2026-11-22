@@ -14,10 +14,10 @@ export function AddTaskForm() {
   return (
     <form ref={formRef} action={formAction}>
       <div
-        className="rounded-3xl border border-[#E8E2D9] bg-[#FFFFFF] px-6 pt-5 pb-5"
+        className="rounded-2xl border border-[#EDEBE6] bg-[#FFFFFF] px-6 pt-5 pb-5"
         style={{ boxShadow: "0 1px 4px rgba(92,71,48,0.07)" }}
       >
-        <p className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-4">New Task</p>
+        <p className="text-[10px] tracking-[0.15em] uppercase text-[#b0a89e] mb-4">New Task</p>
 
         <div className="space-y-3">
           <input
@@ -25,7 +25,7 @@ export function AddTaskForm() {
             type="text"
             required
             placeholder="Task title"
-            className="w-full bg-[#F5F2ED] border border-[#E8E2D9] rounded-2xl px-4 py-3 text-sm text-[#1A1714] placeholder:text-[#8C8277] focus:outline-none focus:border-[#C8B89A]/60 transition-colors"
+            className="w-full bg-[#F5F2ED] border border-[#EDEBE6] rounded-2xl px-4 py-3 text-sm text-[#1A1917] placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A]/60 transition-colors"
           />
 
           {state.error && (
@@ -36,7 +36,7 @@ export function AddTaskForm() {
             <button
               type="submit"
               disabled={pending}
-              className="px-5 py-2 rounded-full bg-[#1A1714] text-[#FAFAF8] text-[10px] tracking-[0.12em] uppercase hover:bg-[#2C2520] transition-colors disabled:opacity-40"
+              className="px-5 py-2 rounded-full bg-[#1A1917] text-[#FAFAF8] text-[10px] tracking-[0.12em] uppercase hover:bg-[#2C2520] transition-colors disabled:opacity-40"
             >
               {pending ? "Adding…" : "Add Task"}
             </button>

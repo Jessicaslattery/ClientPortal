@@ -17,7 +17,7 @@ const TYPE_STYLES: Record<string, string> = {
   PDF:      "bg-[#2D6A4F]/12 text-[#2D6A4F] border-[#2D6A4F]/20",
   Guide:    "bg-[#C8B89A]/12 text-[#C8B89A] border-[#C8B89A]/20",
   Template: "bg-[#b89060]/12 text-[#b89060] border-[#b89060]/20",
-  Link:     "bg-[#5C5550]/12 text-[#5C5550] border-[#5C5550]/20",
+  Link:     "bg-[#7a7268]/12 text-[#7a7268] border-[#7a7268]/20",
 };
 
 type Resource = {
@@ -69,7 +69,7 @@ export function ResourceLibrary({ resources }: { resources: Resource[] }) {
             fill="none"
             stroke="currentColor"
             strokeWidth="1.2"
-            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C8277] pointer-events-none"
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#b0a89e] pointer-events-none"
           >
             <circle cx="5.5" cy="5.5" r="4" />
             <path d="M9 9l2.5 2.5" />
@@ -79,7 +79,7 @@ export function ResourceLibrary({ resources }: { resources: Resource[] }) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search resources…"
-            className="w-full bg-[#FFFFFF] border border-[#E8E2D9] rounded-2xl pl-9 pr-4 py-2.5 text-sm text-[#1A1714] placeholder-[#8C8277] focus:outline-none focus:border-[#C8B89A]/40 transition-colors"
+            className="w-full bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl pl-9 pr-4 py-2.5 text-sm text-[#1A1917] placeholder-[#b0a89e] focus:outline-none focus:border-[#C8B89A]/40 transition-colors"
           />
         </div>
 
@@ -89,7 +89,7 @@ export function ResourceLibrary({ resources }: { resources: Resource[] }) {
             className={`px-3 py-1.5 rounded-2xl text-[10px] tracking-[0.1em] uppercase transition-colors ${
               !activeCategory
                 ? "bg-[#C8B89A]/10 text-[#C8B89A] border border-[#C8B89A]/20"
-                : "text-[#8C8277] hover:text-[#1A1714] border border-transparent hover:border-[#E8E2D9]"
+                : "text-[#b0a89e] hover:text-[#1A1917] border border-transparent hover:border-[#EDEBE6]"
             }`}
           >
             All
@@ -101,7 +101,7 @@ export function ResourceLibrary({ resources }: { resources: Resource[] }) {
               className={`px-3 py-1.5 rounded-2xl text-[10px] tracking-[0.08em] transition-colors ${
                 activeCategory === cat
                   ? "bg-[#C8B89A]/10 text-[#C8B89A] border border-[#C8B89A]/20"
-                  : "text-[#8C8277] hover:text-[#1A1714] border border-transparent hover:border-[#E8E2D9]"
+                  : "text-[#b0a89e] hover:text-[#1A1917] border border-transparent hover:border-[#EDEBE6]"
               }`}
             >
               {cat}
@@ -112,22 +112,22 @@ export function ResourceLibrary({ resources }: { resources: Resource[] }) {
 
       {/* Results */}
       {filtered.length === 0 ? (
-        <div className="rounded-3xl border border-[#E8E2D9] px-6 py-16 text-center">
-          <p className="text-sm text-[#8C8277]">{search || activeCategory !== "All" ? "No resources match your search." : "No resources yet."}</p>
+        <div className="rounded-2xl border border-[#EDEBE6] px-6 py-16 text-center">
+          <p className="text-sm text-[#b0a89e]">{search || activeCategory !== "All" ? "No resources match your search." : "No resources yet."}</p>
         </div>
       ) : (
         <div className="space-y-8">
           {Object.entries(grouped).map(([category, items]) => (
             <div key={category}>
-              <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#8C8277] mb-3">{category}</h2>
-              <div className="rounded-3xl border border-[#E8E2D9] divide-y divide-[#E8E2D9]">
+              <h2 className="text-[10px] tracking-[0.15em] uppercase text-[#b0a89e] mb-3">{category}</h2>
+              <div className="rounded-2xl border border-[#EDEBE6] divide-y divide-[#EDEBE6]">
                 {items.map((r) => {
                   const hasLink = !!r.fileUrl;
                   const inner = (
                     <>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className={`text-sm transition-colors ${hasLink ? "text-[#1A1714] group-hover:text-[#C8B89A]" : "text-[#1A1714]"}`}>
+                          <span className={`text-sm transition-colors ${hasLink ? "text-[#1A1917] group-hover:text-[#C8B89A]" : "text-[#1A1917]"}`}>
                             {r.title}
                           </span>
                           {r.isNew && (
@@ -136,26 +136,26 @@ export function ResourceLibrary({ resources }: { resources: Resource[] }) {
                             </span>
                           )}
                           {!hasLink && (
-                            <span className="shrink-0 text-[9px] tracking-[0.1em] uppercase px-1.5 py-0.5 rounded-full bg-[#E8E2D9] text-[#8C8277]">
+                            <span className="shrink-0 text-[9px] tracking-[0.1em] uppercase px-1.5 py-0.5 rounded-full bg-[#EDEBE6] text-[#b0a89e]">
                               Coming soon
                             </span>
                           )}
                         </div>
                         {r.description && (
-                          <p className="text-xs text-[#5C5550] leading-5 line-clamp-2">{r.description}</p>
+                          <p className="text-xs text-[#7a7268] leading-5 line-clamp-2">{r.description}</p>
                         )}
                         <div className="flex items-center gap-3 mt-2">
                           <span className={`text-[9px] tracking-[0.1em] uppercase px-2 py-0.5 rounded-full border ${TYPE_STYLES[r.type] ?? TYPE_STYLES.Link}`}>
                             {r.type}
                           </span>
-                          <span className="text-[10px] text-[#8C8277]">
+                          <span className="text-[10px] text-[#b0a89e]">
                             Added {new Date(r.createdAt).toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" })}
                           </span>
                         </div>
                       </div>
                       {hasLink && (
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2"
-                          className="text-[#8C8277] group-hover:text-[#C8B89A] shrink-0 mt-1 transition-colors">
+                          className="text-[#b0a89e] group-hover:text-[#C8B89A] shrink-0 mt-1 transition-colors">
                           <path d="M2.5 9.5l7-7M4 2.5h5.5v5.5" />
                         </svg>
                       )}

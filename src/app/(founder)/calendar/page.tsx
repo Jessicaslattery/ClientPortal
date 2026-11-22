@@ -29,11 +29,11 @@ export default async function ContentCalendarPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">Content Calendar</h1>
-        <p className="mt-1.5 text-sm text-[#5C5550]">{currentYear} social plans overview</p>
+        <h1 className="text-4xl font-[300] tracking-tight text-[#1A1917]">Content Calendar</h1>
+        <p className="mt-1.5 text-sm text-[#7a7268]">{currentYear} social plans overview</p>
       </div>
 
-      {/* Month grid — the season starts in September, so earlier months in the
+      {/* Month grid: the season starts in September, so earlier months in the
           current year are never shown here. */}
       <div className="space-y-6">
         {MONTHS.map((monthName, idx) => {
@@ -45,29 +45,29 @@ export default async function ContentCalendarPage() {
           return (
             <div
               key={monthName}
-              className={`border ${isCurrentMonth ? "border-[#C8B89A]/30" : "border-[#E8E2D9]"}`}
+              className={`border ${isCurrentMonth ? "border-[#C8B89A]/30" : "border-[#EDEBE6]"}`}
             >
               <div
                 className={`flex items-center justify-between px-5 py-3 border-b ${
-                  isCurrentMonth ? "border-[#C8B89A]/20 bg-[#C8B89A]/4" : "border-[#E8E2D9]"
+                  isCurrentMonth ? "border-[#C8B89A]/20 bg-[#C8B89A]/4" : "border-[#EDEBE6]"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <h3 className={`text-sm ${isCurrentMonth ? "text-[#C8B89A]" : "text-[#1A1714]"}`}>
+                  <h3 className={`text-sm ${isCurrentMonth ? "text-[#C8B89A]" : "text-[#1A1917]"}`}>
                     {monthName} {currentYear}
                   </h3>
                   {isCurrentMonth && (
-                    <span className="text-[9px] tracking-[0.15em] uppercase text-[#C8B89A]">
+                    <span className="text-[9px] tracking-[0.15em] text-[#C8B89A]">
                       Current
                     </span>
                   )}
                 </div>
-                <span className="text-xs text-[#8C8277]">
+                <span className="text-xs text-[#b0a89e]">
                   {monthPlans.length}/{allClients.length} plans
                 </span>
               </div>
 
-              <div className="divide-y divide-[#E8E2D9]">
+              <div className="divide-y divide-[#EDEBE6]">
                 {allClients.map((client) => {
                   const plan = monthPlans.find((p) => p.clientProfile.id === client.id);
                   return (
@@ -77,7 +77,7 @@ export default async function ContentCalendarPage() {
                     >
                       <Link
                         href={`/clients/${client.id}/content-calendar`}
-                        className="text-xs text-[#5C5550] hover:text-[#C8B89A] transition-colors"
+                        className="text-xs text-[#7a7268] hover:text-[#C8B89A] transition-colors"
                       >
                         {client.founderName}
                       </Link>
@@ -93,7 +93,7 @@ export default async function ContentCalendarPage() {
                           }
                         />
                       ) : (
-                        <span className="text-[10px] tracking-[0.1em] text-[#E8E2D9] uppercase">
+                        <span className="text-[10px] tracking-[0.1em] text-[#EDEBE6]">
                           Not generated
                         </span>
                       )}
@@ -101,7 +101,7 @@ export default async function ContentCalendarPage() {
                   );
                 })}
                 {allClients.length === 0 && (
-                  <div className="px-5 py-4 text-xs text-[#8C8277]">No clients yet.</div>
+                  <div className="px-5 py-4 text-xs text-[#b0a89e]">No clients yet.</div>
                 )}
               </div>
             </div>

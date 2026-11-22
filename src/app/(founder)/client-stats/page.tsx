@@ -63,11 +63,11 @@ export default async function ClientStatsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-4xl font-thin tracking-widest text-[#1A1714] uppercase">
+        <h1 className="text-4xl font-[300] tracking-tight text-[#1A1917]">
           Client Stats
         </h1>
-        <p className="mt-1.5 text-sm text-[#5C5550]">
-          Weekly performance tracked over time — week on week change
+        <p className="mt-1.5 text-sm text-[#7a7268]">
+          Weekly performance tracked over time: week on week change
         </p>
       </div>
       <ClientStatsBoard clients={data} />

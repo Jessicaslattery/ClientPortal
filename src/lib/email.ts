@@ -1,5 +1,42 @@
 import { Resend } from "resend";
 
+export async function sendReminderEmail({
+  to,
+  firstName,
+  subject,
+  message,
+}: {
+  to: string;
+  firstName: string;
+  subject: string;
+  message: string;
+}): Promise<void> {
+  if (!resend) {
+    console.log("\n──────────────────────────────────────────");
+    console.log("📧  REMINDER EMAIL (Resend not configured)");
+    console.log(`    To:      ${to}`);
+    console.log(`    Subject: ${subject}`);
+    console.log(`    Message: ${message.slice(0, 80)}...`);
+    console.log("──────────────────────────────────────────\n");
+    return;
+  }
+  await resend.emails.send({
+    from: "Jess at Pivot Co. <hello@pivotco.com>",
+    to,
+    subject,
+    html: `<!DOCTYPE html><html><head><meta charset="UTF-8"/></head><body style="background:#F2EDE4;font-family:'Inter',sans-serif;padding:40px 16px;">
+<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
+<table style="max-width:560px;width:100%">
+<tr><td style="text-align:center;padding-bottom:32px;font-family:Georgia,serif;font-size:22px;letter-spacing:0.2em;color:#1A1714;">PIVOT CO.</td></tr>
+<tr><td style="background:#fff;border-radius:16px;border:1px solid #DDD5C8;padding:36px 40px;">
+<p style="font-size:14px;color:#5C5550;margin-bottom:16px;">Hi ${firstName},</p>
+<div style="font-size:15px;line-height:1.75;color:#1A1714;white-space:pre-wrap;">${message}</div>
+<hr style="border:none;border-top:1px solid #E8E2D9;margin:28px 0;"/>
+<p style="font-size:12px;color:#8C8277;">Jess · Pivot Co.</p>
+</td></tr></table></td></tr></table></body></html>`,
+  });
+}
+
 const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
   : null;
