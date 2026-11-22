@@ -31,6 +31,9 @@ export async function createClient(_prev: State, formData: FormData): Promise<St
   const welcomeVideoUrl = (formData.get("welcomeVideoUrl") as string)?.trim() || null;
   const kickoffCallUrl = (formData.get("kickoffCallUrl") as string)?.trim() || null;
   const sendInviteNow = formData.get("sendInviteNow") === "on";
+  const allFeatureKeys = ["health","tasks","goals","messages","roadmap","content-calendar","session-notes","deliverables","resources","check-in","social-strategy"];
+  const enabledFeatures = formData.getAll("enabledFeatures") as string[];
+  const hiddenTabs = allFeatureKeys.filter((k) => !enabledFeatures.includes(k));
 
   if (!founderName || !businessName || !email) {
     return { error: "Please fill in all required fields." };
@@ -79,6 +82,7 @@ export async function createClient(_prev: State, formData: FormData): Promise<St
           communicationStyle: communicationStyle || null,
           welcomeVideoUrl,
           kickoffCallUrl,
+          hiddenTabs,
           ownedByUserId: session.role === "staff" ? session.id : null,
         },
       },

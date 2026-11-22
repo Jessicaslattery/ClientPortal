@@ -215,6 +215,41 @@ export function NewClientForm() {
         </div>
       </div>
 
+      {/* Portal features */}
+      <div>
+        <h2 className="text-[10px] tracking-[0.15em] text-[#b0a89e] mb-1">Portal features</h2>
+        <p className="text-xs text-[#b0a89e] mb-4">Choose which sections to show in this client's portal. You can change these at any time.</p>
+        <div className="rounded-2xl border border-[#EDEBE6] divide-y divide-[#EDEBE6]">
+          {[
+            { key: "health",           label: "Business Health",   desc: "Weekly scorecards and check-ins" },
+            { key: "tasks",            label: "Tasks",             desc: "Action items and to-dos" },
+            { key: "goals",            label: "Goals",             desc: "Goal tracking and progress" },
+            { key: "messages",         label: "Messages",          desc: "Direct messaging" },
+            { key: "roadmap",          label: "Roadmap",           desc: "Phase-by-phase business roadmap" },
+            { key: "content-calendar", label: "Content Calendar",  desc: "Content planning calendar" },
+            { key: "session-notes",    label: "Session Notes",     desc: "Notes from your sessions" },
+            { key: "deliverables",     label: "Deliverables",      desc: "Files and deliverables" },
+            { key: "resources",        label: "Resources",         desc: "Library of resources and tools" },
+            { key: "check-in",         label: "Check-in",          desc: "Weekly check-in form" },
+            { key: "social-strategy",  label: "Social Strategy",   desc: "Post plan, story plan, audit" },
+          ].map((f) => (
+            <label key={f.key} className="flex items-center justify-between px-4 py-3 cursor-pointer group">
+              <div>
+                <p className="text-sm text-[#1A1917] font-[300]">{f.label}</p>
+                <p className="text-[11px] text-[#b0a89e]">{f.desc}</p>
+              </div>
+              <input
+                type="checkbox"
+                name="enabledFeatures"
+                value={f.key}
+                defaultChecked
+                className="accent-[#8C735A] w-4 h-4 shrink-0 ml-4"
+              />
+            </label>
+          ))}
+        </div>
+      </div>
+
       {state.error && (
         <p className="text-xs text-[#9B2335]">{state.error}</p>
       )}

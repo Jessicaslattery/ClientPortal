@@ -46,6 +46,8 @@ export default async function EditClientPage({
             { name: "email", label: "Email", type: "email", value: client.email, required: true },
             { name: "phone", label: "Phone", type: "tel", value: client.phone ?? "", required: false },
             { name: "website", label: "Website", type: "url", value: client.website ?? "", required: false },
+            { name: "instagram", label: "Instagram", type: "text", value: client.instagram ?? "", required: false },
+            { name: "address", label: "Address", type: "text", value: client.address ?? "", required: false },
             { name: "birthday", label: "Birthday", type: "date", value: fmt(client.birthday), required: false },
           ].map((f) => (
             <div key={f.name}>
@@ -62,6 +64,29 @@ export default async function EditClientPage({
               />
             </div>
           ))}
+          <div>
+            <label className="block text-xs tracking-[0.12em] text-[#7a7268] mb-1.5">
+              Lead source <span className="normal-case tracking-normal text-[#b0a89e]">(optional)</span>
+            </label>
+            <input
+              name="leadSource"
+              type="text"
+              defaultValue={client.leadSource ?? ""}
+              placeholder="e.g. Instagram, referral, podcast…"
+              className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-4 py-3 text-sm placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A] transition-colors"
+            />
+          </div>
+          <div>
+            <label className="block text-xs tracking-[0.12em] text-[#7a7268] mb-1.5">
+              Start date <span className="normal-case tracking-normal text-[#b0a89e]">(optional)</span>
+            </label>
+            <input
+              name="startDate"
+              type="date"
+              defaultValue={fmt(client.startDate)}
+              className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-4 py-3 text-sm focus:outline-none focus:border-[#C8B89A] transition-colors"
+            />
+          </div>
         </section>
 
         {/* Package & billing */}
@@ -71,13 +96,21 @@ export default async function EditClientPage({
             <label className="block text-xs tracking-[0.12em] text-[#7a7268] mb-1.5">
               Package name <span className="normal-case tracking-normal text-[#b0a89e]">(optional)</span>
             </label>
-            <input
-              name="packageName"
-              type="text"
-              defaultValue={client.tier}
-              placeholder="e.g. Growth Partnership, VIP Intensive…"
-              className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-4 py-3 text-sm placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A] transition-colors"
-            />
+            <div className="relative">
+              <select
+                name="packageName"
+                defaultValue={client.tier}
+                className="w-full appearance-none rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-4 py-3 text-sm focus:outline-none focus:border-[#C8B89A] transition-colors cursor-pointer"
+              >
+                <option value="Growth Partnership">Growth Partnership</option>
+                <option value="Socials Strategy">Socials Strategy</option>
+              </select>
+              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
+                <svg width="12" height="7" viewBox="0 0 12 7" fill="none">
+                  <path d="M1 1L6 6L11 1" stroke="#8C735A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+            </div>
           </div>
           <div>
             <label className="block text-xs tracking-[0.12em] text-[#7a7268] mb-1.5">

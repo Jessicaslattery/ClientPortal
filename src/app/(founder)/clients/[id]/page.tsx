@@ -87,7 +87,10 @@ export default async function ClientProfilePage({
           </div>
         </div>
         <div className="rounded-2xl border border-[#EDEBE6] p-5">
-          <h3 className="text-[10px] tracking-[0.15em] text-[#b0a89e] mb-4">Billing</h3>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-[10px] tracking-[0.15em] text-[#b0a89e]">Billing</h3>
+            <Link href={`/clients/${client.id}/edit`} className="text-[10px] text-[#b0a89e] hover:text-[#8C735A] transition-colors">Edit</Link>
+          </div>
           <div className="space-y-3">
             <div>
               <p className="text-[10px] tracking-[0.1em] text-[#b0a89e]">Weekly</p>

@@ -16,6 +16,7 @@ export async function updateClientAction(clientProfileId: string, formData: Form
   const instagram = (formData.get("instagram") as string)?.trim() || null;
   const address = (formData.get("address") as string)?.trim() || null;
   const leadSource = (formData.get("leadSource") as string)?.trim() || null;
+  const startDateStr = (formData.get("startDate") as string)?.trim();
   const endDateStr = (formData.get("endDate") as string)?.trim();
   const isActiveStr = formData.get("isActive") as string;
   const birthdayStr = formData.get("birthday") as string;
@@ -43,6 +44,7 @@ export async function updateClientAction(clientProfileId: string, formData: Form
       instagram,
       address,
       leadSource,
+      startDate: startDateStr ? new Date(startDateStr) : undefined,
       endDate: endDateStr ? new Date(endDateStr) : null,
       isActive: isActiveStr === "false" ? false : true,
       birthday: birthdayStr ? new Date(birthdayStr) : null,
