@@ -27,7 +27,7 @@ const TYPE_OPTIONS: { value: StoryItem["type"]; label: string; color: string; bg
   { value: "personal",    label: "Personal",    color: "#7B746B", bg: "#F5F1EB" },
 ];
 
-const TYPE_CONFIG = Object.fromEntries(TYPE_OPTIONS.map((t) => [t.value, t])) as Record<
+const TYPE_CONFIG = Object.fromEntries(TYPE_OPTIONS.map((t) => [t.value, t])) as unknown as Record<
   StoryItem["type"],
   { label: string; color: string; bg: string }
 >;
@@ -38,7 +38,7 @@ const STATUS_OPTIONS: { value: StoryItem["status"]; label: string; color: string
   { value: "posted",    label: "Posted",    color: "#2D6A4F", bg: "#E5F2EC" },
 ];
 
-const STATUS_CONFIG = Object.fromEntries(STATUS_OPTIONS.map((s) => [s.value, s])) as Record<
+const STATUS_CONFIG = Object.fromEntries(STATUS_OPTIONS.map((s) => [s.value, s])) as unknown as Record<
   StoryItem["status"],
   { label: string; color: string; bg: string }
 >;
