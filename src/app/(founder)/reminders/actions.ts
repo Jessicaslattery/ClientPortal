@@ -31,7 +31,8 @@ export async function deleteReminderAction(id: string) {
 }
 
 export async function sendReminderNowAction(reminderId: string) {
-  await requireAuth("founder");
+  const session = await requireAuth("founder");
+  const founderId = session.id;
 
   const reminder = await prisma.reminderTemplate.findUnique({ where: { id: reminderId } });
   if (!reminder) return { error: "Reminder not found" };
@@ -56,6 +57,7 @@ export async function sendReminderNowAction(reminderId: string) {
       await prisma.message.create({
         data: {
           clientProfileId: client.id,
+          senderId: founderId,
           content: personalised,
           senderRole: "founder",
           read: false,
