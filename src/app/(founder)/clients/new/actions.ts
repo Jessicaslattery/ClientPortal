@@ -73,7 +73,7 @@ export async function createClient(_prev: State, formData: FormData): Promise<St
           isActive: endDateStr ? false : true,
           currentMonth,
           currentWeek,
-          monthlyInvestment: monthlyInvestment ? parseFloat(monthlyInvestment) : null,
+          monthlyInvestment: monthlyInvestment ? parseFloat(monthlyInvestment) * 4 : null,
           businessContext: businessContext || null,
           personalityNotes: personalityNotes || null,
           communicationStyle: communicationStyle || null,

@@ -47,7 +47,7 @@ export async function updateClientAction(clientProfileId: string, formData: Form
       isActive: isActiveStr === "false" ? false : true,
       birthday: birthdayStr ? new Date(birthdayStr) : null,
       tier: packageName || "GROWTH",
-      monthlyInvestment: monthlyInvestment ? parseFloat(monthlyInvestment) : null,
+      monthlyInvestment: monthlyInvestment ? parseFloat(monthlyInvestment) * 4 : null,
       nextBillingDate: nextBillingDateStr ? new Date(nextBillingDateStr) : null,
       billingNotes: billingNotes || null,
       businessContext: businessContext || null,

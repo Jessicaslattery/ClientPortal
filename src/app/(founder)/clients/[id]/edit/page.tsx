@@ -81,13 +81,13 @@ export default async function EditClientPage({
           </div>
           <div>
             <label className="block text-xs tracking-[0.12em] text-[#7a7268] mb-1.5">
-              Monthly investment ($) <span className="normal-case tracking-normal text-[#b0a89e]">(optional)</span>
+              Weekly investment ($) <span className="normal-case tracking-normal text-[#b0a89e]">(optional)</span>
             </label>
             <input
               name="monthlyInvestment"
               type="number"
               step="0.01"
-              defaultValue={client.monthlyInvestment ?? ""}
+              defaultValue={client.monthlyInvestment ? Math.round(client.monthlyInvestment / 4) : ""}
               className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-4 py-3 text-sm focus:outline-none focus:border-[#C8B89A] transition-colors"
             />
           </div>

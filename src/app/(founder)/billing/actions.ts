@@ -11,7 +11,8 @@ export async function updateBillingAction(
   await requireAuth("founder");
 
   const clientProfileId = formData.get("clientProfileId") as string;
-  const monthlyInvestment = parseFloat(formData.get("monthlyInvestment") as string) || null;
+  const weeklyInvestmentRaw = parseFloat(formData.get("monthlyInvestment") as string);
+  const monthlyInvestment = weeklyInvestmentRaw ? weeklyInvestmentRaw * 4 : null;
   const nextBillingDateStr = formData.get("nextBillingDate") as string;
   const billingNotes = (formData.get("billingNotes") as string)?.trim() || null;
 

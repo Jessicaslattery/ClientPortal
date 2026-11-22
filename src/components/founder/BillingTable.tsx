@@ -72,13 +72,13 @@ function BillingRow({ client }: { client: Client }) {
           <form action={action} className="grid grid-cols-4 gap-4 items-end">
             <input type="hidden" name="clientProfileId" value={client.id} />
             <div className="space-y-1.5">
-              <label className="text-[10px] tracking-[0.1em] text-[#b0a89e]">Monthly ($)</label>
+              <label className="text-[10px] tracking-[0.1em] text-[#b0a89e]">Weekly ($)</label>
               <input
                 name="monthlyInvestment"
                 type="number"
                 step="50"
-                defaultValue={client.monthlyInvestment ?? ""}
-                placeholder="e.g. 2500"
+                defaultValue={client.monthlyInvestment ? Math.round(client.monthlyInvestment / 4) : ""}
+                placeholder="e.g. 625"
                 className="w-full bg-[#FFFFFF] border border-[#EDEBE6] rounded-2xl px-3 py-2 text-xs text-[#1A1917] focus:outline-none focus:border-[#C8B89A]/40"
               />
             </div>

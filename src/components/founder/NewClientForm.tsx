@@ -60,12 +60,22 @@ export function NewClientForm() {
             <label className="block text-xs tracking-[0.12em] text-[#7a7268] mb-1.5">
               Package name
             </label>
-            <input
-              name="packageName"
-              type="text"
-              placeholder="e.g. Growth Partnership, VIP Intensive, Custom Retainer…"
-              className="w-full rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-4 py-3 text-sm placeholder:text-[#b0a89e] focus:outline-none focus:border-[#C8B89A] transition-colors"
-            />
+            <div className="relative">
+              <select
+                name="packageName"
+                defaultValue=""
+                className="w-full appearance-none rounded-2xl bg-[#FFFFFF] border border-[#EDEBE6] text-[#1A1917] px-4 py-3 text-sm focus:outline-none focus:border-[#C8B89A] transition-colors cursor-pointer"
+              >
+                <option value="" disabled>Select a package…</option>
+                <option value="Growth Partnership">Growth Partnership</option>
+                <option value="Socials Strategy">Socials Strategy</option>
+              </select>
+              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
+                <svg width="12" height="7" viewBox="0 0 12 7" fill="none">
+                  <path d="M1 1L6 6L11 1" stroke="#8C735A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+            </div>
           </div>
           <div>
             <label className="block text-xs tracking-[0.12em] text-[#7a7268] mb-1.5">
@@ -104,7 +114,7 @@ export function NewClientForm() {
           </div>
           <div>
             <label className="block text-xs tracking-[0.12em] text-[#7a7268] mb-1.5">
-              Monthly investment ($) <span className="normal-case tracking-normal text-[#b0a89e]">(optional)</span>
+              Weekly investment ($) <span className="normal-case tracking-normal text-[#b0a89e]">(optional)</span>
             </label>
             <input
               name="monthlyInvestment"
